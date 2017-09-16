@@ -138,6 +138,9 @@ Settings: Settings
     Erase: Erase
     PressKey: Press a key or button to map [%s] ...
     MappingAssigned: Mapping assigned.
+    ResetConfirmation: Are you sure you want to erase all hotkey mappings?
+      Yes: Yes
+      No: No
   Advanced: Advanced
     DriverSelection: Driver Selection
       Video: Video:
