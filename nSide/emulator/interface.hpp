@@ -84,9 +84,6 @@ struct Interface {
 
   //shared functions
   auto videoColor(uint16 r, uint16 g, uint16 b) -> uint32;
-
-  //debugger functions
-  virtual auto exportMemory() -> void {}
 };
 
 }

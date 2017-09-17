@@ -85,24 +85,4 @@ auto Interface::set(const string& name, const any& value) -> bool {
   return false;
 }
 
-auto Interface::exportMemory() -> void {
-  if(Model::VSSystem()) return;
-
-  auto& cartridge = cartridgeSlot[0];
-  string pathname = {platform->path(cartridge.pathID()), "debug/"};
-  directory::create(pathname);
-
-  if(auto fp = platform->open(cartridge.pathID(), "debug/work.ram", File::Write)) fp->write(cpuM.ram, 0x800);
-  if(cartridge.board->prgram.size()) if(auto fp = platform->open(cartridge.pathID(), "debug/program.ram", File::Write)) {
-    fp->write(cartridge.board->prgram.data(), cartridge.board->prgram.size());
-  }
-  if(cartridge.board->chrram.size()) if(auto fp = platform->open(cartridge.pathID(), "debug/character.ram", File::Write)) {
-    fp->write(cartridge.board->chrram.data(), cartridge.board->chrram.size());
-  }
-  if(!cartridge.board->chip) return;
-  if(cartridge.board->chip->ram.size()) if(auto fp = platform->open(cartridge.pathID(), "debug/chip.ram", File::Write)) {
-    fp->write(cartridge.board->chip->ram.data(), cartridge.board->chip->ram.size());
-  }
-}
-
 }

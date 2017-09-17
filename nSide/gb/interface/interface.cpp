@@ -106,15 +106,4 @@ auto Interface::set(const string& name, const any& value) -> bool {
   return false;
 }
 
-auto Interface::exportMemory() -> void {
-  string pathname = {platform->path(cartridge.pathID()), "debug/"};
-  directory::create(pathname);
-
-  if(auto fp = platform->open(cartridge.pathID(), "debug/work.ram", File::Write)) fp->write(cpu.wram, !Model::GameBoyColor() ? 8192 : 32768);
-  if(auto fp = platform->open(cartridge.pathID(), "debug/internal.ram", File::Write)) fp->write(cpu.hram, 128);
-  if(cartridge.ram.size) if(auto fp = platform->open(cartridge.pathID(), "debug/program-save.ram", File::Write)) {
-    fp->write(cartridge.ram.data, cartridge.ram.size);
-  }
-}
-
 }

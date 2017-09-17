@@ -43,9 +43,6 @@ struct Interface : Emulator::Interface {
   auto cap(const string& name) -> bool override;
   auto get(const string& name) -> any override;
   auto set(const string& name, const any& value) -> bool override;
-
-  //debugger functions
-  auto exportMemory() -> void override;
 };
 
 struct Settings {

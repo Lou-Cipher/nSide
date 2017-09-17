@@ -263,49 +263,4 @@ auto Interface::set(const string& name, const any& value) -> bool {
   return false;
 }
 
-auto Interface::exportMemory() -> void {
-  string pathname = {platform->path(cartridge.pathID()), "debug/"};
-  directory::create(pathname);
-
-  if(auto fp = platform->open(cartridge.pathID(), "debug/work.ram", File::Write)) fp->write(cpu.wram, 128 * 1024);
-  if(cartridge.ram.size()) if(auto fp = platform->open(cartridge.pathID(), "debug/program-save.ram", File::Write)) {
-    fp->write(cartridge.ram.data(), cartridge.ram.size());
-  }
-  if(cartridge.has.MCC) if(auto fp = platform->open(cartridge.pathID(), "debug/mcc.ram", File::Write)) {
-    fp->write(mcc.ram.data(), mcc.ram.size());
-  }
-  if(cartridge.has.Event) if(auto fp = platform->open(cartridge.pathID(), "debug/event.ram", File::Write)) {
-    fp->write(event.ram.data(), event.ram.size());
-  }
-  if(cartridge.has.SA1) {
-    if(auto fp = platform->open(cartridge.pathID(), "debug/sa1.internal.ram", File::Write)) {
-      fp->write(sa1.iram.data(), sa1.iram.size());
-    }
-    if(auto fp = platform->open(cartridge.pathID(), "debug/sa1.bitmap-work.ram", File::Write)) {
-      fp->write(sa1.bwram.data(), sa1.bwram.size());
-    }
-  }
-  if(cartridge.has.SuperFX) if(auto fp = platform->open(cartridge.pathID(), "debug/superfx.ram", File::Write)) {
-    fp->write(superfx.ram.data(), superfx.ram.size());
-  }
-  if(cartridge.has.SPC7110) if(auto fp = platform->open(cartridge.pathID(), "debug/spc7110.ram", File::Write)) {
-    fp->write(spc7110.ram.data(), spc7110.ram.size());
-  }
-  if(cartridge.has.SDD1) if(auto fp = platform->open(cartridge.pathID(), "debug/sdd1.ram", File::Write)) {
-    fp->write(sdd1.ram.data(), sdd1.ram.size());
-  }
-  if(cartridge.has.OBC1) if(auto fp = platform->open(cartridge.pathID(), "debug/obc1.ram", File::Write)) {
-    fp->write(obc1.ram.data(), obc1.ram.size());
-  }
-
-  if(cartridge.has.SufamiTurboSlots) {
-    if(auto fp = platform->open(cartridge.pathID(), "debug/sufamiturbo.slota.ram", File::Write)) {
-      fp->write(sufamiturboA.ram.data(), sufamiturboA.ram.size());
-    }
-    if(auto fp = platform->open(cartridge.pathID(), "debug/sufamiturbo.slotb.ram", File::Write)) {
-      fp->write(sufamiturboB.ram.data(), sufamiturboB.ram.size());
-    }
-  }
-}
-
 }

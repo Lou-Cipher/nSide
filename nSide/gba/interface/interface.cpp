@@ -148,21 +148,4 @@ auto Interface::set(const string& name, const any& value) -> bool {
   return false;
 }
 
-auto Interface::exportMemory() -> void {
-  string pathname = {platform->path(cartridge.pathID()), "debug/"};
-  directory::create(pathname);
-
-  if(auto fp = platform->open(cartridge.pathID(), "debug/i-work.ram", File::Write)) fp->write(cpu.iwram, 32 * 1024);
-  if(auto fp = platform->open(cartridge.pathID(), "debug/e-work.ram", File::Write)) fp->write(cpu.ewram, 256 * 1024);
-  if(cartridge.sram.size) if(auto fp = platform->open(cartridge.pathID(), "debug/save-static.ram", File::Write)) {
-    fp->write(cartridge.sram.data, cartridge.sram.size);
-  }
-  if(cartridge.eeprom.size) if(auto fp = platform->open(cartridge.pathID(), "debug/save-eeprom.ram", File::Write)) {
-    fp->write(cartridge.eeprom.data, cartridge.eeprom.size);
-  }
-  if(cartridge.flash.size) if(auto fp = platform->open(cartridge.pathID(), "debug/save-flash.ram", File::Write)) {
-    fp->write(cartridge.flash.data, cartridge.flash.size);
-  }
-}
-
 }
