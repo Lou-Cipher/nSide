@@ -204,14 +204,12 @@ auto SMP::idle() -> void {
 auto SMP::read(uint16 addr) -> uint8 {
   wait(addr);
   uint8 data = busRead(addr);
-  debug(smp.read, addr, data);
   return data;
 }
 
 auto SMP::write(uint16 addr, uint8 data) -> void {
   wait(addr);
   busWrite(addr, data);
-  debug(smp.write, addr, data);
 }
 
 auto SMP::readDisassembler(uint16 addr) -> uint8 {

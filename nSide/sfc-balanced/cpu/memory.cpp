@@ -12,7 +12,6 @@ auto CPU::read(uint24 addr) -> uint8 {
   auto data = bus.read(addr, r.mdr);
   step(4);
   aluEdge();
-  debug(cpu.read, addr, data);
   //$00-3f,80-bf:4000-43ff reads are internal to CPU, and do not update the MDR
   if((addr & 0x40fc00) != 0x4000) r.mdr = data;
   return data;
@@ -24,7 +23,6 @@ auto CPU::write(uint24 addr, uint8 data) -> void {
   dmaEdge();
   step(status.clockCount);
   bus.write(addr, r.mdr = data);
-  debug(cpu.write, addr, r.mdr);
 }
 
 auto CPU::speed(uint24 addr) const -> uint {
@@ -34,6 +32,6 @@ auto CPU::speed(uint24 addr) const -> uint {
   return 12;
 }
 
-auto CPU::readDebugger(uint24 addr) -> uint8 {
+auto CPU::readDisassembler(uint24 addr) -> uint8 {
   return bus.read(addr, r.mdr);
 }

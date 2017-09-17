@@ -42,7 +42,7 @@ struct CPU : Processor::WDC65816, Thread, PPUcounter {
   auto read(uint24 addr) -> uint8 override;
   auto write(uint24 addr, uint8 data) -> void override;
   alwaysinline auto speed(uint24 addr) const -> uint;
-  auto readDebugger(uint24 addr) -> uint8 override;
+  auto readDisassembler(uint24 addr) -> uint8 override;
 
   //io.cpp
   auto readAPU(uint24 addr, uint8 data) -> uint8;
@@ -82,7 +82,7 @@ struct CPU : Processor::WDC65816, Thread, PPUcounter {
   vector<Thread*> coprocessors;
   vector<Thread*> peripherals;
 
-debug_private:
+private:
   uint version = 2;  //allowed: 1, 2
   uint clockCounter;
 

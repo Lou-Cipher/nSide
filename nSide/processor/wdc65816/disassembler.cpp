@@ -28,7 +28,7 @@ auto WDC65816::dreadb(uint24 addr) -> uint8 {
     //do not read MMIO registers within debugger
     return 0x00;
   }
-  return readDebugger(addr);
+  return readDisassembler(addr);
 }
 
 auto WDC65816::dreadw(uint24 addr) -> uint16 {

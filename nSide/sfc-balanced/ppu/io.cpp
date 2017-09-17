@@ -16,16 +16,12 @@ auto PPU::addressVRAM() const -> uint16 {
 auto PPU::readVRAM() -> uint16 {
   if(!io.displayDisable && cpu.vcounter() < vdisp()) return 0x0000;
   auto addr = addressVRAM();
-  auto data = vram[addr];
-  debug(ppu.vram.read, addr << 1 | 0, data.byte(0));
-  debug(ppu.vram.read, addr << 1 | 1, data.byte(1));
-  return data;
+  return vram[addr];
 }
 
 auto PPU::writeVRAM(bool byte, uint8 data) -> void {
   if(!io.displayDisable && cpu.vcounter() < vdisp()) return;
   auto addr = addressVRAM();
-  debug(ppu.vram.write, addr << 1 | byte, data);
   vram[addr].byte(byte) = data;
   cache.tilevalid[Background::Mode::BPP2][(addr & vram.mask) >> 3] = 0;
   cache.tilevalid[Background::Mode::BPP4][(addr & vram.mask) >> 4] = 0;
@@ -34,14 +30,11 @@ auto PPU::writeVRAM(bool byte, uint8 data) -> void {
 
 auto PPU::readOAM(uint10 addr) -> uint8 {
   if(!io.displayDisable && cpu.vcounter() < vdisp()) addr = latch.oamAddress;
-  auto data = obj.oam.read(addr);
-  debug(ppu.oam.read, addr, data);
-  return data;
+  return obj.oam.read(addr);
 }
 
 auto PPU::writeOAM(uint10 addr, uint8 data) -> void {
   if(!io.displayDisable && cpu.vcounter() < vdisp()) addr = latch.oamAddress;
-  debug(ppu.oam.write, addr, data);
   obj.oam.write(addr, data);
 }
 
@@ -50,9 +43,7 @@ auto PPU::readCGRAM(bool byte, uint8 addr) -> uint8 {
   && cpu.vcounter() > 0 && cpu.vcounter() < vdisp()
   && cpu.hcounter() >= 88 && cpu.hcounter() < 1096
   ) addr = latch.cgramAddress;
-  auto data = screen.cgram[addr].byte(byte);
-  debug(ppu.cgram.read, addr << 1 | byte, data);
-  return data;
+  return screen.cgram[addr].byte(byte);
 }
 
 auto PPU::writeCGRAM(uint8 addr, uint16 data) -> void {
@@ -60,8 +51,6 @@ auto PPU::writeCGRAM(uint8 addr, uint16 data) -> void {
   && cpu.vcounter() > 0 && cpu.vcounter() < vdisp()
   && cpu.hcounter() >= 88 && cpu.hcounter() < 1096
   ) addr = latch.cgramAddress;
-  debug(ppu.cgram.write, addr << 1 | 0, data.byte(0));
-  debug(ppu.cgram.write, addr << 1 | 1, data.byte(1));
   screen.cgram[addr] = data;
 }
 
@@ -160,7 +149,7 @@ auto PPU::readIO(uint24 addr, uint8 data) -> uint8 {
       ppu2.mdr.bit (0  ) = io.vcounter.bit (  8);
     }
     return ppu2.mdr;
-  };
+  }
 
   //STAT77
   case 0x213e: {

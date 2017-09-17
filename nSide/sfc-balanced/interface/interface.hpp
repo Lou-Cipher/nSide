@@ -1,5 +1,3 @@
-#include <sfc-balanced/debugger.hpp>
-
 namespace SuperFamicom {
 
 struct ID {
@@ -13,7 +11,7 @@ struct ID {
   };
 
   struct Port { enum : uint {
-    Hardware,
+  //Hardware,
     Controller1,
     Controller2,
     Expansion,
@@ -21,7 +19,7 @@ struct ID {
 
   struct Device { enum : uint {
     None,
-    Controls,
+  //Controls,
 
     Gamepad,
     Mouse,

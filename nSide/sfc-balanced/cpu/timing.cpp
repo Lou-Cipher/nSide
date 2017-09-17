@@ -21,12 +21,6 @@ auto CPU::step(uint clocks) -> void {
       aluEdge();
     }
   }
-
-  #if defined(DEBUGGER)
-  synchronize(smp);
-  synchronize(ppu);
-  for(auto coprocessor : coprocessors) synchronize(*coprocessor);
-  #endif
 }
 
 //called by ppu.tick() when Hcounter=0

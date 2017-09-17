@@ -1,16 +1,7 @@
-ifndef name
-  name := star-rod
-endif
-
+name := star-rod
 flags += -DDEBUGGER
 
-ifndef profile
-  include sfc/GNUmakefile
-else ifeq ($(profile),accuracy)
-  include sfc/GNUmakefile
-else ifeq ($(profile),balanced)
-  include sfc-balanced/GNUmakefile
-endif
+include sfc/GNUmakefile
 include processor/GNUmakefile
 
 ui_objects := star-rod-laevateinn star-rod-program star-rod-configuration

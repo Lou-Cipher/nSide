@@ -26,15 +26,13 @@ Program::Program(string_vector args) {
   Emulator::platform = this;
 
   #if defined(ALLOW_PREALPHA)
-    #define P if(true)
-  #else
-    #define P if(false)
+    emulators.append(new Atari2600::Interface);
   #endif
-
-P emulators.append(new Atari2600::Interface);
   emulators.append(new Famicom::FamicomInterface);
   emulators.append(new SuperFamicom::Interface);
-P emulators.append(new MasterSystem::SG1000Interface);
+  #if defined(ALLOW_PREALPHA)
+    emulators.append(new MasterSystem::SG1000Interface);
+  #endif
   emulators.append(new MasterSystem::MasterSystemInterface);
   emulators.append(new MegaDrive::Interface);
   emulators.append(new PCEngine::PCEngineInterface);
@@ -48,8 +46,6 @@ P emulators.append(new MasterSystem::SG1000Interface);
   emulators.append(new Famicom::VSSystemInterface);
   emulators.append(new Famicom::PlayChoice10Interface);
   emulators.append(new Famicom::FamicomBoxInterface);
-
-  #undef P
 
   new Presentation;
   presentation->setVisible();

@@ -19,7 +19,6 @@ auto SMP::Enter() -> void {
 auto SMP::main() -> void {
   if(r.wait) return instructionWait();
   if(r.stop) return instructionStop();
-  debug(smp.execute, r.pc.w);
   instruction();
 }
 
