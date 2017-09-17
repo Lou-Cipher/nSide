@@ -79,7 +79,7 @@ auto Bus::read(uint16 addr, uint8 data) -> uint8 {
   if(!Model::FamicomBox()) data = cartridgeSlot[slot].readPRG(addr, data);
   data = reader[lookup[addr]](target[addr], data);
   if(cheat) {
-    if(auto result = cheat.find<1>(addr, data)) return result();
+    if(auto result = cheat.find(addr, data)) return result();
   }
   return data;
 }

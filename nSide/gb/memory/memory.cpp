@@ -39,7 +39,7 @@ auto Bus::read(uint16 addr) -> uint8 {
   uint8 data = mmio[addr]->readIO(addr);
 
   if(cheat) {
-    if(auto result = cheat.find<1>(addr, data)) return result();
+    if(auto result = cheat.find(addr, data)) return result();
   }
 
   return data;

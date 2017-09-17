@@ -7,7 +7,7 @@ auto CPU::read(uint16 addr) -> uint8 {
     data = ram[addr & 0x1fff];
   }
 
-  if(auto result = cheat.find<1>(addr, data)) {
+  if(auto result = cheat.find(addr, data)) {
     data = result();
   }
 

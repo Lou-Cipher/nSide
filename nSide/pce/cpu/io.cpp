@@ -1,6 +1,6 @@
 auto CPU::read(uint8 bank, uint13 addr) -> uint8 {
   auto data = read_(bank, addr);
-  if(auto result = cheat.find<1>(bank << 13 | addr, data)) data = result();
+  if(auto result = cheat.find(bank << 13 | addr, data)) data = result();
   return data;
 }
 

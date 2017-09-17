@@ -10,7 +10,7 @@ auto CPU::read(uint16 addr) -> uint8 {
   } while(io.rdyLine == 0);
 
   if(cheat) {
-    if(auto result = cheat.find<1>(addr, r.mdr)) return result();
+    if(auto result = cheat.find(addr, r.mdr)) return result();
   }
 
   return r.mdr;
