@@ -1,5 +1,4 @@
 SG1000Interface::SG1000Interface() {
-  information.devState     = DevState::PreAlpha;
   information.manufacturer = "Sega";
   information.name         = "SG-1000";
   information.overscan     = true;

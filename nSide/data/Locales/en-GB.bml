@@ -150,10 +150,6 @@ Settings: Settings
       Location: Location:
       Change...: Change ...
       IgnoreManifests: Ignore Manifests
-    DevelopmentState: Development State
-      ShowFull: Only show full cores
-      ShowAlpha: Show full and alpha cores
-      ShowPreAlpha: Show all cores, including pre-alpha
 
 Tools: Tools
   CheatDatabase

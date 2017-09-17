@@ -1,5 +1,4 @@
 WonderSwanColorInterface::WonderSwanColorInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Bandai";
   information.name         = "WonderSwan Color";
   information.overscan     = false;

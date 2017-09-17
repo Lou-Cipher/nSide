@@ -10,7 +10,10 @@ InputSettings::InputSettings(TabFrame* parent) : TabFrameItem(parent) {
   allowInput.setChecked(settings["Input/FocusLoss/AllowInput"].boolean()).onToggle([&] {
     settings["Input/FocusLoss/AllowInput"].setValue(allowInput.checked());
   });
-  refreshEmulatorList();
+  emulatorList.reset();
+  for(auto& emulator : inputManager->emulators) {
+    emulatorList.append(ComboButtonItem().setText(emulator.name));
+  }
   emulatorList.onChange([&] { reloadPorts(); });
   portList.onChange([&] { reloadDevices(); });
   deviceList.onChange([&] { reloadMappings(); });
@@ -49,14 +52,6 @@ auto InputSettings::refreshLocale() -> void {
   eraseButton.setText(locale["Settings/Input/Erase"]);
 }
 
-auto InputSettings::refreshEmulatorList() -> void {
-  emulatorList.reset();
-  for(auto& emulator : inputManager->emulators) {
-    if(emulator.interface->information.devState > settings["Library/DevState"].natural()) continue;
-    emulatorList.append(ComboButtonItem().setText(emulator.name));
-  }
-}
-
 auto InputSettings::updateControls() -> void {
   eraseButton.setEnabled((bool)mappingList.selected());
   assignMouse1.setVisible(false);
@@ -78,12 +73,7 @@ auto InputSettings::updateControls() -> void {
 }
 
 auto InputSettings::activeEmulator() -> InputEmulator& {
-  uint offset = emulatorList.selected().offset();
-  for(uint i : range(offset + 1)) {
-    auto& interface = inputManager->emulators[i].interface;
-    if(interface->information.devState > settings["Library/DevState"].natural()) offset++;
-  }
-  return inputManager->emulators[offset];
+  return inputManager->emulators[emulatorList.selected().offset()];
 }
 
 auto InputSettings::activePort() -> InputPort& {

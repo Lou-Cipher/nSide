@@ -3,12 +3,7 @@
 namespace Emulator {
 
 struct Interface {
-  struct DevState { enum : uint {
-    Full, Alpha, PreAlpha,
-  };};
-
   struct Information {
-    uint devState;
     string manufacturer;
     string name;
     bool overscan;

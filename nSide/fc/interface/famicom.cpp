@@ -1,5 +1,4 @@
 FamicomInterface::FamicomInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Nintendo";
   information.name         = "Famicom";
 

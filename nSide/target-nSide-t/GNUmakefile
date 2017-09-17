@@ -1,9 +1,6 @@
-ifndef name
-  name := nSide
-endif
+name := nSide
 flags += -DSFC_SUPERGAMEBOY
 
-include a2600/GNUmakefile
 include fc/GNUmakefile
 ifneq ($(profile),balanced)
   include sfc/GNUmakefile
@@ -16,6 +13,10 @@ include pce/GNUmakefile
 include gb/GNUmakefile
 include gba/GNUmakefile
 include ws/GNUmakefile
+ifeq ($(prealpha),true)
+  flags += -DALLOW_PREALPHA
+  include a2600/GNUmakefile
+endif
 include processor/GNUmakefile
 
 ui_objects := ui-nSide ui-program ui-configuration ui-input

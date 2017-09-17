@@ -1,5 +1,4 @@
 MasterSystemInterface::MasterSystemInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Sega";
   information.name         = "Master System";
   information.overscan     = true;

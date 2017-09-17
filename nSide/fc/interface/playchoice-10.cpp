@@ -1,5 +1,4 @@
 PlayChoice10Interface::PlayChoice10Interface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Nintendo";
   information.name         = "PlayChoice-10";
 

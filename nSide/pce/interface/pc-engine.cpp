@@ -1,5 +1,4 @@
 PCEngineInterface::PCEngineInterface() {
-  information.devState     = DevState::Alpha;
   information.manufacturer = "NEC";
   information.name         = "PC Engine";
 

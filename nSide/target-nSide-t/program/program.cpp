@@ -1,10 +1,9 @@
 #include "../nSide.hpp"
-#include <a2600/interface/interface.hpp>
 #include <fc/interface/interface.hpp>
 #if defined(PROFILE_BALANCED)
-#include <sfc-balanced/interface/interface.hpp>
+  #include <sfc-balanced/interface/interface.hpp>
 #else
-#include <sfc/interface/interface.hpp>
+  #include <sfc/interface/interface.hpp>
 #endif
 #include <ms/interface/interface.hpp>
 #include <md/interface/interface.hpp>
@@ -12,6 +11,9 @@
 #include <gb/interface/interface.hpp>
 #include <gba/interface/interface.hpp>
 #include <ws/interface/interface.hpp>
+#if defined(ALLOW_PREALPHA)
+  #include <a2600/interface/interface.hpp>
+#endif
 #include "interface.cpp"
 #include "medium.cpp"
 #include "state.cpp"
@@ -22,10 +24,17 @@ Program::Program(string_vector args) {
   program = this;
 
   Emulator::platform = this;
-  emulators.append(new Atari2600::Interface);
+
+  #if defined(ALLOW_PREALPHA)
+    #define P if(true)
+  #else
+    #define P if(false)
+  #endif
+
+P emulators.append(new Atari2600::Interface);
   emulators.append(new Famicom::FamicomInterface);
   emulators.append(new SuperFamicom::Interface);
-  emulators.append(new MasterSystem::SG1000Interface);
+P emulators.append(new MasterSystem::SG1000Interface);
   emulators.append(new MasterSystem::MasterSystemInterface);
   emulators.append(new MegaDrive::Interface);
   emulators.append(new PCEngine::PCEngineInterface);
@@ -39,6 +48,8 @@ Program::Program(string_vector args) {
   emulators.append(new Famicom::VSSystemInterface);
   emulators.append(new Famicom::PlayChoice10Interface);
   emulators.append(new Famicom::FamicomBoxInterface);
+
+  #undef P
 
   locale.load(settings["UserInterface/Locale"].text());
 

@@ -1,5 +1,4 @@
 SuperGrafxInterface::SuperGrafxInterface() {
-  information.devState     = DevState::Alpha;
   information.manufacturer = "NEC";
   information.name         = "SuperGrafx";
 

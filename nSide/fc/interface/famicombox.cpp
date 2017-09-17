@@ -1,5 +1,4 @@
 FamicomBoxInterface::FamicomBoxInterface() {
-  information.devState     = DevState::Alpha;
   information.manufacturer = "Nintendo";
   information.name         = "FamicomBox";
 

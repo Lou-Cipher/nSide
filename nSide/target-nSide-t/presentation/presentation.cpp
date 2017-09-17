@@ -222,7 +222,6 @@ auto Presentation::refreshLibraryMenu() -> void {
   libraryMenu.reset();
   string_vector manufacturers;
   for(auto& emulator : program->emulators) {
-    if(emulator->information.devState > settings["Library/DevState"].natural()) continue;
     if(!manufacturers.find(emulator->information.manufacturer)) {
       manufacturers.append(emulator->information.manufacturer);
     }
@@ -232,12 +231,10 @@ auto Presentation::refreshLibraryMenu() -> void {
     manufacturerMenu.setText(locale[{"System/", string{manufacturer}.replace(" ", "")}]);
     for(auto& emulator : program->emulators) {
       if(emulator->information.manufacturer != manufacturer) continue;
-      if(emulator->information.devState > settings["Library/DevState"].natural()) continue;
       for(auto& medium : emulator->media) {
         auto item = new MenuItem{&manufacturerMenu};
-        string prefix = emulator->information.devState == 2 ? "(!) " : "";
         string name = locale[{"System/", manufacturer, "/", string{medium.name}.replace(" ", "")}];
-        item->setText({prefix, name, " ..."}).onActivate([=] {
+        item->setText({name, " ..."}).onActivate([=] {
           program->loadMedium(*emulator, medium);
         });
       }

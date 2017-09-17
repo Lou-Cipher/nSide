@@ -1,5 +1,4 @@
 VSSystemInterface::VSSystemInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Nintendo";
   information.name         = "VS. System";
 

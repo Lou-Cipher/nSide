@@ -91,7 +91,6 @@ struct InputSettings : TabFrameItem {
       Button eraseButton{&controlLayout, Size{80, 0}};
 
   auto refreshLocale() -> void;
-  auto refreshEmulatorList() -> void;
   auto updateControls() -> void;
   auto activeEmulator() -> InputEmulator&;
   auto activePort() -> InputPort&;
@@ -150,12 +149,6 @@ struct AdvancedSettings : TabFrameItem {
       LineEdit libraryLocation{&libraryLayout, Size{~0, 0}};
       Button libraryChange{&libraryLayout, Size{0, 0}};
     CheckLabel ignoreManifests{&layout, Size{~0, 0}};
-    Label devStateLabel{&layout, Size{~0, 0}};
-    HorizontalLayout devStateLayout{&layout, Size{~0, 0}};
-      RadioLabel devStateFull{&devStateLayout, Size{~0, 0}};
-      RadioLabel devStateAlpha{&devStateLayout, Size{~0, 0}};
-      RadioLabel devStatePreAlpha{&devStateLayout, Size{~0, 0}};
-      Group devStateGroup{&devStateFull, &devStateAlpha, &devStatePreAlpha};
 
   auto refreshLocale() -> void;
 };

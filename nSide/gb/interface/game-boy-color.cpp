@@ -1,5 +1,4 @@
 GameBoyColorInterface::GameBoyColorInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Nintendo";
   information.name         = "Game Boy Color";
   information.overscan     = false;

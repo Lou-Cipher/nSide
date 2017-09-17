@@ -1,15 +1,10 @@
-ifndef name
-  name := shimai
-endif
+name := shimai
 flags += -DSFC_SUPERGAMEBOY
 
-include a2600/GNUmakefile
 include fc/GNUmakefile
-ifndef profile
+ifneq ($(profile),balanced)
   include sfc/GNUmakefile
-else ifeq ($(profile),accuracy)
-  include sfc/GNUmakefile
-else ifeq ($(profile),balanced)
+else
   include sfc-balanced/GNUmakefile
 endif
 include ms/GNUmakefile
@@ -18,6 +13,10 @@ include pce/GNUmakefile
 include gb/GNUmakefile
 include gba/GNUmakefile
 include ws/GNUmakefile
+ifeq ($(prealpha),true)
+  flags += -DALLOW_PREALPHA
+  include a2600/GNUmakefile
+endif
 include processor/GNUmakefile
 
 ui_objects := ui-shimai ui-program ui-configuration ui-input

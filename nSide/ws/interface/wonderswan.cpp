@@ -1,5 +1,4 @@
 WonderSwanInterface::WonderSwanInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Bandai";
   information.name         = "WonderSwan";
   information.overscan     = false;

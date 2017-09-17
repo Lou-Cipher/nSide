@@ -54,28 +54,6 @@ AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
   ignoreManifests.setChecked(settings["Library/IgnoreManifests"].boolean()).onToggle([&] {
     settings["Library/IgnoreManifests"].setValue(ignoreManifests.checked());
   });
-
-  devStateLabel.setFont(Font().setBold());
-
-  uint devState = settings["Library/DevState"].natural();
-  auto* devStateRadioLabel = &*(devStateGroup->state.objects[devState].acquire());
-  dynamic_cast<mRadioLabel*>(devStateRadioLabel)->setChecked();
-
-  devStateFull.onActivate([&] {
-    settings["Library/DevState"].setValue((uint)Emulator::Interface::DevState::Full);
-    presentation->refreshLibraryMenu();
-    settingsManager->input.refreshEmulatorList();
-  });
-  devStateAlpha.onActivate([&] {
-    settings["Library/DevState"].setValue((uint)Emulator::Interface::DevState::Alpha);
-    presentation->refreshLibraryMenu();
-    settingsManager->input.refreshEmulatorList();
-  });
-  devStatePreAlpha.onActivate([&] {
-    settings["Library/DevState"].setValue((uint)Emulator::Interface::DevState::PreAlpha);
-    presentation->refreshLibraryMenu();
-    settingsManager->input.refreshEmulatorList();
-  });
 }
 
 auto AdvancedSettings::refreshLocale() -> void {
@@ -92,10 +70,4 @@ auto AdvancedSettings::refreshLocale() -> void {
   libraryPrefix.setText(locale["Settings/Advanced/GameLibrary/Location"]);
   libraryChange.setText(locale["Settings/Advanced/GameLibrary/Change..."]);
   ignoreManifests.setText(locale["Settings/Advanced/GameLibrary/IgnoreManifests"]);
-
-  devStateLabel.setText(locale["Settings/Advanced/DevelopmentState"]);
-
-  devStateFull.setText(locale["Settings/Advanced/DevelopmentState/ShowFull"]);
-  devStateAlpha.setText(locale["Settings/Advanced/DevelopmentState/ShowAlpha"]);
-  devStatePreAlpha.setText(locale["Settings/Advanced/DevelopmentState/ShowPreAlpha"]);
 }

@@ -1,5 +1,4 @@
 GameBoyInterface::GameBoyInterface() {
-  information.devState     = DevState::Full;
   information.manufacturer = "Nintendo";
   information.name         = "Game Boy";
   information.overscan     = false;
