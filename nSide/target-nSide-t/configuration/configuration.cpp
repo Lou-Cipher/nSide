@@ -12,6 +12,11 @@ Settings::Settings() {
   set("UserInterface/ShowStatusBar", true);
   set("UserInterface/Locale", "Auto");
 
+  for(uint n : range(10)) {
+    set({"Recent/", n, "/Title"}, "");
+    set({"Recent/", n, "/Path"}, "");
+  }
+
   set("Library/Location", {Path::user(), "Emulation/"});
   set("Library/IgnoreManifests", false);
   set("Library/DevState", 1);

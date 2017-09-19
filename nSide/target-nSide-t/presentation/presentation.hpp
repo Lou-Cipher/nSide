@@ -12,6 +12,7 @@ struct AboutWindow : Window {
 struct Presentation : Window {
   Presentation();
   auto refreshLocale() -> void;
+  auto updateRecentList() -> void;
   auto refreshLibraryMenu() -> void;
   auto updateEmulator() -> void;
   auto clearViewport() -> void;
@@ -21,6 +22,7 @@ struct Presentation : Window {
   auto loadShaders() -> void;
 
   MenuBar menuBar{this};
+    Menu recentMenu{&menuBar};
     Menu libraryMenu{&menuBar};
     Menu systemMenu{&menuBar};
       Menu inputPort1{&systemMenu};

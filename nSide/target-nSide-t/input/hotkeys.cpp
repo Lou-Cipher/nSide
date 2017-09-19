@@ -101,6 +101,16 @@ auto InputManager::appendHotkeys() -> void {
   }
 
   { auto hotkey = new InputHotkey;
+    hotkey->name = "Load Most Recent Game";
+    hotkey->press = [] {
+      program->unloadMedium();
+      program->mediumQueue = settings["Recent/0/Path"].text().trim("\"", "\"", 1).split("\" \"");
+      program->loadMedium();
+    };
+    hotkeys.append(hotkey);
+  }
+
+  { auto hotkey = new InputHotkey;
     hotkey->name = "Save Screenshot";
     hotkey->press = [] {
       if(!::emulator) return;

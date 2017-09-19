@@ -7,6 +7,7 @@ Presentation::Presentation() {
   presentation = this;
 
   refreshLocale();
+  updateRecentList();
 
   systemMenu.setVisible(false);
   reloadSystem.onActivate([&] { program->powerCycle(); });
@@ -156,6 +157,7 @@ Presentation::Presentation() {
 }
 
 auto Presentation::refreshLocale() -> void {
+  recentMenu.setText(locale["Menu/Recent"]);
   libraryMenu.setText(locale["Menu/Library"]);
   refreshLibraryMenu();
 
@@ -218,6 +220,50 @@ auto Presentation::refreshLocale() -> void {
   about.setText(locale["Menu/Help/About..."]);
 }
 
+auto Presentation::updateRecentList() -> void {
+  const uint max = 10;
+
+  if(emulator) {
+    uint position = max;
+    for(uint n : range(max)) {
+      auto paths = settings[{"Recent/", n, "/Path"}].text().trim("\"", "\"", 1).split("\" \"");
+      if(paths.size() != program->mediumPaths.size() - 1) continue;
+      bool match = true;
+      for(uint n : range(paths.size())) if(paths[n] != program->path(n + 1)) {
+        match = false;
+        break;
+      }
+      if(match) {
+        position = n;
+        break;
+      }
+    }
+    if(position != 0) {
+      for(uint n : rrange(min(position, max - 1))) {
+        settings[{"Recent/", n + 1, "/Title"}].setValue(settings[{"Recent/", n, "/Title"}].text());
+        settings[{"Recent/", n + 1, "/Path" }].setValue(settings[{"Recent/", n, "/Path" }].text());
+      }
+      settings["Recent/0/Title"].setValue(emulator->title());
+      string_vector paths;
+      for(uint n : range(program->mediumPaths.size() - 1)) {
+        paths.append(program->path(n + 1));
+      }
+      settings["Recent/0/Path"].setValue({"\"", paths.merge("\" \""),"\""});
+    }
+  }
+
+  recentMenu.reset().setVisible(settings["Recent"].size() > 0);
+  for(const auto& entry : settings["Recent"]) {
+    if(!entry["Path"].text()) continue;
+    auto item = new MenuItem{&recentMenu};
+    item->setText(entry["Title"].text()).onActivate([=] {
+      program->unloadMedium();
+      program->mediumQueue = entry["Path"].text().trim("\"", "\"", 1).split("\" \"");
+      program->loadMedium();
+    });
+  }
+}
+
 auto Presentation::refreshLibraryMenu() -> void {
   libraryMenu.reset();
   string_vector manufacturers;
@@ -258,6 +304,7 @@ auto Presentation::refreshLibraryMenu() -> void {
 
 auto Presentation::updateEmulator() -> void {
   if(!emulator) return;
+  updateRecentList();
   inputPort1.setVisible(false).reset();
   inputPort2.setVisible(false).reset();
   inputPort3.setVisible(false).reset();
