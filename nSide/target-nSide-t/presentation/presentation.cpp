@@ -223,7 +223,7 @@ auto Presentation::refreshLocale() -> void {
 auto Presentation::updateRecentList() -> void {
   const uint max = 10;
 
-  if(emulator) {
+  if(settings["Library/RecentList"].boolean() && emulator) {
     uint position = max;
     for(uint n : range(max)) {
       auto paths = settings[{"Recent/", n, "/Path"}].text().trim("\"", "\"", 1).split("\" \"");
@@ -252,15 +252,19 @@ auto Presentation::updateRecentList() -> void {
     }
   }
 
-  recentMenu.reset().setVisible(settings["Recent"].size() > 0);
-  for(const auto& entry : settings["Recent"]) {
-    if(!entry["Path"].text()) continue;
-    auto item = new MenuItem{&recentMenu};
-    item->setText(entry["Title"].text()).onActivate([=] {
-      program->unloadMedium();
-      program->mediumQueue = entry["Path"].text().trim("\"", "\"", 1).split("\" \"");
-      program->loadMedium();
-    });
+  if(settings["Library/RecentList"].boolean()) {
+    recentMenu.setVisible(!!settings["Recent/0/Path"].value()).reset();
+    for(const auto& entry : settings["Recent"]) {
+      if(!entry["Path"].text()) continue;
+      auto item = new MenuItem{&recentMenu};
+      item->setText(entry["Title"].text()).onActivate([=] {
+        program->unloadMedium();
+        program->mediumQueue = entry["Path"].text().trim("\"", "\"", 1).split("\" \"");
+        program->loadMedium();
+      });
+    }
+  } else {
+    recentMenu.setVisible(false);
   }
 }
 

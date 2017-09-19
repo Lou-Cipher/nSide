@@ -103,9 +103,11 @@ auto InputManager::appendHotkeys() -> void {
   { auto hotkey = new InputHotkey;
     hotkey->name = "Load Most Recent Game";
     hotkey->press = [] {
-      program->unloadMedium();
-      program->mediumQueue = settings["Recent/0/Path"].text().trim("\"", "\"", 1).split("\" \"");
-      program->loadMedium();
+      if(settings["Library/RecentList"].boolean() && settings["Recent/0/Path"].value()) {
+        program->unloadMedium();
+        program->mediumQueue = settings["Recent/0/Path"].text().trim("\"", "\"", 1).split("\" \"");
+        program->loadMedium();
+      }
     };
     hotkeys.append(hotkey);
   }

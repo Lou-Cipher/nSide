@@ -149,6 +149,7 @@ struct AdvancedSettings : TabFrameItem {
       LineEdit libraryLocation{&libraryLayout, Size{~0, 0}};
       Button libraryChange{&libraryLayout, Size{0, 0}};
     CheckLabel ignoreManifests{&layout, Size{~0, 0}};
+    CheckLabel recentList{&layout, Size{~0, 0}};
 
   auto refreshLocale() -> void;
 };

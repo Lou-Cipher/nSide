@@ -151,6 +151,7 @@ Settings: Settings
       Location: Location:
       Change...: Change ...
       IgnoreManifests: Ignore Manifests
+      RecentList: Enable Recent Games List
 
 Tools: Tools
   CheatDatabase

@@ -54,6 +54,10 @@ AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
   ignoreManifests.setChecked(settings["Library/IgnoreManifests"].boolean()).onToggle([&] {
     settings["Library/IgnoreManifests"].setValue(ignoreManifests.checked());
   });
+  recentList.setChecked(settings["Library/RecentList"].boolean()).onToggle([&] {
+    settings["Library/RecentList"].setValue(recentList.checked());
+    presentation->updateRecentList();
+  });
 }
 
 auto AdvancedSettings::refreshLocale() -> void {
@@ -70,4 +74,5 @@ auto AdvancedSettings::refreshLocale() -> void {
   libraryPrefix.setText(locale["Settings/Advanced/GameLibrary/Location"]);
   libraryChange.setText(locale["Settings/Advanced/GameLibrary/Change..."]);
   ignoreManifests.setText(locale["Settings/Advanced/GameLibrary/IgnoreManifests"]);
+  recentList.setText(locale["Settings/Advanced/GameLibrary/RecentList"]);
 }
