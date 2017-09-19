@@ -1,0 +1,183 @@
+//Author: Benjamin Siskoo
+System: Système
+  Atari: Atari
+    Atari2600: Atari 2600
+  Nintendo: Nintendo
+    Famicom: Famicom
+    SuperFamicom: Super Famicom
+    GameBoy: Game Boy
+    GameBoyColor: Game Boy Color
+    GameBoyAdvance: Game Boy Advance
+    VS.System: VS. System
+    PlayChoice-10: PlayChoice-10
+    FamicomBox: FamicomBox
+  Sega: Sega
+    SG-1000: SG-1000
+    MasterSystem: Master System
+    MegaDrive: Mega Drive
+    GameGear: Game Gear
+  NEC: NEC
+    PCEngine: PC Engine
+    SuperGrafx: SuperGrafx
+  Bandai: Bandai
+    WonderSwan: WonderSwan
+    WonderSwanColor: WonderSwan Color
+    SwanCrystal: SwanCrystal
+
+Menu
+  Recent: Récent
+  Library: Bibliothèque
+    LoadROMFile...: Charge un fichier ROM ...
+    ImportROMFiles...: Importer les fichiers ROM ...
+  System: Système
+    PowerCycle: Cycle de Puissance
+    Unload: Décharger
+  Settings: Paramètres
+    VideoScale: Echelle Vidéo
+      Small: Petit
+      Medium: Moyen
+      Large: Grand
+    VideoEmulation: Emulaiton Vidéo
+      Blurring: Flou
+      Colors: Couleurs
+    Scanlines: Scanlines
+    VideoShader: Shader Vidéo
+      None: Aucun
+      Blur: Flou
+    SynchronizeVideo: Synchronisation de la Vidéo
+    SynchronizeAudio: Synchronisation Audio
+    MuteAudio: Audio Muet
+    ShowStatusBar: Afficher la barre de statut
+    Video...: Vidéo ...
+    Audio...: Audio ...
+    Input...: Contrôleur ...
+    Hotkeys...: Raccourcis ...
+    Advanced...: Avancées ...
+  Tools: Outils
+    SaveQuickState: Sauvegarde d'Etat Rapide
+    LoadQuickState: Chargement d'Etat Rapide
+    Slot: Emplacement %d
+    CheatEditor...: Editeur de Triche ...
+    StateManager...: Gestionnaire d'Etat ...
+    ManifestViewer...: Visualiseur de Manifeste ...
+  Help: Aide
+    Documentation...: Documentation pour higan ...
+    About...: A Propos De ...
+
+Status: Statut
+  NoCartridgeLoaded: Aucune cartouche chargée
+  FPS: FPS : %d
+  Paused: En Pause
+  PowerCycled: Cycle de puissance
+  DisplayRotated: Rotation de l'affichage
+  RotateUnsupported: La rotation de l'affichage n'est pas supporté
+  State: Etat
+    quick: rapide
+    managed: géré
+    DoesNotExist: Emplacement %2$d %1$s l'état n'existe pas
+    Incompatible: Emplacement %2$d %1$s l'état est incompatible
+    Load: Chargé %1$s l'état depuis l'emplacement %2$d
+    Unsupported: Echec de la sauvegarde %1$s d'état vers l'emplacement %2$d
+    Unprivileged: Ne peut pas écrire %1$s l'état vers l'emplacement %2$d
+    Save: Sauvegarde %1$s l'état vers l'emplacement %2$d
+    Select: Sélection de l'emplacement de l'état rapide %d
+  SaveScreenshot: Les captures d'écrans sont sauvegardés
+
+Error: Erreur
+  Crash: Détection d'un plantage du pilote. Les pilotes Vidéo/Audio/Contrôleur ont été désactivés.
+  VideoDriver: Echec de l'initialisation du pilote vidéo
+  AudioDriver: Echec de l'initialisation du pilote audio
+  InputDriver: Echec de l'initialisation du pilote contrôleur
+
+Settings: Paramètres
+  Video: Vidéo
+    ColorAdjustment: Ajustement de la Couleur
+      Saturation: Saturation :
+      Gamma: Gamma :
+      Luminance: Luminance :
+    OverscanMask: Masque pour Recouvrir l'Ecran
+      Horizontal: Horizontal :
+      Vertical: Vertical :
+    WindowedMode: Mode fenêtré
+    FullscreenMode: Mode plein écran
+    AspectCorrection: Proportions
+    IntegralScaling: Echelle intégral
+    AdaptiveSizing: Taille Adaptative
+    ExclusiveMode: Mode Exclusif
+  Audio: Audio
+    Driver: Pilote
+      Device: Périphérique :
+      Frequency: Fréquence :
+      Latency: Latence :
+      ExclusiveMode: Mode Exclusif
+    Effects: Effets
+      Volume: Volume :
+      Balance: Balance :
+      Reverb: Reverbération
+  Input: Contrôleur
+    WhenFocusIsLost: Quand le Focus est perdu :
+      PauseEmulation: Emulation en Pause
+      AllowInput: Autorise le Contrôleur
+    Name: Nom
+    Mapping: Définir
+    MouseXAxis: Axe X de la Souris
+    MouseYAxis: Axe Y de la Souris
+    MouseLeft: Souris Gauche
+    MouseMiddle: Souris du Milieu
+    MouseRight: Souris Droite
+    Reset: Redémarrer
+    Erase: Effacer
+    PressKey: Pressez une touche ou un bouton pour définir [%s] ...
+    MappingAssigned: Touche assignée.
+    ResetConfirmation: Are you sure you want to erase all mappings for this device?
+      Yes: Oui
+      No: Non
+  Hotkeys: Raccourcis
+    Name: Nom
+    Mapping: Définir
+    ToggleLogic: Basculer sur ET/OU
+    Reset: Redémarrer
+    Erase: Effacer
+    PressKey: Pressez une touche ou un bouton pour définir [%s] ...
+    MappingAssigned: Touche assignée.
+    ResetConfirmation: Are you sure you want to erase all hotkey mappings?
+      Yes: Oui
+      No: Non
+  Advanced: Avancée
+    DriverSelection: Sélection du Pilote
+      Video: Vidéo :
+      Audio: Audio :
+      Input: Contrôleur :
+    GameLibrary: Bibliothèque de Jeu
+      Location: Localisation :
+      Change...: Changee ...
+      IgnoreManifests: Ignorer les Manifestes
+      RecentList: Activer la liste des jeux récents
+
+Tools: Outils
+  CheatDatabase: Base de donnée de triche
+    SelectAll: Tout sélectionner
+    UnselectAll: Tout déselectionner
+    AddCodes: Ajouter les Codes
+  CheatEditor: Editeur de triche
+    Table
+      Slot: Emplacement
+      Codes: Code(s)
+      Description: Description
+    Edit: Editer
+      Codes: Code(s) :
+      Description: Description :
+    FindCodes...: Trouver des Codes ...
+    Reset: Redémarrer
+    Erase: Effacer
+  StateManager: Gestionnaire d'Etat
+    Table
+      Slot: Emplacement
+      Description: Description
+    Edit: Editer
+      Description: Description :
+    Save: Sauvegarder
+    Load: Charger
+    Reset: Redémarrer
+    Erase: Effacer
+  ManifestViewer: Visualiseur de Manifeste
