@@ -1,0 +1,183 @@
+//Author: NTI Productions
+System
+  Atari: Atari
+    Atari2600: Atari 2600
+  Nintendo: Nintendo
+    Famicom: Nintendo Entertainment System
+    SuperFamicom: Super Nintendo Entertainment System
+    GameBoy: Game Boy
+    GameBoyColor: Game Boy Color
+    GameBoyAdvance: Game Boy Advance
+    VS.System: VS. System
+    PlayChoice-10: PlayChoice-10
+    FamicomBox: FamicomBox
+  Sega: Sega
+    SG-1000: SG-1000
+    MasterSystem: Master System
+    MegaDrive: Mega Drive
+    GameGear: Game Gear
+  NEC: NEC
+    PCEngine: PC Engine
+    SuperGrafx: SuperGrafx
+  Bandai: Bandai
+    WonderSwan: WonderSwan
+    WonderSwanColor: WonderSwan Color
+    SwanCrystal: SwanCrystal
+
+Menu
+  Recent: Recentes
+  Library: Biblioteca
+    LoadROMFile...: Carregar ROM ...
+    ImportROMFiles...: Importar ROM's ...
+  System: Sistema
+    PowerCycle: Restabelecer Console
+    Unload: Remover Cartucho
+  Settings: Configurações
+    VideoScale: Escala de Vídeo
+      Small: Pequena
+      Medium: Média
+      Large: Grande
+    VideoEmulation: Filtro de Vídeo
+      Blurring: Desfoque
+      Colors: Cores
+    Scanlines: Scanlines
+    VideoShader: Shader de Vídeo
+      None: Nenhum
+      Blur: Desfoque
+    SynchronizeVideo: Sincronizar Vídeo
+    SynchronizeAudio: Sincronizar Áudio
+    MuteAudio: Áudio Mudo
+    ShowStatusBar: Mostrar Barra de Status
+    Video...: Vídeo ...
+    Audio...: Áudio ...
+    Input...: Comandos de Controle ...
+    Hotkeys...: Teclas de Atalho ...
+    Advanced...: Avançado ...
+  Tools: Ferramentas
+    SaveQuickState: Save State Rápido
+    LoadQuickState: Load State Rápido
+    Slot: Entrada %d
+    CheatEditor...: Editor de Trapaças...
+    StateManager...: Gerenciador de States ...
+    ManifestViewer...: Visualizador de Mapeamento ...
+  Help: Ajuda
+    Documentation...: Documentação do higan ...
+    About...: Sobre ...
+
+Status
+  NoCartridgeLoaded: Não há cartuchos carregados
+  FPS: FPS: %d
+  Paused: Pausado
+  PowerCycled: Console restabelecido
+  DisplayRotated: Tela rotacionada
+  RotateUnsupported: Rotação de tela não suportada
+  State
+    quick: State rápido
+    managed: Gerenciado
+    DoesNotExist: Entrada %2$d do state %1$s não existe
+    Incompatible: Entrada %2$d do state %1$s é incompatível
+    Load: State %1$s carregado da entrada %2$d
+    Unsupported: Falha em salvar state %1$s à entrada %2$d
+    Unprivileged: Não foi possível adicionar state %1$s à entrada %2$d
+    Save: State %1$s salvo à entrada %2$d
+    Select: State rápido da entrada %d selecionado
+  SaveScreenshot: Captura de tela salva
+
+Error
+  Crash: Falha de driver detectada. Drivers de Vídeo, Áudio e Dispositivo de entrada foram desativados.
+  VideoDriver: Falha em inicializar driver de vídeo
+  AudioDriver: Falha em inicializar driver de áudio
+  InputDriver: Falha em inicializar driver de dispositivo de entrada
+
+Settings: Configurações
+  Video: Vídeo
+    ColorAdjustment: Ajuste de Cor
+      Saturation: Saturação:
+      Gamma: Gama:
+      Luminance: Luminância:
+    OverscanMask: Máscara de Tela
+      Horizontal: Horizontal:
+      Vertical: Vertical:
+    WindowedMode: Modo Janela
+    FullscreenMode: Modo em Tela Cheia
+    AspectCorrection: Correção de aspecto
+    IntegralScaling: Escala Integral
+    AdaptiveSizing: Dimensionamento adaptável
+    ExclusiveMode: Modo exlusivo
+  Audio: Áudio
+    Driver: Driver
+      Device: Dispositivo:
+      Frequency: Frequência:
+      Latency: Latência:
+      ExclusiveMode: Modo exclusivo
+    Effects: Efeitos
+      Volume: Volume:
+      Balance: Balanço:
+      Reverb: Ressonância
+  Input: Comandos de Controle
+    WhenFocusIsLost: Quando o Foco é Perdido:
+      PauseEmulation: Pausar Emulação
+      AllowInput: Permitir dispositivo
+    Name: Nome
+    Mapping: Assimilações
+    MouseXAxis: Mouse X-axis
+    MouseYAxis: Mouse Y-axis
+    MouseLeft: Mouse Esquerdo
+    MouseMiddle: Mouse Centro
+    MouseRight: Mouse Direito
+    Reset: Redefinir
+    Erase: Apagar
+    PressKey: Pressione um tecla ou botão para assimilar [%s] ...
+    MappingAssigned: Assimilamento completo.
+    ResetConfirmation: Você está certo disso?
+      Yes: Sim
+      No: Não
+  Hotkeys: Teclas de Atalho
+    Name: Nome
+    Mapping: Assimilações
+    ToggleLogic: Alternar AND/OR
+    Reset: Redefinir
+    Erase: Apagar
+    PressKey: Pressione um tecla ou botão para assimilar [%s] ...
+    MappingAssigned: Assimilamento completo.
+    ResetConfirmation: Você está certo disso?
+      Yes: Sim
+      No: Não
+  Advanced: Avançado
+    DriverSelection: Seleção de Driver
+      Video: Vídeo:
+      Audio: Áudio:
+      Entrada: Input:
+    GameLibrary: Biblioteca de Jogos
+      Location: Local:
+      Change...: Alterar ...
+      IgnoreManifests: Ignorar arquivos BML avulsos
+      RecentList: Altivar lista de jogos recentes
+
+Tools: Ferramentas
+  CheatDatabase
+    SelectAll: Selecionar Todos
+    UnselectAll: Desmarcar Todos
+    AddCodes: Adicionar Códigos
+  CheatEditor: Editor de Trapaças
+    Table
+      Slot: Entrada
+      Codes: Códigos(s)
+      Description: Descrição
+    Edit
+      Codes: Códigos(s):
+      Description: Descrição:
+    FindCodes...: Encontrar Códigos ...
+    Reset: Redefinir
+    Erase: Apagar
+  StateManager: Gerenciador de States
+    Table
+      Slot: Entrada
+      Description: Descrição
+    Edit
+      Description: Descrição:
+    Save: Salvar
+    Load: Carregar
+    Reset: Redefinir
+    Erase: Apagar
+  ManifestViewer: Visualizador de Mapeamento

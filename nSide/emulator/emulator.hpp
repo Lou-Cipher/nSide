@@ -24,7 +24,7 @@ namespace Emulator {
     "Andreas Naive (S-DD1 decompression algorithm)",
     //"Ange Albertini (higan logo)",  //not used in nSide
     "AWJ (Super Famicom PPUcounter NTSC/PAL timing, MMC5 CHR banking)",
-    "Benjamin Siskoo (Français Locale)",
+    "Benjamin Siskoo (Locale for Français)",
     "Bisqwit (Famicom PPU color generation for NTSC systems)",
     "blargg (Famicom testing, Super Famicom MUL/DIV and Balanced DSP)",
     "Cydrak (ST-018 discoveries and bug fixes, Game Boy Advance emulation, Mega Drive sound)",
@@ -47,6 +47,7 @@ namespace Emulator {
     "Matthew Callis",
     "MerryMage (nall: elliptic curve cryptography)"
     "Nach (libco: setjmp jmpbuf support)",
+    "NTI Productions (Locale for Português do Brasil)"
     "OV2 (ruby: XAudio2 support)"
     "Overload (Cx4 data ROM dump)",
     "p4plus2 (Super Famicom CPU MDR tests)",

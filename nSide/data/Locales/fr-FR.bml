@@ -25,7 +25,7 @@ System: Système
     SwanCrystal: SwanCrystal
 
 Menu
-  Recent: Récent
+  Recent: Récents
   Library: Bibliothèque
     LoadROMFile...: Charge un fichier ROM ...
     ImportROMFiles...: Importer les fichiers ROM ...
