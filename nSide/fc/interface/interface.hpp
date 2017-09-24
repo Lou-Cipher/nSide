@@ -74,7 +74,7 @@ struct Interface : Emulator::Interface {
 struct FamicomInterface : Interface {
   FamicomInterface();
 
-  auto videoResolution() -> VideoResolution override;
+  auto videoInformation() -> VideoInformation override;
   auto videoColors() -> uint32 override;
   auto videoColor(uint32 color) -> uint64 override;
 
@@ -86,7 +86,7 @@ struct FamicomInterface : Interface {
 struct VSSystemInterface : Interface {
   VSSystemInterface();
 
-  auto videoResolution() -> VideoResolution override;
+  auto videoInformation() -> VideoInformation override;
   auto videoColors() -> uint32 override;
   auto videoColor(uint32 color) -> uint64 override;
 
@@ -96,7 +96,7 @@ struct VSSystemInterface : Interface {
 struct PlayChoice10Interface : Interface {
   PlayChoice10Interface();
 
-  auto videoResolution() -> VideoResolution override;
+  auto videoInformation() -> VideoInformation override;
   auto videoColors() -> uint32 override;
   auto videoColor(uint32 color) -> uint64 override;
 
@@ -108,7 +108,7 @@ struct PlayChoice10Interface : Interface {
 struct FamicomBoxInterface : Interface {
   FamicomBoxInterface();
 
-  auto videoResolution() -> VideoResolution override;
+  auto videoInformation() -> VideoInformation override;
   auto videoColors() -> uint32 override;
   auto videoColor(uint32 color) -> uint64 override;
 

@@ -152,7 +152,10 @@ Settings: Paramètres
       Location: Localisation :
       Change...: Changee ...
       IgnoreManifests: Ignorer les Manifestes
-      RecentList: Activer la liste des jeux récents
+    RecentList: Activer la liste des jeux récents
+      Clear: Attention ! Cela effacera votre histoire de jeux récents ! Es-tu sûr de vouloir faire ça ?
+        Yes: Oui
+        No: Non
 
 Tools: Outils
   CheatDatabase: Base de donnée de triche

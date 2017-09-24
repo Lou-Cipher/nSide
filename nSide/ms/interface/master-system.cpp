@@ -36,12 +36,20 @@ MasterSystemInterface::MasterSystemInterface() {
   ports.append(move(hardware));
 }
 
-auto MasterSystemInterface::videoResolution() -> VideoResolution {
+auto MasterSystemInterface::videoInformation() -> VideoInformation {
   double squarePixelRate = system.region() == System::Region::NTSC
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.colorburst() * 3.0 / 2.0);
-  return {256, 240, 256, 240, pixelAspectRatio};
+  
+  VideoInformation vi;
+  vi.width  = 256;
+  vi.height = 240;
+  vi.internalWidth  = 256;
+  vi.internalHeight = 240;
+  vi.aspectCorrection = squarePixelRate / (system.colorburst() * 15.0 / 10.0);
+  if(Region::NTSC()) vi.refreshRate = (system.colorburst() * 15.0 / 5.0) / (262.0 * 684.0);
+  if(Region::PAL())  vi.refreshRate = (system.colorburst() * 15.0 / 5.0) / (313.0 * 684.0);
+  return vi;
 }
 
 auto MasterSystemInterface::videoColors() -> uint32 {

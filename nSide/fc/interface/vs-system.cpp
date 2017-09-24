@@ -43,16 +43,17 @@ VSSystemInterface::VSSystemInterface() {
   ports.append(move(hardware));
 }
 
-auto VSSystemInterface::videoResolution() -> VideoResolution {
-  uint width = 256;
-  uint height = 240 / vssystem.gameCount;
-  uint internalWidth = 256 * vssystem.gameCount;
-  uint internalHeight = 240;
-
+auto VSSystemInterface::videoInformation() -> VideoInformation {
   double squarePixelRate = 135.0 / 22.0 * 1'000'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.frequency() / ppuS.rate());
 
-  return {width, height, internalWidth, internalHeight, pixelAspectRatio};
+  VideoInformation vi;
+  vi.width  = 256;
+  vi.height = 240 / vssystem.gameCount;
+  vi.internalWidth  = 256 * vssystem.gameCount;
+  vi.internalHeight = 240;
+  vi.aspectCorrection = squarePixelRate / (system.frequency() / ppuS.rate());
+  vi.refreshRate = system.frequency() / (ppuS.vlines() * ppuS.rate() * 341.0);
+  return vi;
 }
 
 auto VSSystemInterface::videoColors() -> uint32 {

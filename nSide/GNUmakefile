@@ -1,6 +1,7 @@
-build := release
+build := optimize
 include ../nall/GNUmakefile
 
+binary := application
 target := nSide-t
 objects := libco emulator audio video resource
 # console := true
@@ -13,16 +14,30 @@ ifeq ($(platform),windows)
   else
     link += -mwindows
   endif
-  link += -mthreads -lpthread -luuid -lkernel32 -luser32 -lgdi32 -lcomctl32 -lcomdlg32 -lshell32
-  link += -Wl,-enable-auto-import
-  link += -Wl,-enable-runtime-pseudo-reloc
-else ifeq ($(platform),macosx)
-  flags += -march=native
+  ifeq ($(binary),application)
+    link += -mthreads -lpthread -luuid -lkernel32 -luser32 -lgdi32 -lcomctl32 -lcomdlg32 -lshell32
+    link += -Wl,-enable-auto-import
+    link += -Wl,-enable-runtime-pseudo-reloc
+  else ifeq ($(binary),library)
+    link += -shared
+  endif
+else ifeq ($(platform),macos)
+  ifeq ($(binary),application)
+  else ifeq ($(binary),library)
+    flags += -fPIC
+    link += -dynamiclib
+  endif
 else ifneq ($(filter $(platform),linux bsd),)
-  flags += -march=native -fopenmp
+  flags += -fopenmp
   link += -fopenmp
-  link += -Wl,-export-dynamic
-  link += -lX11 -lXext
+  ifeq ($(binary),application)
+    flags += -march=native
+    link += -Wl,-export-dynamic
+    link += -lX11 -lXext
+  else ifeq ($(binary),library)
+    flags += -fPIC
+    link += -shared
+  endif
 else
   $(error "unsupported platform")
 endif

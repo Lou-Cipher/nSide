@@ -110,10 +110,17 @@ FamicomBoxInterface::FamicomBoxInterface() {
   ports.append(move(hardware));
 }
 
-auto FamicomBoxInterface::videoResolution() -> VideoResolution {
+auto FamicomBoxInterface::videoInformation() -> VideoInformation {
   double squarePixelRate = 135.0 / 22.0 * 1'000'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.frequency() / ppuM.rate());
-  return {256, 240, 256, 240, pixelAspectRatio};
+
+  VideoInformation vi;
+  vi.width  = 256;
+  vi.height = 240;
+  vi.internalWidth  = 256;
+  vi.internalHeight = 240;
+  vi.aspectCorrection = squarePixelRate / (system.frequency() / ppuM.rate());
+  vi.refreshRate = system.frequency() / (ppuM.vlines() * ppuM.rate() * 341.0);
+  return vi;
 }
 
 auto FamicomBoxInterface::videoColors() -> uint32 {

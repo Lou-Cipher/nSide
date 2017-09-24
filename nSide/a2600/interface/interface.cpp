@@ -52,12 +52,20 @@ auto Interface::title() -> string {
   return cartridge.title();
 }
 
-auto Interface::videoResolution() -> VideoResolution {
+auto Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = Atari2600::Region::NTSC()
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  double pixelAspectRatio = squarePixelRate / system.frequency();
-  return {160, 228, 160, 228, pixelAspectRatio};
+  uint assumedVLines = Atari2600::Region::NTSC() ? 262 * 312;
+
+  VideoInformation vi;
+  vi.width  = 160;
+  vi.height = 228;
+  vi.internalWidth  = 160;
+  vi.internalHeight = 228;
+  vi.aspectCorrection = squarePixelRate / system.frequency();
+  vi.refreshRate = system.frequency() / (assumedVLines * 228.0);
+  return vi;
 }
 
 auto Interface::videoColors() -> uint32 {

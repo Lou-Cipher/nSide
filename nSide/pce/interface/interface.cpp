@@ -53,11 +53,18 @@ auto Interface::title() -> string {
   return cartridge.title();
 }
 
-auto Interface::videoResolution() -> VideoResolution {
+auto Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = 135.0 / 22.0 * 1'000'000.0;
   double pixelAspectRatio = squarePixelRate / (system.colorburst() * 6.0 / 4.0);
-  pixelAspectRatio = round(pixelAspectRatio * 7.0) / 7.0;
-  return {280, 240, 1120, 240, pixelAspectRatio};
+
+  VideoInformation vi;
+  vi.width  = 280;
+  vi.height = 240;
+  vi.internalWidth  = 1120;
+  vi.internalHeight =  240;
+  vi.aspectCorrection = round(pixelAspectRatio * 7.0) / 7.0;
+  vi.refreshRate = (system.colorburst() * 6.0) / (262.0 * 1365.0);
+  return vi;
 }
 
 auto Interface::videoColors() -> uint32 {

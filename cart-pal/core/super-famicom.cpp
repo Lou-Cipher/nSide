@@ -24,7 +24,7 @@ auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location, str
   }
 
   if(settings["cart-pal/UseHeuristics"].boolean() && !markup) {
-    bool hasMSU1 = file::exists({location, "msu1.rom"});
+    bool hasMSU1 = exists({location, "msu1.rom"});
     SuperFamicomCartridge cartridge{buffer.data(), buffer.size(), hasMSU1};
     if(markup = cartridge.markup) {
       if(firmwareMissing) *firmwareMissing = cartridge.firmware_missing;
@@ -49,7 +49,6 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
   auto name = Location::prefix(location);
   auto source = Location::path(location);
   string target{settings["Library/Location"].text(), "Super Famicom/", name, ".sfc/"};
-//if(directory::exists(target)) return failure("game already exists");
 
   string firmwareMissing;
   auto markup = superFamicomManifest(buffer, location, &firmwareMissing);
@@ -57,12 +56,12 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
 
   if(firmwareMissing) return failure({"ROM image is missing ", firmwareMissing, " firmware data"});
 
-  if(!directory::create(target)) return failure("library path unwritable");
-  if(file::exists({source, name, ".srm"}) && !file::exists({target, "save.ram"})) {
-    file::copy({source, name, ".srm"}, {target, "save.ram"});
+  if(!create(target)) return failure("library path unwritable");
+  if(exists({source, name, ".srm"}) && !exists({target, "save.ram"})) {
+    copy({source, name, ".srm"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) file::write({target, "manifest.bml"}, markup);
+  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, markup);
   uint offset = (buffer.size() & 0x7fff) == 512 ? 512 : 0;  //skip header if present
   auto document = BML::unserialize(markup);
   vector<Markup::Node> roms;
@@ -71,7 +70,7 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
     auto name = rom["name"].text();
     auto size = rom["size"].natural();
     if(size > buffer.size() - offset) return failure("ROM image is missing data");
-    file::write({target, name}, buffer.data() + offset, size);
+    write({target, name}, buffer.data() + offset, size);
     offset += size;
   }
   return success(target);

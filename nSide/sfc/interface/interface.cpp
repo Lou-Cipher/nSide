@@ -126,12 +126,20 @@ auto Interface::title() -> string {
   return cartridge.title();
 }
 
-auto Interface::videoResolution() -> VideoResolution {
+auto Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = system.region() == System::Region::NTSC
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.cpuFrequency() / (2.0 + 2.0));
-  return {256, 240, 512, 480, pixelAspectRatio};
+
+  VideoInformation vi;
+  vi.width  = 256;
+  vi.height = 240;
+  vi.internalWidth  = 512;
+  vi.internalHeight = 480;
+  vi.aspectCorrection = squarePixelRate / (system.cpuFrequency() / (2.0 + 2.0));
+  if(Region::NTSC()) vi.refreshRate = system.cpuFrequency() / (262.0 * 1364.0);
+  if(Region::PAL())  vi.refreshRate = system.cpuFrequency() / (312.0 * 1364.0);
+  return vi;
 }
 
 auto Interface::videoColors() -> uint32 {

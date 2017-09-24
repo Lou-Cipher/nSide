@@ -56,7 +56,6 @@ auto CartPal::vsSystemImport(vector<uint8_t>& buffer, string location) -> string
   auto name = Location::prefix(location);
   auto source = Location::path(location);
   string target{settings["Library/Location"].text(), "VS. System/", name, ".vs/"};
-//if(directory::exists(target)) return failure("game already exists");
 
   uint prgrom = 0;
   uint chrrom = 0;
@@ -69,17 +68,17 @@ auto CartPal::vsSystemImport(vector<uint8_t>& buffer, string location) -> string
   vsSystemManifestScan(roms, document.find("side[0]")(0));
   vsSystemManifestScan(roms, document.find("side[1]")(0));
 
-  if(!directory::create(target)) return failure("library path unwritable");
-  if(file::exists({source, name, ".sav"}) && !file::exists({target, "save.ram"})) {
-    file::copy({source, name, ".sav"}, {target, "save.ram"});
+  if(!create(target)) return failure("library path unwritable");
+  if(exists({source, name, ".sav"}) && !exists({target, "save.ram"})) {
+    copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) file::write({target, "manifest.bml"}, manifest);
+  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   for(auto rom : roms) {
     auto name = rom["name"].text();
     auto size = rom["size"].natural();
     if(size > buffer.size() - offset) return failure("ROM image is missing data");
-    file::write({target, name}, buffer.data() + offset, size);
+    write({target, name}, buffer.data() + offset, size);
     offset += size;
   }
   return success(target);

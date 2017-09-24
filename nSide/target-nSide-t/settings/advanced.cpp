@@ -55,6 +55,19 @@ AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
     settings["Library/IgnoreManifests"].setValue(ignoreManifests.checked());
   });
   recentList.setChecked(settings["Library/RecentList"].boolean()).onToggle([&] {
+    if(!recentList.checked()) {
+      string prompt = locale["Settings/Advanced/RecentList/Clear"];
+      string yes = locale["Settings/Advanced/RecentList/Clear/Yes"];
+      string no = locale["Settings/Advanced/RecentList/Clear/No"];
+      if(MessageDialog(prompt).setParent(*settingsManager).question({yes, no}) == yes) {
+        for(uint index : range(10)) {
+          settings[{"Recent/", index, "/Title"}].setValue("");
+          settings[{"Recent/", index, "/Path"}].setValue("");
+        }
+      } else {
+        recentList.setChecked(true);
+      }
+    }
     settings["Library/RecentList"].setValue(recentList.checked());
     presentation->updateRecentList();
   });
@@ -74,5 +87,5 @@ auto AdvancedSettings::refreshLocale() -> void {
   libraryPrefix.setText(locale["Settings/Advanced/GameLibrary/Location"]);
   libraryChange.setText(locale["Settings/Advanced/GameLibrary/Change..."]);
   ignoreManifests.setText(locale["Settings/Advanced/GameLibrary/IgnoreManifests"]);
-  recentList.setText(locale["Settings/Advanced/GameLibrary/RecentList"]);
+  recentList.setText(locale["Settings/Advanced/RecentList"]);
 }

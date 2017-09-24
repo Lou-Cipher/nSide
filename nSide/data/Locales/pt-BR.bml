@@ -152,7 +152,10 @@ Settings: Configurações
       Location: Local:
       Change...: Alterar ...
       IgnoreManifests: Ignorar arquivos BML avulsos
-      RecentList: Altivar lista de jogos recentes
+    RecentList: Altivar lista de jogos recentes
+      Clear: Atenção! Isso irá limpar seu histórico de jogos recentes! Você está certo disso?
+        Yes: Sim
+        No: Não
 
 Tools: Ferramentas
   CheatDatabase

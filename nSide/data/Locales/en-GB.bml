@@ -151,7 +151,10 @@ Settings: Settings
       Location: Location:
       Change...: Change ...
       IgnoreManifests: Ignore Manifests
-      RecentList: Enable Recent Games List
+    RecentList: Enable Recent Games List
+      Clear: Warning! This will clear your Recent Games history! Are you sure you want to do this?
+        Yes: Yes
+        No: No
 
 Tools: Tools
   CheatDatabase

@@ -56,8 +56,10 @@ Settings settings;
 #include "core/famicombox.cpp"
 #include "core/bs-memory.cpp"
 #include "core/sufami-turbo.cpp"
-CartPal cart_pal;
 
+#if !defined(ICARUS_LIBRARY)
+
+CartPal cart_pal;
 #include "ui/ui.hpp"
 #include "ui/scan-dialog.cpp"
 #include "ui/settings-dialog.cpp"
@@ -141,3 +143,5 @@ auto nall::main(string_vector args) -> void {
   scanDialog->show();
   Application::run();
 }
+
+#endif

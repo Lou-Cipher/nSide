@@ -35,12 +35,20 @@ SG1000Interface::SG1000Interface() {
   ports.append(move(hardware));
 }
 
-auto SG1000Interface::videoResolution() -> VideoResolution {
+auto SG1000Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = system.region() == System::Region::NTSC
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.colorburst() * 3.0 / 2.0);
-  return {256, 192, 256, 192, pixelAspectRatio};
+  
+  VideoInformation vi;
+  vi.width  = 256;
+  vi.height = 192;
+  vi.internalWidth  = 256;
+  vi.internalHeight = 192;
+  vi.aspectCorrection = squarePixelRate / (system.colorburst() * 15.0 / 10.0);
+  if(Region::NTSC()) vi.refreshRate = (system.colorburst() * 15.0 / 5.0) / (262.0 * 684.0);
+  if(Region::PAL())  vi.refreshRate = (system.colorburst() * 15.0 / 5.0) / (313.0 * 684.0);
+  return vi;
 }
 
 auto SG1000Interface::videoColors() -> uint32 {

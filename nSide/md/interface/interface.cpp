@@ -123,12 +123,19 @@ auto Interface::title() -> string {
   return cartridge.title();
 }
 
-auto Interface::videoResolution() -> VideoResolution {
+auto Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = !MegaDrive::Region::PAL()
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.frequency() / 8.0);
-  return {320, 240, 1280, 480, pixelAspectRatio};
+
+  VideoInformation vi;
+  vi.width  = 320;
+  vi.height = 240;
+  vi.internalWidth  = 1280;
+  vi.internalHeight =  480;
+  vi.aspectCorrection = squarePixelRate / (system.frequency() / 8.0);
+  vi.refreshRate = (system.frequency() / 2.0) / (vdp.frameHeight() * 1710.0);
+  return vi;
 }
 
 auto Interface::videoColors() -> uint32 {

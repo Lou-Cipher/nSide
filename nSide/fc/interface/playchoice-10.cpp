@@ -49,16 +49,17 @@ PlayChoice10Interface::PlayChoice10Interface() {
   ports.append(move(hardware));
 }
 
-auto PlayChoice10Interface::videoResolution() -> VideoResolution {
-  uint width = 256 / playchoice10.screenConfig;
-  uint height = playchoice10.screenConfig == PlayChoice10::ScreenConfig::Dual ? (240 + 224) / 2 : 240;
-  uint internalWidth = 256;
-  uint internalHeight = 240 + 224 * (playchoice10.screenConfig - 1);
-
+auto PlayChoice10Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = 135.0 / 22.0 * 1'000'000.0;
-  double pixelAspectRatio = squarePixelRate / (system.frequency() / ppuM.rate());
 
-  return {width, height, internalWidth, internalHeight, pixelAspectRatio};
+  VideoInformation vi;
+  vi.width  = 256 / playchoice10.screenConfig;
+  vi.height = playchoice10.screenConfig == PlayChoice10::ScreenConfig::Dual ? (240 + 224) / 2 : 240;
+  vi.internalWidth  = 256;
+  vi.internalHeight = 240 + 224 * (playchoice10.screenConfig - 1);
+  vi.aspectCorrection = squarePixelRate / (system.frequency() / ppuM.rate());
+  vi.refreshRate = system.frequency() / (ppuM.vlines() * ppuM.rate() * 341.0);
+  return vi;
 }
 
 auto PlayChoice10Interface::videoColors() -> uint32 {
