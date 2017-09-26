@@ -7,7 +7,7 @@ auto CartPal::atari2600Manifest(string location) -> string {
 auto CartPal::atari2600Manifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
     for(auto node : database.atari2600) {
       if(node["sha256"].text() == digest) {
@@ -17,7 +17,7 @@ auto CartPal::atari2600Manifest(vector<uint8_t>& buffer, string location) -> str
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     Atari2600Cartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -38,7 +38,7 @@ auto CartPal::atari2600Import(vector<uint8_t>& buffer, string location) -> strin
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

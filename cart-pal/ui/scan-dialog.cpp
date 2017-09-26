@@ -5,7 +5,7 @@ ScanDialog::ScanDialog() {
   layout.setMargin(5);
   pathEdit.onActivate([&] { refresh(); });
   refreshButton.setIcon(Icon::Action::Refresh).setBordered(false).onActivate([&] {
-    pathEdit.setText(settings["cart-pal/Path"].text());
+    pathEdit.setText(settings["icarus/Path"].text());
     refresh();
   });
   homeButton.setIcon(Icon::Go::Home).setBordered(false).onActivate([&] {
@@ -13,7 +13,7 @@ ScanDialog::ScanDialog() {
     refresh();
   });
   upButton.setIcon(Icon::Go::Up).setBordered(false).onActivate([&] {
-    pathEdit.setText(Location::dir(settings["cart-pal/Path"].text()));
+    pathEdit.setText(Location::dir(settings["icarus/Path"].text()));
     refresh();
   });
   scanList.onActivate([&] { activate(); });
@@ -41,7 +41,7 @@ ScanDialog::ScanDialog() {
 
 auto ScanDialog::show() -> void {
   setVisible();
-  pathEdit.setText(settings["cart-pal/Path"].text());
+  pathEdit.setText(settings["icarus/Path"].text());
   refresh();
 }
 
@@ -51,7 +51,7 @@ auto ScanDialog::refresh() -> void {
   auto pathname = pathEdit.text().transform("\\", "/");
   if((pathname || Path::root() == "/") && !pathname.endsWith("/")) pathname.append("/");
 
-  settings["cart-pal/Path"].setValue(pathname);
+  settings["icarus/Path"].setValue(pathname);
   pathEdit.setText(pathname);
   auto contents = directory::icontents(pathname);
 
@@ -73,7 +73,7 @@ auto ScanDialog::refresh() -> void {
 
 auto ScanDialog::activate() -> void {
   if(auto item = scanList.selected()) {
-    string location{settings["cart-pal/Path"].text(), item.text()};
+    string location{settings["icarus/Path"].text(), item.text()};
     if(!gamePakType(Location::suffix(location))) {
       pathEdit.setText(location);
       refresh();
@@ -85,7 +85,7 @@ auto ScanDialog::import() -> void {
   string_vector filenames;
   for(auto& item : scanList.items()) {
     if(item.checked()) {
-      filenames.append(string{settings["cart-pal/Path"].text(), item.text()});
+      filenames.append(string{settings["icarus/Path"].text(), item.text()});
     }
   }
 

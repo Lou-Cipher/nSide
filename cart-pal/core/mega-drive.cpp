@@ -8,7 +8,7 @@ auto CartPal::megaDriveManifest(string location) -> string {
 auto CartPal::megaDriveManifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
     for(auto node : database.megaDrive) {
       if(node["sha256"].text() == digest) {
@@ -18,7 +18,7 @@ auto CartPal::megaDriveManifest(vector<uint8_t>& buffer, string location) -> str
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     MegaDriveCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -39,7 +39,7 @@ auto CartPal::megaDriveImport(vector<uint8_t>& buffer, string location) -> strin
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

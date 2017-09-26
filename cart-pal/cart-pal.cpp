@@ -7,14 +7,15 @@ using namespace hiro;
 using uint8 = Natural<8>;
 
 auto locate(string name) -> string {
+  //Use icarus's paths, as cart-pal has no differences in configuration settings
   string location = {Path::program(), name};
   if(inode::exists(location)) return location;
 
-  location = {Path::config(), "cart-pal/", name};
+  location = {Path::config(), "icarus/", name};
   if(inode::exists(location)) return location;
 
-  directory::create({Path::local(), "cart-pal/"});
-  return {Path::local(), "cart-pal/", name};
+  directory::create({Path::local(), "icarus/"});
+  return {Path::local(), "icarus/", name};
 }
 
 #include "settings.cpp"
@@ -88,7 +89,7 @@ auto nall::main(string_vector args) -> void {
   if(args.size() == 2 && args[1] == "--import") {
     if(string source = BrowserDialog()
     .setTitle("Load ROM Image")
-    .setPath(settings["cart-pal/Path"].text())
+    .setPath(settings["icarus/Path"].text())
     .setFilters("ROM Files|"
       "*.a26:"
       "*.fc:*.nes:"
@@ -112,7 +113,7 @@ auto nall::main(string_vector args) -> void {
       "*.zip"
     ).openFile()) {
       if(string target = cart_pal.import(source)) {
-        settings["cart-pal/Path"].setValue(Location::path(source));
+        settings["icarus/Path"].setValue(Location::path(source));
         return print(target, "\n");
       }
     }

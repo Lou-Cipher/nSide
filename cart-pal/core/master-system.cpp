@@ -7,7 +7,7 @@ auto CartPal::masterSystemManifest(string location) -> string {
 auto CartPal::masterSystemManifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
     for(auto node : database.masterSystem) {
       if(node["sha256"].text() == digest) {
@@ -17,7 +17,7 @@ auto CartPal::masterSystemManifest(vector<uint8_t>& buffer, string location) -> 
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     MasterSystemCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -38,7 +38,7 @@ auto CartPal::masterSystemImport(vector<uint8_t>& buffer, string location) -> st
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

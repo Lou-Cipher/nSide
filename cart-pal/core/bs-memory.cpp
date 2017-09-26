@@ -8,7 +8,7 @@ auto CartPal::bsMemoryManifest(vector<uint8_t>& buffer, string location) -> stri
   string markup;
   string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !markup) {
+  if(settings["icarus/UseDatabase"].boolean() && !markup) {
     for(auto node : database.bsMemory) {
       if(node["sha256"].text() == digest) {
         markup.append(node.text(), "\n  sha256:   ", digest, "\n");
@@ -17,7 +17,7 @@ auto CartPal::bsMemoryManifest(vector<uint8_t>& buffer, string location) -> stri
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !markup) {
+  if(settings["icarus/UseHeuristics"].boolean() && !markup) {
     BSMemoryCartridge cartridge{buffer.data(), buffer.size()};
     if(markup = cartridge.markup) {
       markup.append("\n");
@@ -41,7 +41,7 @@ auto CartPal::bsMemoryImport(vector<uint8_t>& buffer, string location) -> string
 
   if(!create(target)) return failure("library path unwritable");
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

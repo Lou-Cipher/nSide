@@ -14,7 +14,7 @@ auto CartPal::famicomManifest(vector<uint8_t>& buffer, string location, uint* pr
   || buffer.data()[2] != 'S'
   || buffer.data()[3] !=  26) offset = 0;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data() + offset, buffer.size() - offset).digest();
     for(auto node : database.famicom) {
       if(node["sha256"].text() == digest) {
@@ -24,7 +24,7 @@ auto CartPal::famicomManifest(vector<uint8_t>& buffer, string location, uint* pr
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     FamicomCartridge cartridge{location, (uint8*)buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -75,7 +75,7 @@ auto CartPal::famicomImport(vector<uint8_t>& buffer, string location) -> string 
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   for(auto rom : roms) {
     auto name = rom["name"].text();
     auto size = rom["size"].natural();

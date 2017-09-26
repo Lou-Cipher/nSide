@@ -14,7 +14,7 @@ auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location, str
   string markup;
   string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !markup) {
+  if(settings["icarus/UseDatabase"].boolean() && !markup) {
     for(auto node : database.superFamicom) {
       if(node["sha256"].text() == digest) {
         markup.append(node.text(), "\n  sha256:   ", digest, "\n");
@@ -23,7 +23,7 @@ auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location, str
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !markup) {
+  if(settings["icarus/UseHeuristics"].boolean() && !markup) {
     bool hasMSU1 = exists({location, "msu1.rom"});
     SuperFamicomCartridge cartridge{buffer.data(), buffer.size(), hasMSU1};
     if(markup = cartridge.markup) {
@@ -61,7 +61,7 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
     copy({source, name, ".srm"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, markup);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, markup);
   uint offset = (buffer.size() & 0x7fff) == 512 ? 512 : 0;  //skip header if present
   auto document = BML::unserialize(markup);
   vector<Markup::Node> roms;

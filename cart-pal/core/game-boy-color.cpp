@@ -8,7 +8,7 @@ auto CartPal::gameBoyColorManifest(vector<uint8_t>& buffer, string location) -> 
   string markup;
   string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !markup) {
+  if(settings["icarus/UseDatabase"].boolean() && !markup) {
     for(auto node : database.gameBoyColor) {
       if(node["sha256"].text() == digest) {
         markup.append(node.text(), "\n  sha256:   ", digest, "\n");
@@ -17,7 +17,7 @@ auto CartPal::gameBoyColorManifest(vector<uint8_t>& buffer, string location) -> 
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !markup) {
+  if(settings["icarus/UseHeuristics"].boolean() && !markup) {
     GameBoyCartridge cartridge{buffer.data(), buffer.size()};
     if(markup = cartridge.markup) {
       markup.append("\n");
@@ -44,7 +44,7 @@ auto CartPal::gameBoyColorImport(vector<uint8_t>& buffer, string location) -> st
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, markup);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, markup);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

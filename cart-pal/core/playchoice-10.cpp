@@ -19,7 +19,7 @@ auto CartPal::playchoice10Manifest(vector<uint8_t>& buffer, string location,
   || buffer.data()[2] != 'S'
   || buffer.data()[3] !=  26) offset = 0;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     //PlayChoice-10 ROMs in iNES format store 16 bytes for the key,
     //and 16 more bytes for Counter Out.
     //However, only 9 key bytes actually exist in the cartridge.
@@ -35,7 +35,7 @@ auto CartPal::playchoice10Manifest(vector<uint8_t>& buffer, string location,
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     FamicomCartridge cartridge{location, (uint8*)buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -83,7 +83,7 @@ auto CartPal::playchoice10Import(vector<uint8_t>& buffer, string location) -> st
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   for(auto rom : roms) {
     auto name = rom["name"].text();
     auto size = rom["size"].natural();

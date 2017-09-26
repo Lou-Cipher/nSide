@@ -11,12 +11,12 @@ SettingsDialog::SettingsDialog() {
     }
   });
   createManifestsOption.setText("Create Manifests (not recommended; breaks backward-compatibility)")
-  .setChecked(settings["cart-pal/CreateManifests"].boolean()).onToggle([&] {
-    settings["cart-pal/CreateManifests"].setValue(createManifestsOption.checked());
+  .setChecked(settings["icarus/CreateManifests"].boolean()).onToggle([&] {
+    settings["icarus/CreateManifests"].setValue(createManifestsOption.checked());
   });
   useDatabaseOption.setText("Use Database (highly recommended; provides bit-perfect memory mapping)")
-  .setChecked(settings["cart-pal/UseDatabase"].boolean()).onToggle([&] {
-    settings["cart-pal/UseDatabase"].setValue(useDatabaseOption.checked());
+  .setChecked(settings["icarus/UseDatabase"].boolean()).onToggle([&] {
+    settings["icarus/UseDatabase"].setValue(useDatabaseOption.checked());
   });
 
   setTitle("Settings");

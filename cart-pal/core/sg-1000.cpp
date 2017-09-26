@@ -7,7 +7,7 @@ auto CartPal::sg1000Manifest(string location) -> string {
 auto CartPal::sg1000Manifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
     for(auto node : database.sg1000) {
       if(node["sha256"].text() == digest) {
@@ -17,7 +17,7 @@ auto CartPal::sg1000Manifest(vector<uint8_t>& buffer, string location) -> string
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     MasterSystemCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -38,7 +38,7 @@ auto CartPal::sg1000Import(vector<uint8_t>& buffer, string location) -> string {
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

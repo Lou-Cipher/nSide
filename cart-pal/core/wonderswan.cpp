@@ -7,7 +7,7 @@ auto CartPal::wonderSwanManifest(string location) -> string {
 auto CartPal::wonderSwanManifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
-  if(settings["cart-pal/UseDatabase"].boolean() && !manifest) {
+  if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
     for(auto node : database.wonderSwan) {
       if(node["sha256"].text() == digest) {
@@ -17,7 +17,7 @@ auto CartPal::wonderSwanManifest(vector<uint8_t>& buffer, string location) -> st
     }
   }
 
-  if(settings["cart-pal/UseHeuristics"].boolean() && !manifest) {
+  if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
     WonderSwanCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
@@ -38,7 +38,7 @@ auto CartPal::wonderSwanImport(vector<uint8_t>& buffer, string location) -> stri
     copy({source, name, ".sav"}, {target, "save.ram"});
   }
 
-  if(settings["cart-pal/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
+  if(settings["icarus/CreateManifests"].boolean()) write({target, "manifest.bml"}, manifest);
   write({target, "program.rom"}, buffer);
   return success(target);
 }

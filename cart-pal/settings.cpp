@@ -13,10 +13,10 @@ Settings::Settings() {
 
   set("Library/Location", {Path::user(), "Emulation/"});
 
-  set("cart-pal/Path", Path::user());
-  set("cart-pal/CreateManifests", false);
-  set("cart-pal/UseDatabase", true);
-  set("cart-pal/UseHeuristics", true);
+  set("icarus/Path", Path::user());
+  set("icarus/CreateManifests", false);
+  set("icarus/UseDatabase", true);
+  set("icarus/UseHeuristics", true);
 }
 
 Settings::~Settings() {
