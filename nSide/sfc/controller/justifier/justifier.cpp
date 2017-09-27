@@ -10,7 +10,7 @@ device(!chained ? ID::Device::Justifier : ID::Device::Justifiers)
   prev = 0;
 
   player1.sprite = Emulator::video.createSprite(32, 32);
-  player1.sprite->setPixels(Resource::Sprite::CrosshairBlue);
+  player1.sprite->setPixels(Resource::Sprite::CrosshairGreen);
   player1.x = 256 / 2;
   player1.y = 240 / 2;
   player1.trigger = false;
