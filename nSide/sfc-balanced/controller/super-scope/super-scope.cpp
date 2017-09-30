@@ -77,7 +77,10 @@ auto SuperScope::data() -> uint2 {
     bool newturbo = platform->inputPoll(port, ID::Device::SuperScope, Turbo);
     if(newturbo && !oldturbo) {
       turbo = !turbo;  //toggle state
-      sprite->setPixels(turbo ? Resource::Sprite::CrosshairTurbo : Resource::Sprite::CrosshairGreen);
+      //The turbo crosshair is not available in higan, which prevents the
+      //balanced profile from being compatible with higan's unmodified source.
+    //sprite->setPixels(turbo ? Resource::Sprite::CrosshairTurbo : Resource::Sprite::CrosshairGreen);
+      sprite->setPixels(turbo ? Resource::Sprite::CrosshairRed : Resource::Sprite::CrosshairGreen);
     }
     oldturbo = newturbo;
 
