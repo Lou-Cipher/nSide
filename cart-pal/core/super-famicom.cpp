@@ -10,7 +10,7 @@ auto CartPal::superFamicomManifest(string location) -> string {
   return superFamicomManifest(buffer, location);
 }
 
-auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location, string* firmwareMissing) -> string {
+auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location) -> string {
   string markup;
   string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
 
@@ -27,7 +27,6 @@ auto CartPal::superFamicomManifest(vector<uint8_t>& buffer, string location, str
     bool hasMSU1 = exists({location, "msu1.rom"});
     SuperFamicomCartridge cartridge{buffer.data(), buffer.size(), hasMSU1};
     if(markup = cartridge.markup) {
-      if(firmwareMissing) *firmwareMissing = cartridge.firmware_missing;
       markup.append("\n");
       markup.append("information\n");
       markup.append("  region: ", cartridge.region == SuperFamicomCartridge::Region::NTSC ? "NTSC" : "PAL", "\n");
@@ -50,11 +49,8 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
   auto source = Location::path(location);
   string target{settings["Library/Location"].text(), "Super Famicom/", name, ".sfc/"};
 
-  string firmwareMissing;
-  auto markup = superFamicomManifest(buffer, location, &firmwareMissing);
+  auto markup = superFamicomManifest(buffer, location);
   if(!markup) return failure("failed to parse ROM image");
-
-  if(firmwareMissing) return failure({"ROM image is missing ", firmwareMissing, " firmware data"});
 
   if(!create(target)) return failure("library path unwritable");
   if(exists({source, name, ".srm"}) && !exists({target, "save.ram"})) {
@@ -69,9 +65,13 @@ auto CartPal::superFamicomImport(vector<uint8_t>& buffer, string location) -> st
   for(auto rom : roms) {
     auto name = rom["name"].text();
     auto size = rom["size"].natural();
-    if(size > buffer.size() - offset) return failure("ROM image is missing data");
+    if(size > buffer.size() - offset) {
+      missingFiles.append(name);
+      continue;
+    }
     write({target, name}, buffer.data() + offset, size);
     offset += size;
   }
+  if(missingFiles) return failure({"ROM image is missing data: ", missingFiles.merge("; ")});
   return success(target);
 }

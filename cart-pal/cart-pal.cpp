@@ -124,14 +124,14 @@ auto nall::main(string_vector args) -> void {
   new SettingsDialog;
   new ImportDialog;
   new ErrorDialog;
-  #if defined(PLATFORM_MACOSX)
+  #if defined(PLATFORM_MACOS)
   Application::Cocoa::onAbout([&] {
     MessageDialog().setTitle("About cart-pal").setText({
       "cart-pal\n\n"
       "Based on icarus by byuu\n"
       "Famicom Additions Author: hex_usr\n"
       "License: GPLv3\n"
-      "icarus Website: http://byuu.org/\n"
+      "icarus Website: https://byuu.org/\n"
     }).information();
   });
   Application::Cocoa::onPreferences([&] {
