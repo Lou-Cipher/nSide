@@ -56,7 +56,7 @@ auto Interface::videoInformation() -> VideoInformation {
   double squarePixelRate = Atari2600::Region::NTSC()
   ? 135.0 / 22.0 * 1'000'000.0
   : 7'375'000.0;
-  uint assumedVLines = Atari2600::Region::NTSC() ? 262 * 312;
+  uint assumedVLines = Atari2600::Region::NTSC() ? 262 : 312;
 
   VideoInformation vi;
   vi.width  = 160;
