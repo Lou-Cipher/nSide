@@ -30,6 +30,7 @@ struct Interface : Emulator::Interface {
   auto title() -> string override;
 
   auto loaded() -> bool override;
+  auto sha256() -> string override;
   auto save() -> void override;
   auto unload() -> void override;
 

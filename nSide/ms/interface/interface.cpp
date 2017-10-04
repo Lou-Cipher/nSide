@@ -22,6 +22,10 @@ auto Interface::loaded() -> bool {
   return system.loaded();
 }
 
+auto Interface::sha256() -> string {
+  return cartridge.sha256();
+}
+
 auto Interface::save() -> void {
   system.save();
 }
