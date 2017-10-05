@@ -24,7 +24,7 @@ Presentation::Presentation() {
   Application::Windows::onModalChange([](bool modal) { if(modal && audio) audio->clear(); });
   #endif
 
-  #if defined(PLATFORM_MACOSX)
+  #if defined(PLATFORM_MACOS)
   Application::Cocoa::onActivate([&] { setFocused(); });
   Application::Cocoa::onQuit([&] { doClose(); });
   #endif

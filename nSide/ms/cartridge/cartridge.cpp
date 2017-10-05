@@ -24,7 +24,7 @@ auto Cartridge::load() -> bool {
   }
 
   if(Model::GameGear()) {
-    if(auto loaded = platform->load(ID::GameGear, "Game Gear", "gg")) {
+    if(auto loaded = platform->load(ID::GameGear, "Game Gear", "gg", {"NTSC"})) {
       information.pathID = loaded.pathID();
     } else return false;
   }

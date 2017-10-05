@@ -133,12 +133,7 @@ ConsoleWindow::ConsoleWindow() {
   console.setFont(Font().setFamily(Font::Mono));
 
   onClose([&] {
-    setVisible(false);
-    if(Intrinsics::platform() == Intrinsics::Platform::MacOSX) {
-      program->unloadMedium();
-    } else {
-      Application::quit();
-    }
+    program->quit();
   });
 
   setSize({640, 400});
