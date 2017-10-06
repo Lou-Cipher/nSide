@@ -7,7 +7,7 @@ Graphics::Graphics() {
 };
 
 auto Graphics::initialize() -> void {
-  buffer.allocate(854, 480);
+  buffer.allocate(1280, 720);
   scale = buffer.height() / 240.0;
 }
 
@@ -25,28 +25,57 @@ auto Graphics::run() -> void {
 
   if(step == 0) {
     home->updateSprites();
-  }
 
-  if(step == 1) {
     buffer.fill(theme->backgroundColor);
-  }
 
-  if(step >= 2 && step < sprites.size() + 2) {
-    auto sprite = sprites[step - 2];
-    uint x = max(0, sprite->x - sprite->ox);
-    uint y = max(0, sprite->y - sprite->oy);
-    if(x < buffer.width() && y < buffer.height()) {
-      uint rx = x - (sprite->x - sprite->ox);
-      uint ry = y - (sprite->y - sprite->oy);
-      if(rx < sprite->img->width() && ry < sprite->img->height()) {
-        uint rw = min(sprite->img->width () - rx, buffer.width () - x);
-        uint rh = min(sprite->img->height() - ry, buffer.height() - y);
-        buffer.impose(image::blend::sourceAlpha, x, y, *sprite->img, rx, ry, rw, rh);
+    for(auto sprite : sprites) {
+      uint x = max(0, sprite->x - sprite->ox);
+      uint y = max(0, sprite->y - sprite->oy);
+
+      if(buffer.alpha().mask() == 255u << 24) {
+        uint stride = buffer.stride();
+        if(x < buffer.width() && y < buffer.height()) {
+          uint rx = x - (sprite->x - sprite->ox);
+          uint ry = y - (sprite->y - sprite->oy);
+          if(rx < sprite->width() && ry < sprite->height()) {
+            uint rw = min(sprite->width () - rx, buffer.width () - x);
+            uint rh = min(sprite->height() - ry, buffer.height() - y);
+            for(uint row : range(rh)) {
+              uint32* bufOffset = (uint32*)buffer.data() + (y + row) * buffer.width() + x;
+              uint32* sprOffset = (uint32*)sprite->img->data() + (ry + row) * sprite->width() + rx;
+              for(uint column : range(rw)) {
+                if(*sprOffset >= 0xff000000) {
+                  *bufOffset = *sprOffset;
+                } else if(*sprOffset >= 0x01000000) {
+                  *bufOffset |= 0xff000000;
+                  uint8* s = (uint8*)sprOffset;
+                  uint8* d = (uint8*)bufOffset;
+                  uint8 alpha = *sprOffset >> 24;
+                  for(uint o : range(3)) {
+                    *d += ((*s - *d) * alpha) >> 8;
+                    s++;
+                    d++;
+                  }
+                }
+                bufOffset++;
+                sprOffset++;
+              }
+            }
+          }
+        }
+      } else {
+        if(x < buffer.width() && y < buffer.height()) {
+          uint rx = x - (sprite->x - sprite->ox);
+          uint ry = y - (sprite->y - sprite->oy);
+          if(rx < sprite->width() && ry < sprite->height()) {
+            uint rw = min(sprite->width () - rx, buffer.width () - x);
+            uint rh = min(sprite->height() - ry, buffer.height() - y);
+            buffer.impose(image::blend::sourceAlpha, x, y, *sprite->img, rx, ry, rw, rh);
+          }
+        }
       }
     }
-  }
 
-  if(step == sampleRate - 1) {
     auto output = (uint32*)buffer.data();
     uint width  = buffer.width();
     uint height = buffer.height();
