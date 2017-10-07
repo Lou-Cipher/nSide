@@ -4,16 +4,11 @@ include ../nall/GNUmakefile
 binary := application
 target := nSide-t
 objects := libco emulator audio video resource
-# console := true
 
 flags += -I. -I..
 
 ifeq ($(platform),windows)
-  ifeq ($(console),true)
-    link += -mconsole
-  else
-    link += -mwindows
-  endif
+  link += $(if $(call streq,$(console),true),-mconsole,-mwindows)
   ifeq ($(binary),application)
     link += -mthreads -lpthread -luuid -lkernel32 -luser32 -lgdi32 -lcomctl32 -lcomdlg32 -lshell32
     link += -Wl,-enable-auto-import

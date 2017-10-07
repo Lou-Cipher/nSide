@@ -44,13 +44,12 @@ auto Graphics::run() -> void {
               uint32* bufOffset = (uint32*)buffer.data() + (y + row) * buffer.width() + x;
               uint32* sprOffset = (uint32*)sprite->img->data() + (ry + row) * sprite->width() + rx;
               for(uint column : range(rw)) {
-                if(*sprOffset >= 0xff000000) {
+                uint8 alpha = *sprOffset >> 24;
+                if(alpha == 0xff) {
                   *bufOffset = *sprOffset;
-                } else if(*sprOffset >= 0x01000000) {
-                  *bufOffset |= 0xff000000;
+                } else if(alpha >= 0x01) {
                   uint8* s = (uint8*)sprOffset;
                   uint8* d = (uint8*)bufOffset;
-                  uint8 alpha = *sprOffset >> 24;
                   for(uint o : range(3)) {
                     *d += ((*s - *d) * alpha) >> 8;
                     s++;
