@@ -1,3 +1,32 @@
+auto InputHotkey::pollIndex() -> maybe<uint> {
+  if(!mappings) return nothing;
+
+  for(uint id : range(mappings.size())) {
+    bool result = 1;
+    for(auto& mapping : mappings[id]) {
+      auto value = mapping.device->group(mapping.group).input(mapping.input).value();
+      bool output;
+
+      if(mapping.device->isKeyboard() && mapping.group == HID::Keyboard::GroupID::Button) output = value != 0;
+      if(mapping.device->isMouse() && mapping.group == HID::Mouse::GroupID::Button) output = value != 0;
+      if(mapping.device->isJoypad() && mapping.group == HID::Joypad::GroupID::Button) output = value != 0;
+      if((mapping.device->isJoypad() && mapping.group == HID::Joypad::GroupID::Axis)
+      || (mapping.device->isJoypad() && mapping.group == HID::Joypad::GroupID::Hat)
+      || (mapping.device->isJoypad() && mapping.group == HID::Joypad::GroupID::Trigger)) {
+        if(mapping.qualifier == Qualifier::Lo) output = value < -16384;
+        if(mapping.qualifier == Qualifier::Hi) output = value > +16384;
+      }
+
+      result &= output;
+    }
+    if(result) return id;
+  }
+
+  return nothing;
+}
+
+//
+
 auto InputManager::appendHotkeys() -> void {
   static int quickStateSlot = 0;
 
@@ -37,7 +66,7 @@ auto InputManager::appendHotkeys() -> void {
     hotkey->name = "Decrement Quick State";
     hotkey->press = [&] {
       if(--quickStateSlot < 0) quickStateSlot = 9;
-      program->showMessage(locale["Status/SelectQuickstate"].replace("%d", quickStateSlot));
+      program->showMessage(locale["Status/State/Select"].replace("%d", quickStateSlot));
     };
     hotkeys.append(hotkey);
   }
@@ -46,7 +75,7 @@ auto InputManager::appendHotkeys() -> void {
     hotkey->name = "Increment Quick State";
     hotkey->press = [&] {
       if(++quickStateSlot > 9) quickStateSlot = 0;
-      program->showMessage(locale["Status/SelectQuickstate"].replace("%d", quickStateSlot));
+      program->showMessage(locale["Status/State/Select"].replace("%d", quickStateSlot));
     };
     hotkeys.append(hotkey);
   }
@@ -139,10 +168,20 @@ auto InputManager::appendHotkeys() -> void {
 auto InputManager::pollHotkeys() -> void {
   if(!program->focused() && !settings["Input/FocusLoss/AllowInput"].boolean()) return;
 
+  static InputHotkey* activeHotkey = nullptr;
+  InputHotkey* selectedHotkey = nullptr;
+  uint maxInputs = 0;
   for(auto& hotkey : hotkeys) {
-    int16 state = hotkey->poll();
-    if(hotkey->state == 0 && state == 1 && hotkey->press) hotkey->press();
-    if(hotkey->state == 1 && state == 0 && hotkey->release) hotkey->release();
-    hotkey->state = state;
+    maybe<uint> index = hotkey->pollIndex();
+    if(!index) continue;
+    if(hotkey->mappings[index()].size() > maxInputs) {
+      maxInputs = hotkey->mappings[index()].size();
+      selectedHotkey = hotkey;
+    }
+  }
+  if(activeHotkey != selectedHotkey) {
+    if(activeHotkey && activeHotkey->release) activeHotkey->release();
+    activeHotkey = selectedHotkey;
+    if(activeHotkey && activeHotkey->press) activeHotkey->press();
   }
 }

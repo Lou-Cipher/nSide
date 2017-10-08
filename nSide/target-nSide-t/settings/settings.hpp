@@ -101,7 +101,7 @@ struct InputSettings : TabFrameItem {
   auto refreshMappings() -> void;
   auto assignMapping() -> void;
   auto assignMouseInput(uint id) -> void;
-  auto inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 oldValue, int16 newValue, bool allowMouseInput = false) -> void;
+  auto inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 newValue, bool allowMouseInput = false) -> void;
 
   InputMapping* activeMapping = nullptr;
   Timer timer;
@@ -113,7 +113,9 @@ struct HotkeySettings : TabFrameItem {
   VerticalLayout layout{this};
     TableView mappingList{&layout, Size{~0, ~0}};
     HorizontalLayout controlLayout{&layout, Size{~0, 0}};
-      Button toggleLogicButton{&controlLayout, Size{100, 0}};
+      RadioLabel logicOR{&controlLayout, Size{50, 0}};
+      RadioLabel logicAND{&controlLayout, Size{50, 0}};
+      Group logicGroup{&logicOR, &logicAND};
       Widget spacer{&controlLayout, Size{~0, 0}};
       Button resetButton{&controlLayout, Size{80, 0}};
       Button eraseButton{&controlLayout, Size{80, 0}};
@@ -122,7 +124,7 @@ struct HotkeySettings : TabFrameItem {
   auto reloadMappings() -> void;
   auto refreshMappings() -> void;
   auto assignMapping() -> void;
-  auto inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 oldValue, int16 newValue) -> void;
+  auto inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 newValue) -> void;
 
   InputMapping* activeMapping = nullptr;
   Timer timer;

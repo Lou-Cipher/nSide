@@ -135,7 +135,9 @@ Settings: Paramètres
   Hotkeys: Raccourcis
     Name: Nom
     Mapping: Définir
-    ToggleLogic: Basculer sur ET/OU
+    Logic
+      and: et
+      or: ou
     Reset: Redémarrer
     Erase: Effacer
     PressKey: Pressez une touche ou un bouton pour définir [%s] ...

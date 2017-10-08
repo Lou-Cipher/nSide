@@ -7,12 +7,7 @@ HotkeySettings::HotkeySettings(TabFrame* parent) : TabFrameItem(parent) {
   mappingList.onChange([&] {
     eraseButton.setEnabled((bool)mappingList.selected());
   });
-  toggleLogicButton.onActivate([&] {
-    if(auto item = mappingList.selected()) {
-      inputManager->hotkeys[item.offset()]->toggleLogic();
-      refreshMappings();
-    }
-  });
+  logicOR.setChecked();
   resetButton.onActivate([&] {
     string prompt = locale["Settings/Hotkeys/ResetConfirmation"];
     string yes = locale["Settings/Hotkeys/ResetConfirmation/Yes"];
@@ -36,7 +31,8 @@ HotkeySettings::HotkeySettings(TabFrame* parent) : TabFrameItem(parent) {
 auto HotkeySettings::refreshLocale() -> void {
   setText(locale["Settings/Hotkeys"]);
 
-  toggleLogicButton.setText(locale["Settings/Hotkeys/ToggleLogic"]);
+  logicOR.setText(locale["Settings/Hotkeys/Logic/or"].upcase());
+  logicAND.setText(locale["Settings/Hotkeys/Logic/and"].upcase());
   resetButton.setText(locale["Settings/Hotkeys/Reset"]);
   eraseButton.setText(locale["Settings/Hotkeys/Erase"]);
 }
@@ -75,11 +71,12 @@ auto HotkeySettings::assignMapping() -> void {
   }
 }
 
-auto HotkeySettings::inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 oldValue, int16 newValue) -> void {
+auto HotkeySettings::inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 newValue) -> void {
   if(!activeMapping) return;
   if(device->isMouse()) return;
 
-  if(activeMapping->bind(device, group, input, oldValue, newValue)) {
+  auto logic = logicOR.checked() ? InputMapping::Logic::OR : InputMapping::Logic::AND;
+  if(activeMapping->bind(device, group, input, newValue, logic)) {
     activeMapping = nullptr;
     settingsManager->statusBar.setText(locale["Settings/Hotkeys/MappingAssigned"]);
     refreshMappings();

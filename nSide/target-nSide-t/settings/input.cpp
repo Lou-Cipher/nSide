@@ -144,19 +144,19 @@ auto InputSettings::assignMouseInput(uint id) -> void {
       activeMapping = &activeDevice().mappings[mapping.offset()];
 
       if(activeMapping->isDigital()) {
-        return inputEvent(mouse, HID::Mouse::GroupID::Button, id, 0, 1, true);
+        return inputEvent(mouse, HID::Mouse::GroupID::Button, id, 1, true);  //oldValue wasn't used
       } else if(activeMapping->isAnalog()) {
-        return inputEvent(mouse, HID::Mouse::GroupID::Axis, id, 0, +32767, true);
+        return inputEvent(mouse, HID::Mouse::GroupID::Axis, id, +32767, true);  //oldValue wasn't used
       }
     }
   }
 }
 
-auto InputSettings::inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 oldValue, int16 newValue, bool allowMouseInput) -> void {
+auto InputSettings::inputEvent(shared_pointer<HID::Device> device, uint group, uint input, int16 newValue, bool allowMouseInput) -> void {
   if(!activeMapping) return;
   if(device->isMouse() && !allowMouseInput) return;
 
-  if(activeMapping->bind(device, group, input, oldValue, newValue)) {
+  if(activeMapping->bind(device, group, input, newValue, InputMapping::Logic::OR)) {
     activeMapping = nullptr;
     settingsManager->statusBar.setText(locale["Settings/Input/MappingAssigned"]);
     refreshMappings();

@@ -6,44 +6,54 @@ unique_pointer<InputManager> inputManager;
 auto InputMapping::bind() -> void {
   mappings.reset();
 
-  logic = defaultLogic();
-  if(assignment.find("&")) logic = Logic::AND;
-  if(assignment.find("|")) logic = Logic::OR;
-  auto list = assignment.split(logic == Logic::AND ? "&" : "|");
-  for(auto& item : list) {
-    auto token = item.split("/");
-    if(token.size() < 3) continue;  //skip invalid mappings
+  auto andGroups = assignment.split("|");
+  for(auto& lists : andGroups) {
+    auto list = lists.split("&");
+    vector<Mapping> andGroup;
+    for(auto& item : list) {
+      item.trimLeft("!", 1L);
+      auto token = item.split("/");
+      if(token.size() < 3) continue;  //skip invalid mappings
 
-    uint64 id = token[0].natural();
-    uint group = token[1].natural();
-    uint input = token[2].natural();
-    string qualifier = token(3, "None");
+      uint64 id = token[0].natural();
+      uint group = token[1].natural();
+      uint input = token[2].natural();
+      string qualifier = token(3, "None");
 
-    Mapping mapping;
-    for(auto& device : inputManager->devices) {
-      if(id != device->id()) continue;
+      Mapping mapping;
+      for(auto& device : inputManager->devices) {
+        if(id != device->id()) continue;
 
-      mapping.device = device;
-      mapping.group = group;
-      mapping.input = input;
-      mapping.qualifier = Qualifier::None;
-      if(qualifier == "Lo") mapping.qualifier = Qualifier::Lo;
-      if(qualifier == "Hi") mapping.qualifier = Qualifier::Hi;
-      if(qualifier == "Rumble") mapping.qualifier = Qualifier::Rumble;
-      break;
+        mapping.device = device;
+        mapping.group = group;
+        mapping.input = input;
+        mapping.qualifier = Qualifier::None;
+        if(qualifier == "Lo") mapping.qualifier = Qualifier::Lo;
+        if(qualifier == "Hi") mapping.qualifier = Qualifier::Hi;
+        if(qualifier == "Rumble") mapping.qualifier = Qualifier::Rumble;
+        break;
+      }
+
+      if(!mapping.device) continue;
+      andGroup.append(mapping);
     }
-
-    if(!mapping.device) continue;
-    mappings.append(mapping);
+    if(!andGroup) continue;
+    mappings.append(andGroup);
   }
 
   settings[path].setValue(assignment);
 }
 
 //append new mapping to mappings list
-auto InputMapping::bind(string mapping) -> void {
-  auto list = assignment.split(logic == Logic::AND ? "&" : "|");
-  if(list.find(mapping)) return;  //already in the mappings list
+auto InputMapping::bind(string mapping, Logic logic) -> void {
+  auto andGroups = assignment.split("|");
+  if(logic == Logic::AND) {
+    //if the far-right AND group contains the mapping being assigned
+    if(andGroups.right().split("&").find(mapping)) return;
+  } else if(logic == Logic::OR) {
+    //if any AND group consists exclusively of the mapping being assigned
+    for(string& andGroup : andGroups) if(andGroup == mapping) return;
+  }
   if(!assignment || assignment == "None") {
     //create new mapping
     assignment = mapping;
@@ -55,7 +65,7 @@ auto InputMapping::bind(string mapping) -> void {
   bind();
 }
 
-auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint input, int16 oldValue, int16 newValue) -> bool {
+auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint input, int16 newValue, Logic logic) -> bool {
   if(device->isNull() || (device->isKeyboard() && device->group(group).input(input).name() == "Escape")) {
     return unbind(), true;
   }
@@ -67,7 +77,7 @@ auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint inp
     || (device->isMouse() && group == HID::Mouse::GroupID::Button)
     || (device->isJoypad() && group == HID::Joypad::GroupID::Button)) {
       if(newValue) {
-        return bind(encoding), true;
+        return bind(encoding, logic), true;
       }
     }
 
@@ -75,11 +85,11 @@ auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint inp
     || (device->isJoypad() && group == HID::Joypad::GroupID::Hat)
     || (device->isJoypad() && group == HID::Joypad::GroupID::Trigger)) {
       if(newValue < -16384 && group != HID::Joypad::GroupID::Trigger) {  //triggers are always hi
-        return bind({encoding, "/Lo"}), true;
+        return bind({encoding, "/Lo"}, logic), true;
       }
 
       if(newValue > +16384) {
-        return bind({encoding, "/Hi"}), true;
+        return bind({encoding, "/Hi"}, logic), true;
       }
     }
   }
@@ -89,7 +99,7 @@ auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint inp
     || (device->isJoypad() && group == HID::Joypad::GroupID::Axis)
     || (device->isJoypad() && group == HID::Joypad::GroupID::Hat)) {
       if(newValue < -16384 || newValue > +16384) {
-        return bind(encoding), true;
+        return bind(encoding, logic), true;
       }
     }
   }
@@ -97,7 +107,7 @@ auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint inp
   if(isRumble()) {
     if(device->isJoypad() && group == HID::Joypad::GroupID::Button) {
       if(newValue) {
-        return bind({encoding, "/Rumble"}), true;
+        return bind({encoding, "/Rumble"}, logic), true;
       }
     }
   }
@@ -105,22 +115,15 @@ auto InputMapping::bind(shared_pointer<HID::Device> device, uint group, uint inp
   return false;
 }
 
-auto InputMapping::toggleLogic() -> void {
-  logic = logic == Logic::AND ? Logic::OR : Logic::AND;
-  if(logic == Logic::AND) assignment.replace("|", "&");
-  else                    assignment.replace("&", "|");
-  bind();
-}
-
 auto InputMapping::poll() -> int16 {
   if(!mappings) return 0;
 
   if(isDigital()) {
-    bool result = logic == Logic::AND ? 1 : 0;
+    bool result = 0;
 
-    for(auto& mapping : mappings) {
+    for(auto& andGroup : mappings) for(auto& mapping : andGroup) {
       auto value = mapping.device->group(mapping.group).input(mapping.input).value();
-      bool output = logic == Logic::AND ? 0 : 1;
+      bool output;
 
       if(mapping.device->isKeyboard() && mapping.group == HID::Keyboard::GroupID::Button) output = value != 0;
       if(mapping.device->isMouse() && mapping.group == HID::Mouse::GroupID::Button) output = value != 0;
@@ -132,8 +135,7 @@ auto InputMapping::poll() -> int16 {
         if(mapping.qualifier == Qualifier::Hi) output = value > +16384;
       }
 
-      if(logic == Logic::AND) result &= output;
-      if(logic == Logic::OR ) result |= output;
+      result |= output;
     }
 
     return result;
@@ -142,7 +144,7 @@ auto InputMapping::poll() -> int16 {
   if(isAnalog()) {
     int16 result = 0;
 
-    for(auto& mapping : mappings) {
+    for(auto& andGroup : mappings) for(auto& mapping : andGroup) {
       auto value = mapping.device->group(mapping.group).input(mapping.input).value();
 
       //logic does not apply to analog inputs ... always combinatorial
@@ -159,7 +161,7 @@ auto InputMapping::poll() -> int16 {
 
 auto InputMapping::rumble(bool enable) -> void {
   if(!mappings) return;
-  for(auto& mapping : mappings) {
+  for(auto& andGroup : mappings) for(auto& mapping : andGroup) {
     ::input->rumble(mapping.device->id(), enable);
   }
 }
@@ -174,25 +176,30 @@ auto InputMapping::unbind() -> void {
 auto InputMapping::displayName() -> string {
   if(!mappings) return "None";
 
+  string _and_ = {" ", locale["Settings/Hotkeys/Logic/and"], " "};
+  string _or_ = {" ", locale["Settings/Hotkeys/Logic/or"], " "};
   string path;
-  for(auto& mapping : mappings) {
-    path.append(mapping.device->name());
-    if(mapping.device->name() != "Keyboard" && mapping.device->name() != "Mouse") {
-      //show device IDs to distinguish between multiple joypads
-      path.append("(", hex(mapping.device->id()), ")");
+  for(auto& andGroup : mappings) {
+    for(auto& mapping : andGroup) {
+      path.append(mapping.device->name());
+      if(mapping.device->name() != "Keyboard" && mapping.device->name() != "Mouse") {
+        //show device IDs to distinguish between multiple joypads
+        path.append("(", hex(mapping.device->id()), ")");
+      }
+      if(mapping.device->name() != "Keyboard") {
+        //keyboards only have one group; no need to append group name
+        path.append(".", mapping.device->group(mapping.group).name());
+      }
+      path.append(".", mapping.device->group(mapping.group).input(mapping.input).name());
+      if(mapping.qualifier == Qualifier::Lo) path.append(".Lo");
+      if(mapping.qualifier == Qualifier::Hi) path.append(".Hi");
+      if(mapping.qualifier == Qualifier::Rumble) path.append(".Rumble");
+      path.append(_and_);
     }
-    if(mapping.device->name() != "Keyboard") {
-      //keyboards only have one group; no need to append group name
-      path.append(".", mapping.device->group(mapping.group).name());
-    }
-    path.append(".", mapping.device->group(mapping.group).input(mapping.input).name());
-    if(mapping.qualifier == Qualifier::Lo) path.append(".Lo");
-    if(mapping.qualifier == Qualifier::Hi) path.append(".Hi");
-    if(mapping.qualifier == Qualifier::Rumble) path.append(".Rumble");
-    path.append(logic == Logic::AND ? " and " : " or ");
+    path.trimRight(_and_, 1L).append(_or_);
   }
 
-  return path.trimRight(logic == Logic::AND ? " and " : " or ", 1L);
+  return path.trimRight(_or_, 1L);
 }
 
 //
@@ -280,8 +287,8 @@ auto InputManager::poll() -> void {
 
 auto InputManager::onChange(shared_pointer<HID::Device> device, uint group, uint input, int16_t oldValue, int16_t newValue) -> void {
   if(settingsManager->focused()) {
-    settingsManager->input.inputEvent(device, group, input, oldValue, newValue);
-    settingsManager->hotkeys.inputEvent(device, group, input, oldValue, newValue);
+    settingsManager->input.inputEvent(device, group, input, newValue);
+    settingsManager->hotkeys.inputEvent(device, group, input, newValue);
   }
 }
 

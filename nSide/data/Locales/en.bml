@@ -134,7 +134,9 @@ Settings: Settings
   Hotkeys: Hotkeys
     Name: Name
     Mapping: Mapping
-    ToggleLogic: Toggle AND/OR
+    Logic
+      and: and
+      or: or
     Reset: Reset
     Erase: Erase
     PressKey: Press a key or button to map [%s] ...
