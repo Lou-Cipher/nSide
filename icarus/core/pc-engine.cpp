@@ -1,15 +1,15 @@
-auto CartPal::superGrafxManifest(string location) -> string {
+auto Icarus::pcEngineManifest(string location) -> string {
   vector<uint8_t> buffer;
   concatenate(buffer, {location, "program.rom"});
-  return superGrafxManifest(buffer, location);
+  return pcEngineManifest(buffer, location);
 }
 
-auto CartPal::superGrafxManifest(vector<uint8_t>& buffer, string location) -> string {
+auto Icarus::pcEngineManifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
   if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
-    for(auto node : database.superGrafx) {
+    for(auto node : database.pcEngine) {
       if(node["sha256"].text() == digest) {
         manifest.append(node.text(), "\n  sha256: ", digest, "\n");
         break;
@@ -18,19 +18,19 @@ auto CartPal::superGrafxManifest(vector<uint8_t>& buffer, string location) -> st
   }
 
   if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
-    SuperGrafxCartridge cartridge{location, buffer.data(), buffer.size()};
+    PCEngineCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
 
   return manifest;
 }
 
-auto CartPal::superGrafxImport(vector<uint8_t>& buffer, string location) -> string {
+auto Icarus::pcEngineImport(vector<uint8_t>& buffer, string location) -> string {
   auto name = Location::prefix(location);
   auto source = Location::path(location);
-  string target{settings["Library/Location"].text(), "SuperGrafx/", name, ".sg/"};
+  string target{settings["Library/Location"].text(), "PC Engine/", name, ".pce/"};
 
-  auto manifest = superGrafxManifest(buffer, location);
+  auto manifest = pcEngineManifest(buffer, location);
   if(!manifest) return failure("failed to parse ROM image");
 
   if(!create(target)) return failure("library path unwritable");

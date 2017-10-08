@@ -1,15 +1,15 @@
-auto CartPal::gameGearManifest(string location) -> string {
+auto Icarus::wonderSwanManifest(string location) -> string {
   vector<uint8_t> buffer;
   concatenate(buffer, {location, "program.rom"});
-  return gameGearManifest(buffer, location);
+  return wonderSwanManifest(buffer, location);
 }
 
-auto CartPal::gameGearManifest(vector<uint8_t>& buffer, string location) -> string {
+auto Icarus::wonderSwanManifest(vector<uint8_t>& buffer, string location) -> string {
   string manifest;
 
   if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
-    for(auto node : database.gameGear) {
+    for(auto node : database.wonderSwan) {
       if(node["sha256"].text() == digest) {
         manifest.append(node.text(), "\n  sha256: ", digest, "\n");
         break;
@@ -18,19 +18,19 @@ auto CartPal::gameGearManifest(vector<uint8_t>& buffer, string location) -> stri
   }
 
   if(settings["icarus/UseHeuristics"].boolean() && !manifest) {
-    GameGearCartridge cartridge{location, buffer.data(), buffer.size()};
+    WonderSwanCartridge cartridge{location, buffer.data(), buffer.size()};
     manifest = cartridge.manifest;
   }
 
   return manifest;
 }
 
-auto CartPal::gameGearImport(vector<uint8_t>& buffer, string location) -> string {
+auto Icarus::wonderSwanImport(vector<uint8_t>& buffer, string location) -> string {
   auto name = Location::prefix(location);
   auto source = Location::path(location);
-  string target{settings["Library/Location"].text(), "Game Gear/", name, ".gg/"};
+  string target{settings["Library/Location"].text(), "WonderSwan/", name, ".ws/"};
 
-  auto manifest = gameGearManifest(buffer, location);
+  auto manifest = wonderSwanManifest(buffer, location);
   if(!manifest) return failure("failed to parse ROM image");
 
   if(!create(target)) return failure("library path unwritable");

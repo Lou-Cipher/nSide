@@ -34,7 +34,7 @@ ScanDialog::ScanDialog() {
   });
   importButton.setText("Import ...").onActivate([&] { import(); });
 
-  setTitle("cart-pal");
+  setTitle("icarus");
   setSize({800, 480});
   setCentered();
 }
@@ -100,50 +100,32 @@ auto ScanDialog::import() -> void {
 
 auto ScanDialog::gamePakType(const string& type) -> bool {
   return type == ".sys"
-  //Home Consoles
-  || type == ".a26"
   || type == ".fc"
   || type == ".sfc"
-  || type == ".sg1000"
   || type == ".ms"
   || type == ".md"
   || type == ".pce"
   || type == ".sg"
-  //Handhelds
   || type == ".gb"
   || type == ".gbc"
   || type == ".gba"
   || type == ".gg"
-  || type == ".ws"
-  || type == ".wsc"
-  //Arcade Machines
-  || type == ".vs"
-  || type == ".pc10"
-  || type == ".fcb"
-  //Slot Cartridges
   || type == ".bs"
   || type == ".st";
 }
 
 auto ScanDialog::gameRomType(const string& type) -> bool {
   return type == ".zip"
-  //Home Consoles
-  || type == ".a26"
   || type == ".fc" || type == ".nes"
   || type == ".sfc" || type == ".smc"
-  || type == ".sg1000"
   || type == ".ms" || type == ".sms"
   || type == ".md" || type == ".smd" || type == ".gen"
   || type == ".pce"
   || type == ".sg" || type == ".sgx"
-  //Handhelds
   || type == ".gb"
   || type == ".gbc"
   || type == ".gba"
   || type == ".gg"
-  || type == ".ws"
-  || type == ".wsc"
-  //Slot Cartridges
   || type == ".bs"
   || type == ".st";
 }

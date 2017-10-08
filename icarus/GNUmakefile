@@ -2,7 +2,7 @@ build := optimize
 include ../nall/GNUmakefile
 include ../hiro/GNUmakefile
 
-name := cart-pal
+name := icarus
 flags += -I..
 link +=
 
@@ -11,7 +11,7 @@ ifeq ($(platform),windows)
 endif
 
 objects := obj/hiro.o
-objects += obj/cart-pal.o
+objects += obj/icarus.o
 objects += $(if $(call streq,$(platform),windows),obj/resource.o)
 
 all: $(objects)
@@ -28,11 +28,11 @@ endif
 obj/hiro.o: ../hiro/hiro.cpp
 	$(compiler) $(hiroflags) -o obj/hiro.o -c ../hiro/hiro.cpp
 
-obj/cart-pal.o: cart-pal.cpp $(call rwildcard,core/) $(call rwildcard,heuristics/) $(call rwildcard,ui/)
-	$(compiler) $(cppflags) $(flags) -o obj/cart-pal.o -c cart-pal.cpp
+obj/icarus.o: icarus.cpp $(call rwildcard,core/) $(call rwildcard,heuristics/) $(call rwildcard,ui/)
+	$(compiler) $(cppflags) $(flags) -o obj/icarus.o -c icarus.cpp
 
 obj/resource.o:
-	$(windres) data/cart-pal.rc obj/resource.o
+	$(windres) data/icarus.rc obj/resource.o
 
 clean:
 ifeq ($(platform),macos)
@@ -50,7 +50,6 @@ else ifneq ($(filter $(platform),linux bsd),)
 	mkdir -p $(prefix)/share/icons/
 	mkdir -p $(prefix)/share/$(name)/Database/
 	if [ -f out/$(name) ]; then cp out/$(name) $(prefix)/bin/$(name); fi
-	cp -R ../icarus/Database/* $(prefix)/share/$(name)/Database/
 	cp -R Database/* $(prefix)/share/$(name)/Database/
 	cp data/$(name).desktop $(prefix)/share/applications/$(name).desktop
 	cp data/$(name).png $(prefix)/share/icons/$(name).png

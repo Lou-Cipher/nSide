@@ -9,7 +9,7 @@ auto CartPal::sg1000Manifest(vector<uint8_t>& buffer, string location) -> string
 
   if(settings["icarus/UseDatabase"].boolean() && !manifest) {
     string digest = Hash::SHA256(buffer.data(), buffer.size()).digest();
-    for(auto node : database.sg1000) {
+    for(auto node : cpDatabase.sg1000) {
       if(node["sha256"].text() == digest) {
         manifest.append(node.text(), "\n  sha256: ", digest, "\n");
         break;
