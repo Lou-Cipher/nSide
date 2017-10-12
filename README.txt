@@ -1,6 +1,6 @@
-﻿nSide v009r14 (2017-08-12)
+﻿nSide v009r15 (2017-10-08)
 
-A fork of higan v104 by byuu (http://byuu.org/emulation/higan/), which was
+A fork of higan v105 by byuu (https://byuu.org/emulation/higan/), which was
 renamed to exclude "higan" at byuu's request.
 
 nSide adds new devices to the Famicom emulator's controller ports. The supported
@@ -102,6 +102,10 @@ Super Famicom:
   which ruins the rest of the demo as he continues reading inputs and gets stuck
   in the area above the pipe.
   Known to affect actual hardware.
+  *Magical Drop will crash when getting a Game Over in an Endless Game. This
+  bug is known to affect actual hardware. Magical Drop relies on the S-DSP's
+  initial state, but this is not well understood, so it will remain broken for
+  the indefinite future.
 
 Master System:
   *Alex Kidd: High-Tech World does not darken the lower part of the screen
@@ -111,6 +115,8 @@ Master System:
 
 Mega Drive:
   *Many, many bugs. This core is still in alpha.
+  *The VDP FIFO is not emulated at all. Games relying on this feature's exact
+  timing will not work.
 
 PC Engine:
   *Many, many bugs. This core is still in alpha.
@@ -168,8 +174,15 @@ Changes from higan: General
 
    Added ramus, a library of functions rejected from nall.
 
-   Added a Save Screenshot hotkey. Screenshots will be saved in PNG format with
-  somewhat poor compression.
+   Added a "Save Screenshot" hotkey. Screenshots will be saved in PNG format
+  with somewhat poor compression.
+
+   Added a Recent Games list. This feature is opt-in and must be enabled on the
+  Settings window's Advanced tab.
+
+   Added a "Load Most Recent Game" hotkey. This hotkey quickly loads the top
+  game in the Recent Games list. If pressed while a game is running, it resets
+  the game.
 
 ===========================
 Changes from higan: Famicom
@@ -407,9 +420,6 @@ Changes from higan: Famicom
   of lack of true DualSystem support. The height is set to 464 if using the
   PlayChoice-10's dual screen mode (set in PlayChoice-10.sys/manifest.bml).
 
-   Added the exportMemory function, which can dump WRAM, CIRAM, CGRAM, OAM,
-  cartridge PRG RAM, and cartridge CHR RAM.
-
 =======================================================
 Changes from higan: processor/mos6502 (affects Famicom)
 =======================================================
@@ -420,9 +430,10 @@ Changes from higan: processor/mos6502 (affects Famicom)
 Changes from higan: Super Famicom
 =================================
    Added a second cursor design that will be shown whenever the Super Scope is
-  in Turbo mode. This is not just a simple recolor.
-
-   Expanded exportMemory to dump expansion chip-specific memory.
+  in Turbo mode. This is not just a simple recolor. Note that it is available
+  only in the accuracy profile. The balanced profile needs to retain
+  compatibility with higan, which does not have this cursor, in order to be made
+  into a libretro core.
 
 ==============================================================
 Changes from higan: processor/wdc65816 (affects Super Famicom)
@@ -452,13 +463,6 @@ Changes from higan: Mega Drive
   will only take effect if its data width matches the CPU's access width
   exactly (8-bit or 16-bit).
 
-============================
-Changes from higan: Game Boy
-============================
-   Added the exportMemory function, which can dump WRAM, HRAM (internal RAM),
-  VRAM, OAM, and the palette, which is different for the Game Boy and Game Boy
-  Color.
-
 ====================================
 Changes from higan: Game Boy Advance
 ====================================
@@ -467,16 +471,17 @@ Changes from higan: Game Boy Advance
   will only take effect if its data width matches the CPU's access width
   exactly (8-bit, 16-bit, or 32-bit).
 
-   Added the exportMemory function, which can dump External WRAM, Internal WRAM,
-  VRAM, and PRAM (Palette RAM).
-  However, dumping External WRAM causes a crash with about 3/4 of the data
-  dumped, so it has been temporarily disabled (External WRAM is 262144 bytes
-  long, the longest of any file dumped by any emulator's exportMemory function).
+==========================
+Changes from higan: icarus
+==========================
+   Themaister added virtual "read", "readable", and "directory_exists" functions
+  as required for a libretro target.
 
 ============================
 Changes from higan: cart-pal
 ============================
-   Renamed "icarus" to "cart-pal".
+   Created cart-pal, a supplement to icarus that requires icarus's source code
+  to compile.
 
    Added support for the following Famicom boards:
     NES-CPROM

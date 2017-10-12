@@ -1,6 +1,6 @@
 auto Program::stateName(uint slot) -> string {
   return {
-    mediumPaths(1), Emulator::Name, "/states/quick/",
+    mediumPaths(1), Emulator::ForkName, "/states/quick/",
     "slot-", slot, ".bst"
   };
 }

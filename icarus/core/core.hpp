@@ -3,8 +3,20 @@ struct Icarus {
     return directory::create(pathname);
   }
 
+  virtual auto read(const string& pathname) -> vector<uint8_t> {  //change by the libretro team
+    return file::read(pathname);
+  }
+
+  virtual auto readable(const string& pathname) -> bool {  //change by the libretro team
+    return file::readable(pathname);
+  }
+
   virtual auto exists(const string& filename) -> bool {
     return file::exists(filename);
+  }
+
+  virtual auto directory_exists(const string& filename) -> bool {  //change by the libretro team
+    return directory::exists(filename);
   }
 
   virtual auto copy(const string& target, const string& source) -> bool {

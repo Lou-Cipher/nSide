@@ -7,7 +7,7 @@ ConsoleWindow::ConsoleWindow() {
   consoleWindow = this;
 
   layout.setMargin(5);
-  setTitle({"Console - star-rod v", Emulator::Version});
+  setTitle({"Console - star-rod v", Emulator::ForkVersion});
 
   emulationMenu.setText("&Emulation");
   reloadCartridge.setText("Reload Cartridge").onActivate([&] {

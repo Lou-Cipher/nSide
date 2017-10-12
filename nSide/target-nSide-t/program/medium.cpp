@@ -56,7 +56,7 @@ auto Program::unloadMedium() -> void {
   mediumPaths.reset();
 
   presentation->resizeViewport();
-  presentation->setTitle({"nSide v", Emulator::Version});
+  presentation->setTitle({"nSide v", Emulator::ForkVersion});
   presentation->systemMenu.setVisible(false);
   presentation->toolsMenu.setVisible(false);
   toolsManager->setVisible(false);

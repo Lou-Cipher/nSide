@@ -11,7 +11,7 @@ AboutWindow::AboutWindow() {
   title.setFont(Font().setBold());
   title.setText("star-rod");
   version.setFont(Font().setBold());
-  version.setText({"Based on higan/laevateinn v", Emulator::FromVersion});
+  version.setText({"Based on laevateinn, higan v", Emulator::Version});
   website.setFont(Font().setBold());
   website.setText("http://byuu.org/");
 

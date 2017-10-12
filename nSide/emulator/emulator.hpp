@@ -11,14 +11,12 @@ using namespace nall;
 #include <resource/resource.hpp>
 
 namespace Emulator {
-  static const string Name           = "nSide";
-  static const string OriginalName   = "higan";
-  static const string Version        = "009.15";
-  static const string FromVersion    = "105";
-  static const string Author         = "hex_usr";
-  static const string OriginalAuthor = "byuu";
-  static const string License        = "GPLv3";
-  static const string Website        = "https://board.byuu.org/";
+  //Use higan's properties for backwards compatibility. nSide-specific properties are at the bottom.
+  static const string Name    = "higan";
+  static const string Version = "105";
+  static const string Author  = "byuu";
+  static const string License = "GPLv3";
+  static const string Website = "https://board.byuu.org/";
   static const string_vector Contributors = {
     "Alyosha_TAS (Atari 2600 PIA, TIA, timing details)",
     "Andreas Naive (S-DD1 decompression algorithm)",
@@ -67,6 +65,9 @@ namespace Emulator {
     "neviksti (No longer used: SPC7110 decompression support)",
     "Ryphecha (No longer used: polyphase audio resampler)",
   };
+  static const string ForkName    = "nSide";
+  static const string ForkVersion = "009.15";
+  static const string ForkAuthor  = "hex_usr";
 
   //incremented only when serialization format changes
   static const string SerializerVersion = "009.14(104.11)";

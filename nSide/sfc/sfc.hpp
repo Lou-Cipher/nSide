@@ -17,7 +17,7 @@
 // Jonas Quinn       (DSP fixes, Game Boy fixes)
 // kode54
 // krom
-// Ladida            (HDMA timing discovery)
+// Ladida            (HDMA timing discovery, mosaic hires fix)
 // LostTemplar       (ST-018 program ROM analysis)
 // Matthew Callis
 // Nach
@@ -34,6 +34,8 @@
 // hex_usr           (exportMemory PPU register/expansion chip support, Super Scope turbo cursor)
 //license: GPLv3
 //original project started: 2004-10-14
+
+//nSide's accuracy profile is not for use as a libretro core. Use higan instead.
 
 #include <emulator/emulator.hpp>
 #include <emulator/thread.hpp>

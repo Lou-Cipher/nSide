@@ -12,17 +12,17 @@ AboutWindow::AboutWindow() {
     "Based on:\n",
     "Fork Author:\n",
     "License:\n",
-    "Website of ", Emulator::OriginalName, ":"
+    "Website of ", Emulator::Name, ":"
   });
   informationRight.setFont(Font().setBold()).setAlignment(0.0).setText({
-    Emulator::Version, "\n",
-    Emulator::OriginalName, " ", Emulator::FromVersion, " by ", Emulator::OriginalAuthor, "\n",
-    Emulator::Author, "\n",
+    Emulator::ForkVersion, "\n",
+    Emulator::Name, " ", Emulator::Version, " by ", Emulator::Author, "\n",
+    Emulator::ForkAuthor, "\n",
     Emulator::License, "\n",
     Emulator::Website
   });
   informationBottom.setFont(Font().setBold()).setAlignment(0.0).setText({
-    "Contributors to ", Emulator::OriginalName, ":\n",
+    "Contributors to ", Emulator::Name, ":\n",
     Emulator::Contributors.merge("\n")
   });
 

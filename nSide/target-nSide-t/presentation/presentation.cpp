@@ -138,7 +138,7 @@ Presentation::Presentation() {
     program->quit();
   });
 
-  setTitle({"nSide v", Emulator::Version});
+  setTitle({"nSide v", Emulator::ForkVersion});
   setBackgroundColor({0, 0, 0});
   resizeViewport();
   setCentered();
