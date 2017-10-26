@@ -65,6 +65,7 @@ auto Program::main() -> void {
 
 auto Program::quit() -> void {
   unloadMedium();
+  delete emulator;
   settings.quit();
   Application::quit();
 }
