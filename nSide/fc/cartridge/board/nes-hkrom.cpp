@@ -29,12 +29,8 @@ struct NES_HKROM : Board {
     return Board::writeCHR(mmc6.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    mmc6.power();
-  }
-
-  auto reset() -> void {
-    mmc6.reset();
+  auto power(bool reset) -> void {
+    mmc6.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

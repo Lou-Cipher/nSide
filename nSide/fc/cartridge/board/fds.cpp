@@ -148,11 +148,7 @@ struct FDS : Board {
     return Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-    reset();
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     irqCounter = 0;
     irqLatch = 0;
     irqRepeat = false;

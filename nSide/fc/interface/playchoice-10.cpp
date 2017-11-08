@@ -1,6 +1,7 @@
 PlayChoice10Interface::PlayChoice10Interface() {
   information.manufacturer = "Nintendo";
   information.name         = "PlayChoice-10";
+  information.resettable   = false;
 
   media.append({ID::PlayChoice10, "PlayChoice-10", "pc10"});
 

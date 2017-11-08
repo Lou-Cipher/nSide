@@ -29,6 +29,7 @@ Menu
     LoadROMFile...: Load ROM File ...
     ImportROMFiles...: Import ROM Files ...
   System: System
+    SoftReset: Soft Reset
     PowerCycle: Power Cycle
     Unload: Unload
   Settings: Settings
@@ -67,7 +68,8 @@ Status
   NoCartridgeLoaded: No cartridge loaded
   FPS: FPS: %d
   Paused: Paused
-  PowerCycled: Power cycled
+  SoftReset: System has been soft reset
+  PowerCycle: System has been power cycled
   DisplayRotated: Display rotated
   RotateUnsupported: Display rotation not supported
   State
@@ -153,10 +155,12 @@ Settings: Settings
       Location: Location:
       Change...: Change ...
       IgnoreManifests: Ignore Manifests
-    RecentList: Enable Recent Games List
-      Clear: Warning! This will clear your Recent Games history! Are you sure you want to do this?
-        Yes: Yes
-        No: No
+    Other: Other
+      AutoSaveRAM: Auto-Save RAM Periodically
+      RecentList: Enable Recent Games List
+        Clear: Warning! This will clear your Recent Games history! Are you sure you want to do this?
+          Yes: Yes
+          No: No
 
 Tools: Tools
   CheatDatabase

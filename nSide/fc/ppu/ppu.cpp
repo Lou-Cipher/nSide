@@ -98,25 +98,10 @@ auto PPU::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto PPU::power() -> void {
-  io.v.address = 0x0000;
-
-  io.nmiHold = 0;
-  io.nmiFlag = 1;
-
-  //$2003  OAMADDR
-  io.oamAddress = 0x00;
-
-  for(auto& n : ciram) n = random.bias(0xff);
-
-  reset();
-}
-
-auto PPU::reset() -> void {
+auto PPU::power(bool reset) -> void {
   create(Enter, system.frequency());
   PPUcounter::reset();
-  memory::fill(output, 256 * 240 * sizeof(uint32));
-  
+
 //uint originX = (Model::VSSystem() && vssystem.gameCount == 2) ? side * 256 : 0;
 //uint originY = Model::PlayChoice10() ? (playchoice10.screenConfig - 1) * 224 : 0;
 //raster = Emulator::Raster(originX, originY, 256, 240);
@@ -127,11 +112,11 @@ auto PPU::reset() -> void {
 
   io.mdr = 0x00;
   io.busData = 0x00;
-  io.v.latch = 0;
-  io.v.fineX = 0;
-  io.t.tileX = 0;
-  io.t.fineY = 0;
-  io.t.tileY = 0;
+  if(!reset) {
+    io.v.address = 0x0000;
+    io.v.latch = 0;
+    io.v.fineX = 0;
+  }
   io.t.address = 0x0000;
 
   //$2000  PPUCTRL
@@ -151,14 +136,22 @@ auto PPU::reset() -> void {
   io.grayscale = false;
 
   //$2002  PPUSTATUS
+  if(!reset) io.nmiFlag = 1;
+  io.nmiHold = 0;
   io.spriteZeroHit = 0;
   io.spriteOverflow = 0;
 
+  //$2003  OAMADDR
+  if(!reset) io.oamAddress = 0x00;
+
   _extOut = 0;
 
-  for(auto& n : cgram) n = 0;
+  if(!reset) for(auto& data : ciram) data = random.bias(0xff);
+  for(auto& data : cgram) data = random.bias(0x00);
   random.array(oam, sizeof(oam));
   for(auto i : range(64)) oam[i << 2 | 2] &= 0xe3;
+
+  memory::fill(output, 256 * 240 * sizeof(uint32));
 }
 
 auto PPU::scanline() -> void {

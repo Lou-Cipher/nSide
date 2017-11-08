@@ -73,10 +73,7 @@ auto APU::DMC::clock() -> uint8 {
   return result;
 }
 
-auto APU::DMC::power() -> void {
-}
-
-auto APU::DMC::reset() -> void {
+auto APU::DMC::power(bool reset) -> void {
   lengthCounter = 0;
   irqPending = 0;
 

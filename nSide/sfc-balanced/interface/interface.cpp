@@ -5,11 +5,10 @@ namespace SuperFamicom {
 Settings settings;
 
 Interface::Interface() {
-  system.init();
-
   information.manufacturer = "Nintendo";
   information.name         = "Super Famicom";
   information.overscan     = true;
+  information.resettable   = true;
 
   media.append({ID::SuperFamicom, "Super Famicom", "sfc"});
 
@@ -106,10 +105,12 @@ Interface::Interface() {
     expansionPort.devices.append(device);
   }
 
-//{ Device device{ID::Device::Controls, "Controls"};
-//  device.inputs.append({0, "Reset"});
-//  hardware.devices.append(device);
-//}
+  /*
+  { Device device{ID::Device::Controls, "Controls"};
+    device.inputs.append({0, "Reset"});
+    hardware.devices.append(device);
+  }
+  */
 
   ports.append(move(controllerPort1));
   ports.append(move(controllerPort2));
@@ -201,7 +202,11 @@ auto Interface::connect(uint port, uint device) -> void {
 }
 
 auto Interface::power() -> void {
-  system.power();
+  system.power(/* reset = */ false);
+}
+
+auto Interface::reset() -> void {
+  system.power(/* reset = */ true);
 }
 
 auto Interface::run() -> void {

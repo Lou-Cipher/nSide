@@ -39,10 +39,7 @@ struct ColorDreams74_377 : Board {
     Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank = 0;
   }

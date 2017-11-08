@@ -4,8 +4,6 @@ unique_pointer<Tracer> tracer;
 Tracer::Tracer() {
   tracer = this;
   mask = false;
-  cpuMask = new uint8[0x200000]();
-  smpMask = new uint8[0x2000]();
 }
 
 Tracer::~Tracer() {
@@ -14,8 +12,8 @@ Tracer::~Tracer() {
 }
 
 auto Tracer::resetMask() -> void {
-  memset(cpuMask, 0, 0x200000);
-  memset(smpMask, 0, 0x2000);
+  memory::fill(cpuMask, 0x200000, 0);
+  memory::fill(smpMask, 0x2000, 0);
 }
 
 auto Tracer::maskCPU(uint24 addr) -> bool {

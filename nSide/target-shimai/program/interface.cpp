@@ -77,17 +77,6 @@ auto Program::videoRefresh(const uint32* data, uint pitch, uint width, uint heig
     video->unlock();
     video->output();
   }
-
-  static uint frameCounter = 0;
-  static uint64 previous, current;
-  frameCounter++;
-
-  current = chrono::timestamp();
-  if(current != previous) {
-    previous = current;
-    statusText = {"FPS: ", frameCounter};
-    frameCounter = 0;
-  }
 }
 
 auto Program::audioSample(const double* samples, uint channels) -> void {

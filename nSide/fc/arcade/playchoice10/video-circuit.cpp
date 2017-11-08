@@ -25,12 +25,9 @@ auto PlayChoice10::VideoCircuit::refresh() -> void {
   }
 }
 
-auto PlayChoice10::VideoCircuit::power() -> void {
-  memory::fill(&vram, sizeof(vram));
-}
-
-auto PlayChoice10::VideoCircuit::reset() -> void {
+auto PlayChoice10::VideoCircuit::power(bool reset) -> void {
   create(VideoCircuit::Enter, 20'160'000.0);
+  if(!reset) memory::fill(&vram, sizeof(vram));
 }
 
 auto PlayChoice10::VideoCircuit::writeVRAM(uint16 addr, uint8 data) -> void {

@@ -38,10 +38,7 @@ struct JalecoJF16 : Board {
     Board::writeCHR((chrBank * 0x2000) + (addr & 0x1fff), data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank = 0;
     nametable = 0;

@@ -28,12 +28,8 @@ struct Namco163 : Board {
     n163.serialize(s);
   }
 
-  auto power() -> void {
-    n163.power();
-  }
-
-  auto reset() -> void {
-    n163.reset();
+  auto power(bool reset) -> void {
+    n163.power(reset);
   }
 
   N163 n163;

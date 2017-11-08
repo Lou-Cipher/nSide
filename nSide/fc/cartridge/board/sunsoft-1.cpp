@@ -39,10 +39,7 @@ struct Sunsoft1 : Board {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     chrBank0 = 0;
     chrBank1 = 0;
   }

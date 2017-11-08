@@ -97,10 +97,7 @@ auto Board::writeCHR(uint addr, uint8 data) -> void {
   if(chrram.size()) write(chrram, addr, data);
 }
 
-auto Board::power() -> void {
-}
-
-auto Board::reset() -> void {
+auto Board::power(bool reset) -> void {
 }
 
 auto Board::serialize(serializer& s) -> void {

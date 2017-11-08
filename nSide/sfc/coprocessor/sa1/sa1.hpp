@@ -10,8 +10,6 @@ struct SA1 : Processor::WDC65816, Thread {
   alwaysinline auto interruptPending() const -> bool override;
   auto synchronizing() const -> bool override;
 
-  auto init() -> void;
-  auto load() -> void;
   auto unload() -> void;
   auto power() -> void;
 
@@ -63,6 +61,8 @@ struct SA1 : Processor::WDC65816, Thread {
   auto bitmapRead(uint addr, uint8 data) -> uint8;
   auto bitmapWrite(uint addr, uint8 data) -> void;
 
+  auto readDisassembler(uint24 addr) -> uint8 override;
+
   //io.cpp
   auto readIO(uint24 addr, uint8 data) -> uint8;
   auto writeIO(uint24 addr, uint8 data) -> void;
@@ -77,7 +77,7 @@ struct SA1 : Processor::WDC65816, Thread {
   CPUIRAM cpuiram;
   CPUBWRAM cpubwram;
 
-private:
+debug_private:
   DMA dma;
 
   struct Status {

@@ -74,12 +74,8 @@ struct BandaiFCG : Board {
     if(chrram.size()) Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-    fcg.power();
-  }
-
-  auto reset() -> void {
-    fcg.reset();
+  auto power(bool reset) -> void {
+    fcg.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

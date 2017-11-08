@@ -10,7 +10,8 @@ Presentation::Presentation() {
   updateRecentList();
 
   systemMenu.setVisible(false);
-  reloadSystem.onActivate([&] { program->powerCycle(); });
+  resetSystem.onActivate([&] { program->softReset(); });
+  powerSystem.onActivate([&] { program->powerCycle(); });
   unloadSystem.onActivate([&] { program->unloadMedium(); });
 
   videoScaleSmall.onActivate([&] {
@@ -162,7 +163,8 @@ auto Presentation::refreshLocale() -> void {
   refreshLibraryMenu();
 
   systemMenu.setText(locale["Menu/System"]);
-  reloadSystem.setText(locale["Menu/System/PowerCycle"]);
+  resetSystem.setText(locale["Menu/System/SoftReset"]);
+  powerSystem.setText(locale["Menu/System/PowerCycle"]);
   unloadSystem.setText(locale["Menu/System/Unload"]);
 
   settingsMenu.setText(locale["Menu/Settings"]);
@@ -351,6 +353,7 @@ auto Presentation::updateEmulator() -> void {
     inputPort3.visible() ||
     inputPort4.visible()
   );
+  resetSystem.setVisible(emulator->information.resettable);
 
   emulator->set("Blur Emulation", blurEmulation.checked());
   emulator->set("Color Emulation", colorEmulation.checked());

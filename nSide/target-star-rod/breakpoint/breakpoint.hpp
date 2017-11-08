@@ -24,19 +24,26 @@ struct BreakpointEditor : Window {
     uint type;
     uint source;
   };
+
   vector<Breakpoint> breakpoint;
+
   vector<Breakpoint> breakpointReadCPU;
   vector<Breakpoint> breakpointWriteCPU;
   vector<Breakpoint> breakpointExecCPU;
+
   vector<Breakpoint> breakpointReadSMP;
   vector<Breakpoint> breakpointWriteSMP;
   vector<Breakpoint> breakpointExecSMP;
+
   vector<Breakpoint> breakpointReadVRAM;
   vector<Breakpoint> breakpointWriteVRAM;
+
   vector<Breakpoint> breakpointReadOAM;
   vector<Breakpoint> breakpointWriteOAM;
+
   vector<Breakpoint> breakpointReadCGRAM;
   vector<Breakpoint> breakpointWriteCGRAM;
+
   auto synchronize() -> void;
 
   auto testReadCPU(uint24 addr) -> bool;

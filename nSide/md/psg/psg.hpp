@@ -8,7 +8,7 @@ struct PSG : Thread {
   auto step(uint clocks) -> void;
 
   auto load(Markup::Node) -> bool;
-  auto power() -> void;
+  auto power(bool reset) -> void;
 
   //io.cpp
   auto write(uint8 data) -> void;

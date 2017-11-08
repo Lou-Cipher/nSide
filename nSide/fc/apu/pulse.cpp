@@ -25,14 +25,9 @@ auto APU::Pulse::clock() -> uint8 {
   return result;
 }
 
-auto APU::Pulse::power() -> void {
-  envelope.power();
-  sweep.power();
-}
-
-auto APU::Pulse::reset() -> void {
-  envelope.reset();
-  sweep.reset();
+auto APU::Pulse::power(bool reset) -> void {
+  envelope.power(reset);
+  sweep.power(reset);
 
   lengthCounter = 0;
 

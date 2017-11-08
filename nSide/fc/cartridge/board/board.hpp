@@ -19,8 +19,7 @@ struct Board {
 
   virtual inline auto scanline(uint y) -> void {}
 
-  virtual auto power() -> void;
-  virtual auto reset() -> void;
+  virtual auto power(bool reset) -> void;
 
   virtual auto serialize(serializer&) -> void;
 

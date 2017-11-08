@@ -9,8 +9,7 @@ struct APU : Processor::Z80, Processor::Z80::Bus, Thread {
 
   auto enable(bool) -> void;
   auto load(Markup::Node) -> bool;
-  auto power() -> void;
-  auto reset() -> void;
+  auto power(bool reset) -> void;
 
   auto setNMI(bool value) -> void;
   auto setINT(bool value) -> void;

@@ -164,7 +164,7 @@ auto System::unload() -> void {
   information.loaded = false;
 }
 
-auto System::power() -> void {
+auto System::power(bool reset) -> void {
   Emulator::video.reset();
   Emulator::video.setInterface(interface);
   //Emulator::video.resize() is called in configureVideoEffects()
@@ -179,23 +179,23 @@ auto System::power() -> void {
   scheduler.reset();
 
   if(!Famicom::Model::VSSystem() || vssystem.gameCount == 2) {
-    cartridgeSlot[busM.slot].power();
-    cpuM.power();
-    apuM.power();
-    ppuM.power();
+    cartridgeSlot[busM.slot].power(reset);
+    cpuM.power(reset);
+    apuM.power(reset);
+    ppuM.power(reset);
   }
 
   if(Famicom::Model::VSSystem()) {
-    cartridgeSlot[busS.slot].power();
-    cpuS.power();
-    apuS.power();
-    ppuS.power();
+    cartridgeSlot[busS.slot].power(reset);
+    cpuS.power(reset);
+    apuS.power(reset);
+    ppuS.power(reset);
   }
 
   switch(model()) {
-  case Model::VSSystem:     vssystem.power(); break;
-  case Model::PlayChoice10: playchoice10.power(); break;
-  case Model::FamicomBox:   famicombox.power(); break;
+  case Model::VSSystem:     vssystem.power(reset); break;
+  case Model::PlayChoice10: playchoice10.power(reset); break;
+  case Model::FamicomBox:   famicombox.power(reset); break;
   }
 
   switch(model()) {

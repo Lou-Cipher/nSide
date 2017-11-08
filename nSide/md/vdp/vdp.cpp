@@ -85,10 +85,16 @@ auto VDP::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto VDP::power() -> void {
+auto VDP::power(bool reset) -> void {
   create(VDP::Enter, system.frequency() / 2.0);
 
   output = buffer + 16 * 1280;  //overscan offset
+
+  if(!reset) {
+    for(auto& data : vram.memory) data = 0;
+    for(auto& data : vsram.memory) data = 0;
+    for(auto& data : cram.memory) data = 0;
+  }
 
   io = {};
   latch = {};

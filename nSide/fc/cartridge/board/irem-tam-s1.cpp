@@ -47,10 +47,7 @@ struct IremTamS1 : Board {
     return Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     mirror = 0;
   }

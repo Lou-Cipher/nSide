@@ -121,8 +121,13 @@ auto APU::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto APU::power() -> void {
-  if(!Model::VSSystem() || vssystem.gameCount != 2 || side == 0) {
+auto APU::power(bool reset) -> void {
+  create(APU::Enter, system.frequency());
+  if(Model::Famicom()
+  || Model::VSSystem() && (vssystem.gameCount != 2 || side == 0)
+  || Model::PlayChoice10() && !reset
+  || Model::FamicomBox() && !reset
+  ) {
     stream = Emulator::audio.createStream(1, system.frequency() / rate());
     stream->addFilter(Emulator::Filter::Order::First, Emulator::Filter::Type::HighPass, 90.0);
     stream->addFilter(Emulator::Filter::Order::First, Emulator::Filter::Type::HighPass, 440.0);
@@ -130,23 +135,11 @@ auto APU::power() -> void {
     stream->addFilter(Emulator::Filter::Order::Second, Emulator::Filter::Type::LowPass, 20000.0, 3);
   }
 
-  pulse[0].power();
-  pulse[1].power();
-  triangle.power();
-  noise.power();
-  dmc.power();
-
-  reset();
-}
-
-auto APU::reset() -> void {
-  create(APU::Enter, system.frequency());
-
-  pulse[0].reset();
-  pulse[1].reset();
-  triangle.reset();
-  noise.reset();
-  dmc.reset();
+  pulse[0].power(reset);
+  pulse[1].power(reset);
+  triangle.power(reset);
+  noise.power(reset);
+  dmc.power(reset);
 
   frame.irqPending = 0;
 

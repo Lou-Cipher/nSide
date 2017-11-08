@@ -49,10 +49,7 @@ struct Bandai74_161_02_74 : Board {
     chrAddressBus = addr & 0x3000;
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrPlane = 0;
     chrBank = 0;

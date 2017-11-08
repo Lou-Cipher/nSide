@@ -96,7 +96,7 @@ auto PPU::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto PPU::power() -> void {
+auto PPU::power(bool reset) -> void {
   create(Enter, system.cpuFrequency());
   PPUcounter::reset();
   memory::fill(buffer, 512 * 512 * sizeof(uint32));
@@ -107,8 +107,10 @@ auto PPU::power() -> void {
   function<auto (uint24, uint8) -> void> writer{&PPU::writeIO, this};
   bus.map(reader, writer, "00-3f,80-bf:2100-213f");
 
-  random.array((uint8*)vram.data, sizeof(vram.data));
-  cache.flush();
+  if(!reset) {
+    random.array((uint8*)vram.data, sizeof(vram.data));
+    cache.flush();
+  }
 
   //open bus support
   ppu1.mdr = random.bias(0xff);

@@ -84,10 +84,7 @@ struct VRC2 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     for(auto& n : prgBank) n = 0;
     for(auto& n : chrBank) n = 0;
     mirror = 0;

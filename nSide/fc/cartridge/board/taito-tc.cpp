@@ -25,12 +25,8 @@ struct TaitoTC : Board {
     return Board::writeCHR(tc.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    tc.power();
-  }
-
-  auto reset() -> void {
-    tc.reset();
+  auto power(bool reset) -> void {
+    tc.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

@@ -41,54 +41,52 @@ auto FamicomBox::unload() -> void {
   Emulator::video.removeSprite(keyswitchSprite);
 }
 
-auto FamicomBox::power() -> void {
-  create(FamicomBox::Enter, system.frequency());
+auto FamicomBox::power(bool reset) -> void {
+  if(!reset) {
+    create(FamicomBox::Enter, system.frequency());
 
-  exceptionEnable = 0x00;
-  exceptionTrap = 0xff;
+    exceptionEnable = 0x00;
+    exceptionTrap = 0xff;
 
-  zapperGND = false;
-  warmboot = false;
-  enableControllers = true;
-  swapControllers = true;
+    zapperGND = false;
+    warmboot = false;
+    enableControllers = true;
+    swapControllers = true;
 
-  cartridgeSelect = 0;
-  cartridgeRowSelect = 0;
+    cartridgeSelect = 0;
+    cartridgeRowSelect = 0;
 
-  coinModule.timer = 0;
-  coinModule.min10 = false;
-  coinModule.min20 = false;
+    coinModule.timer = 0;
+    coinModule.min10 = false;
+    coinModule.min20 = false;
 
-  function<auto (uint16, uint8) -> uint8> reader;
-  function<auto (uint16, uint8) -> void> writer;
+    function<auto (uint16, uint8) -> uint8> reader;
+    function<auto (uint16, uint8) -> void> writer;
 
-  reader = {&FamicomBox::readWRAM, this};
-  writer = {&FamicomBox::writeWRAM, this};
-  busM.map(reader, writer, "0800-1fff");
+    reader = {&FamicomBox::readWRAM, this};
+    writer = {&FamicomBox::writeWRAM, this};
+    busM.map(reader, writer, "0800-1fff");
 
-  reader = {&FamicomBox::readIO, this};
-  writer = {&FamicomBox::writeIO, this};
-  busM.map(reader, writer, "4016-4017");
-  busM.map(reader, writer, "5000-5fff");
+    reader = {&FamicomBox::readIO, this};
+    writer = {&FamicomBox::writeIO, this};
+    busM.map(reader, writer, "4016-4017");
+    busM.map(reader, writer, "5000-5fff");
 
-  reader = {&FamicomBox::readSRAM, this};
-  writer = {&FamicomBox::writeSRAM, this};
-  busM.map(reader, writer, "6000-7fff");
+    reader = {&FamicomBox::readSRAM, this};
+    writer = {&FamicomBox::writeSRAM, this};
+    busM.map(reader, writer, "6000-7fff");
 
-  reader = {&FamicomBox::readCartridge, this};
-  writer = {&FamicomBox::writeCartridge, this};
-  busM.map(reader, writer, "8000-ffff");
-  // The cartridge is only mapped to $8000-ffff, not $4018-ffff.
+    reader = {&FamicomBox::readCartridge, this};
+    writer = {&FamicomBox::writeCartridge, this};
+    busM.map(reader, writer, "8000-ffff");
+    // The cartridge is only mapped to $8000-ffff, not $4018-ffff.
 
-  keyswitchSprite = Emulator::video.createSprite(16, 16);
-  keyswitchSprite->setPixels(Resource::Sprite::FamicomBoxOff);
-  keyswitchSprite->setPosition(0, 224);
-  keyswitchSprite->setVisible(true);
+    keyswitchSprite = Emulator::video.createSprite(16, 16);
+    keyswitchSprite->setPixels(Resource::Sprite::FamicomBoxOff);
+    keyswitchSprite->setPosition(0, 224);
+    keyswitchSprite->setVisible(true);
+  }
 
-  reset();
-}
-
-auto FamicomBox::reset() -> void {
   ledSelect  = 0;
   ramProtect = 0;
   ledFlash   = false;
@@ -103,9 +101,9 @@ auto FamicomBox::reset() -> void {
   synchronize(apuM);
   synchronize(cartridgeSlot[busM.slot]);
 
-  cpuM.reset();
-  apuM.reset();
-  cartridgeSlot[busM.slot].reset();
+  cpuM.power(/* reset = */ true);
+  apuM.power(/* reset = */ true);
+  cartridgeSlot[busM.slot].power(/* reset = */ true);
 }
 
 auto FamicomBox::changeSlot(uint4 newSlot) -> void {
@@ -114,13 +112,13 @@ auto FamicomBox::changeSlot(uint4 newSlot) -> void {
   cartridgeSelect = newSlot;
   cartridgeRowSelect = (newSlot + 4) / 5;
   //if(cartridgeSelect > 0 && cartridgeSelect <= cartridgeSlot.size()) busM.slot = newSlot - 1;
-  //cartridgeSlot[busM.slot].power();
+  //cartridgeSlot[busM.slot].power(/* reset = */ false);
 }
 
 auto FamicomBox::trap(Exception exceptionId) -> void {
   if(!exceptionEnable.bit((uint)exceptionId)) return;
   exceptionTrap.bit((uint)exceptionId) = 0;
-  reset();
+  power(/* reset = */ true);
 }
 
 auto FamicomBox::pollInputs() -> void {

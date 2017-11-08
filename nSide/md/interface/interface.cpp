@@ -8,13 +8,14 @@ Interface::Interface() {
   information.manufacturer = "Sega";
   information.name         = "Mega Drive";
   information.overscan     = true;
+  information.resettable   = true;
 
   media.append({ID::MegaDrive, "Mega Drive", "md"});
 
   Port controllerPort1{ID::Port::Controller1, "Controller Port 1"};
   Port controllerPort2{ID::Port::Controller2, "Controller Port 2"};
   Port extensionPort{ID::Port::Extension, "Extension Port"};
-  Port hardware{ID::Port::Hardware, "Hardware"};
+//Port hardware{ID::Port::Hardware, "Hardware"};
 
   { Device device{ID::Device::None, "None"};
     controllerPort1.devices.append(device);
@@ -104,15 +105,17 @@ Interface::Interface() {
     controllerPort2.devices.append(device);
   }
 
+  /*
   { Device device{ID::Device::Controls, "Controls"};
     device.inputs.append({0, "Reset"});
     hardware.devices.append(device);
   }
+  */
 
   ports.append(move(controllerPort1));
   ports.append(move(controllerPort2));
   ports.append(move(extensionPort));
-  ports.append(move(hardware));
+//ports.append(move(hardware));
 }
 
 auto Interface::manifest() -> string {
@@ -220,7 +223,11 @@ auto Interface::connect(uint port, uint device) -> void {
 }
 
 auto Interface::power() -> void {
-  system.power();
+  system.power(/* reset = */ false);
+}
+
+auto Interface::reset() -> void {
+  system.power(/* reset = */ true);
 }
 
 auto Interface::run() -> void {

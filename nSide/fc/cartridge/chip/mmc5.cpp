@@ -361,10 +361,7 @@ struct MMC5 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     for(uint i = 0; i < ram.size(); i++) ram.write(i, 0xff);
 
     prgMode = 3;

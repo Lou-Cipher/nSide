@@ -1,5 +1,6 @@
-//Author: Benjamin Siskoo
-System: Système
+//Author: Braintrash
+//Version: V1
+System
   Atari: Atari
     Atari2600: Atari 2600
   Nintendo: Nintendo
@@ -25,164 +26,168 @@ System: Système
     SwanCrystal: SwanCrystal
 
 Menu
-  Recent: Récents
+  Recent: Récent
   Library: Bibliothèque
-    LoadROMFile...: Charge un fichier ROM ...
+    LoadROMFile...: Charger le fichier ROM ...
     ImportROMFiles...: Importer les fichiers ROM ...
   System: Système
-    PowerCycle: Cycle de Puissance
-    Unload: Décharger
-  Settings: Paramètres
-    VideoScale: Echelle Vidéo
+    SoftReset: Réinitialiser
+    PowerCycle: Redémarrer
+    Unload: Ejecter
+  Settings: Réglages
+    VideoScale: Dimensionnement vidéo
       Small: Petit
       Medium: Moyen
       Large: Grand
-    VideoEmulation: Emulaiton Vidéo
+    VideoEmulation: Emulation vidéo
       Blurring: Flou
       Colors: Couleurs
-    Scanlines: Scanlines
-    VideoShader: Shader Vidéo
+    Scanlines: Lignes de balayage
+    VideoShader: Nuanceur vidéo
       None: Aucun
       Blur: Flou
-    SynchronizeVideo: Synchronisation de la Vidéo
-    SynchronizeAudio: Synchronisation Audio
-    MuteAudio: Audio Muet
-    ShowStatusBar: Afficher la barre de statut
-    Video...: Vidéo ...
-    Audio...: Audio ...
-    Input...: Contrôleur ...
-    Hotkeys...: Raccourcis ...
-    Advanced...: Avancées ...
+    SynchronizeVideo: Synchroniser la vidéo
+    SynchronizeAudio: Synchroniser l'audio
+    MuteAudio: Sourdine
+    ShowStatusBar: Afficher la barre d'état
+    Video...: Vidéo...
+    Audio...: Audio...
+    Input...: Entrée...
+    Hotkeys...: Raccourcis...
+    Advanced...: Avancé...
   Tools: Outils
-    SaveQuickState: Sauvegarde d'Etat Rapide
-    LoadQuickState: Chargement d'Etat Rapide
+    SaveQuickState: Enregistrer un instantané rapide
+    LoadQuickState: Charger un instantané rapide
     Slot: Emplacement %d
-    CheatEditor...: Editeur de Triche ...
-    StateManager...: Gestionnaire d'Etat ...
-    ManifestViewer...: Visualiseur de Manifeste ...
+    CheatEditor...: Editeur de triche...
+    StateManager...: Gestionnaire d'instantanés étendus...
+    ManifestViewer...: Visionneuse de manifeste...
   Help: Aide
-    Documentation...: Documentation pour higan ...
-    About...: A Propos De ...
+    Documentation...: Documentation de higan...
+    About...: A propos...
 
-Status: Statut
+Status
   NoCartridgeLoaded: Aucune cartouche chargée
-  FPS: FPS : %d
-  Paused: En Pause
-  PowerCycled: Cycle de puissance
-  DisplayRotated: Rotation de l'affichage
-  RotateUnsupported: La rotation de l'affichage n'est pas supporté
-  State: Etat
+  FPS: IPS: %d
+  Paused: En pause
+  SoftReset: Le système a été réinitialisé
+  PowerCycle: Le système a été redémarré
+  DisplayRotated: L'affichage a été pivoté
+  RotateUnsupported: Le pivotement de l'affichage n'est pas pris en charge
+  State
     quick: rapide
-    managed: géré
-    DoesNotExist: Emplacement %2$d %1$s l'état n'existe pas
-    Incompatible: Emplacement %2$d %1$s l'état est incompatible
-    Load: Chargé %1$s l'état depuis l'emplacement %2$d
-    Unsupported: Echec de la sauvegarde %1$s d'état vers l'emplacement %2$d
-    Unprivileged: Ne peut pas écrire %1$s l'état vers l'emplacement %2$d
-    Save: Sauvegarde %1$s l'état vers l'emplacement %2$d
-    Select: Sélection de l'emplacement de l'état rapide %d
-  SaveScreenshot: Les captures d'écrans sont sauvegardés
+    managed: étendu
+    DoesNotExist: L'instantané %1s n'existe pas dans l'emplacement %2d
+    Incompatible: L'instantané %1s est incompatible avec l'emplacement %2d
+    Load: L'instantané %1$s a été chargé depuis l'emplacement %2$d
+    Unsupported: L'instantané %1$s n'a pas pu être enregistré dans l'emplacement %2$d
+    Unprivileged: L'instantané %1$s n'a pas pu être écrit dans l'emplacement %2$d
+    Save: L'instantané %1$s a été enregistré dans l'emplacement %2$d
+    Select: L'emplacement rapide %d a été sélectionné
+  SaveScreenshot: Capture d'écran enregistrée
 
-Error: Erreur
-  Crash: Détection d'un plantage du pilote. Les pilotes Vidéo/Audio/Contrôleur ont été désactivés.
-  VideoDriver: Echec de l'initialisation du pilote vidéo
-  AudioDriver: Echec de l'initialisation du pilote audio
-  InputDriver: Echec de l'initialisation du pilote contrôleur
+Error
+  Crash: Un plantage du pilote a été détecté. Les pilotes vidéo, audio et d'entrée ont été désactivés.
+  VideoDriver: L'initialisation du pilote vidéo a échoué
+  AudioDriver: L'initialisation du pilote audio a échoué
+  InputDriver: L'initialisation du pilote d'entrée a échoué
 
-Settings: Paramètres
+Settings: Réglages
   Video: Vidéo
-    ColorAdjustment: Ajustement de la Couleur
+    ColorAdjustment: Réglage de la couleur
       Saturation: Saturation :
       Gamma: Gamma :
-      Luminance: Luminance :
-    OverscanMask: Masque pour Recouvrir l'Ecran
+      Luminance: Luminance:
+    OverscanMask: Masque de surbalayage
       Horizontal: Horizontal :
       Vertical: Vertical :
     WindowedMode: Mode fenêtré
     FullscreenMode: Mode plein écran
-    AspectCorrection: Proportions
-    IntegralScaling: Echelle intégral
-    AdaptiveSizing: Taille Adaptative
-    ExclusiveMode: Mode Exclusif
+    AspectCorrection: Correction de l'aspect
+    IntegralScaling: Redimensionnement intégral
+    AdaptiveSizing: Redimensionnement adaptatif
+    ExclusiveMode: Mode sélectif
   Audio: Audio
     Driver: Pilote
-      Device: Périphérique :
+      Device: Appareil :
       Frequency: Fréquence :
       Latency: Latence :
-      ExclusiveMode: Mode Exclusif
-    Effects: Effets
+      ExclusiveMode: Mode sélectif
+    Effects: Effects
       Volume: Volume :
       Balance: Balance :
       Reverb: Reverbération
-  Input: Contrôleur
-    WhenFocusIsLost: Quand le Focus est perdu :
-      PauseEmulation: Emulation en Pause
-      AllowInput: Autorise le Contrôleur
+  Input: Entrée
+    WhenFocusIsLost: En cas de désynchronisation :
+      PauseEmulation: Interrompre l'émulation
+      AllowInput: Autoriser les entrées
     Name: Nom
-    Mapping: Définir
-    MouseXAxis: Axe X de la Souris
-    MouseYAxis: Axe Y de la Souris
-    MouseLeft: Souris Gauche
-    MouseMiddle: Souris du Milieu
-    MouseRight: Souris Droite
-    Reset: Redémarrer
+    Mapping: Disposition
+    MouseXAxis: Abscisse
+    MouseYAxis: Ordonnée
+    MouseLeft: Bouton gauche
+    MouseMiddle: Bouton du milieu
+    MouseRight: Bouton droit
+    Reset: Réinitialiser
     Erase: Effacer
-    PressKey: Pressez une touche ou un bouton pour définir [%s] ...
-    MappingAssigned: Touche assignée.
-    ResetConfirmation: Are you sure you want to erase all mappings for this device?
+    PressKey: Appuyer sur une touche ou un bouton pour assigner [%s]...
+    MappingAssigned: Assignation enregistrée.
+    ResetConfirmation: Etes-vous sûr de vouloir effacer tous les raccourcis de cet appareil ?
       Yes: Oui
       No: Non
   Hotkeys: Raccourcis
-    Name: Nom
-    Mapping: Définir
+    Name: Noms
+    Mapping: Assignation
     Logic
       and: et
       or: ou
-    Reset: Redémarrer
+    Reset: Réinitialiser
     Erase: Effacer
-    PressKey: Pressez une touche ou un bouton pour définir [%s] ...
-    MappingAssigned: Touche assignée.
-    ResetConfirmation: Are you sure you want to erase all hotkey mappings?
+    PressKey: Presser une touche ou un bouton pour assigner [%s]...
+    MappingAssigned: Assignation enregistrée.
+    ResetConfirmation: Etes-vous sûr de vouloir effacer tous les raccourcis ?
       Yes: Oui
       No: Non
-  Advanced: Avancée
-    DriverSelection: Sélection du Pilote
+  Advanced: Avancé
+    DriverSelection: Sélection des pilotes
       Video: Vidéo :
       Audio: Audio :
-      Input: Contrôleur :
-    GameLibrary: Bibliothèque de Jeu
-      Location: Localisation :
-      Change...: Changee ...
-      IgnoreManifests: Ignorer les Manifestes
-    RecentList: Activer la liste des jeux récents
-      Clear: Attention ! Cela effacera votre histoire de jeux récents ! Es-tu sûr de vouloir faire ça ?
-        Yes: Oui
-        No: Non
+      Input: Entrée :
+    GameLibrary: Bibliothèque
+      Location: Emplacement :
+      Change...: Changer...
+      IgnoreManifests: Ignorer les manifestes
+    Other: Autre
+      AutoSaveRAM: Enregistrer automatiquement la RAM
+      RecentList: Activer l'historique des ROM récemment chargées
+        Clear: Attention ! Ceci va effacer l'historique des dernières ROM chargées ! Etes-vous sûr de votre choix ?
+          Yes: Oui
+          No: Non
 
 Tools: Outils
-  CheatDatabase: Base de donnée de triche
+  CheatDatabase
     SelectAll: Tout sélectionner
-    UnselectAll: Tout déselectionner
-    AddCodes: Ajouter les Codes
+    UnselectAll: Tout désélectionner
+    AddCodes: Ajouter des codes
   CheatEditor: Editeur de triche
     Table
       Slot: Emplacement
       Codes: Code(s)
       Description: Description
-    Edit: Editer
-      Codes: Code(s) :
+    Edit
+      Codes: Code(s):
       Description: Description :
-    FindCodes...: Trouver des Codes ...
-    Reset: Redémarrer
+    FindCodes...: Trouver des codes...
+    Reset: Réinitialiser
     Erase: Effacer
-  StateManager: Gestionnaire d'Etat
+  StateManager: Gestionnaire d'instantanés étendus
     Table
       Slot: Emplacement
       Description: Description
-    Edit: Editer
+    Edit
       Description: Description :
-    Save: Sauvegarder
+    Save: Enregistrer
     Load: Charger
-    Reset: Redémarrer
+    Reset: Réinitialiser
     Erase: Effacer
-  ManifestViewer: Visualiseur de Manifeste
+  ManifestViewer: Visualiseur de manifeste

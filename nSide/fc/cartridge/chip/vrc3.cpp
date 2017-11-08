@@ -54,10 +54,7 @@ struct VRC3 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     irqMode = 0;
     irqEnable = 0;

@@ -22,7 +22,7 @@ struct System {
   auto save() -> void;
   auto unload() -> void;
 
-  auto power() -> void;
+  auto power(bool reset) -> void;
 
   //video.cpp
   auto configureVideoPalette() -> void;

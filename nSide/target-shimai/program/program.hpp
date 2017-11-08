@@ -30,10 +30,11 @@ struct Program : Emulator::Platform {
   auto initializeVideoDriver() -> void;
   auto initializeAudioDriver() -> void;
   auto initializeInputDriver() -> void;
+
+  auto softReset() -> void;
   auto powerCycle() -> void;
   auto rotateDisplay() -> void;
   auto connectDevices() -> void;
-  auto showMessage(const string& text) -> void;
   auto updateVideoPalette() -> void;
   auto updateVideoShader() -> void;
   auto updateAudioDriver() -> void;
@@ -48,9 +49,7 @@ struct Program : Emulator::Platform {
   vector<string> mediumQueue;  //for command-line and drag-and-drop loading
   vector<string> mediumPaths;  //for keeping track of loaded folder locations
 
-  string statusText;
-  string statusMessage;
-  time_t statusTime = 0;
+  time_t autoSaveTime = 0;  //for automatically saving RAM periodically
 };
 
 extern unique_pointer<Program> program;

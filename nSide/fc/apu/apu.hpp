@@ -31,8 +31,7 @@ struct APU : Thread {
   auto setSample(int16 sample) -> void;
 
   auto load(Markup::Node) -> bool;
-  auto power() -> void;
-  auto reset() -> void;
+  auto power(bool reset) -> void;
 
   auto readIO(uint16 addr, uint8 data) -> uint8;
   auto writeIO(uint16 addr, uint8 data) -> void;
@@ -46,8 +45,7 @@ struct APU : Thread {
     auto volume() const -> uint;
     auto clock() -> void;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 
@@ -64,8 +62,7 @@ struct APU : Thread {
     auto checkPeriod() -> bool;
     auto clock(uint channel) -> void;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 
@@ -83,8 +80,7 @@ struct APU : Thread {
     auto checkPeriod() -> bool;
     auto clock() -> uint8;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 
@@ -105,8 +101,7 @@ struct APU : Thread {
     auto clockLinearLength() -> void;
     auto clock() -> uint8;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 
@@ -129,8 +124,7 @@ struct APU : Thread {
     auto clockLength() -> void;
     auto clock() -> uint8;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 
@@ -154,8 +148,7 @@ struct APU : Thread {
     auto stop() -> void;
     auto clock() -> uint8;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer&) -> void;
 

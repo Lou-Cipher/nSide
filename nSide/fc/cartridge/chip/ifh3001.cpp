@@ -77,10 +77,7 @@ struct IFH3001 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank[0] = 0x00;
     prgBank[1] = 0x01;
     prgBank[2] = 0xfe;

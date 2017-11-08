@@ -29,15 +29,14 @@ auto APU::Sweep::clock(uint channel) -> void {
   }
 }
 
-auto APU::Sweep::power() -> void {
-  shift = 0;
-  decrement = 0;
-  period = 0;
-  counter = 1;
-  enable = 0;
-  reload = 0;
-  pulsePeriod = 0;
-}
-
-auto APU::Sweep::reset() -> void {
+auto APU::Sweep::power(bool reset) -> void {
+  if(!reset) {
+    shift = 0;
+    decrement = 0;
+    period = 0;
+    counter = 1;
+    enable = 0;
+    reload = 0;
+    pulsePeriod = 0;
+  }
 }

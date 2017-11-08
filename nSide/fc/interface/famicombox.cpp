@@ -1,6 +1,7 @@
 FamicomBoxInterface::FamicomBoxInterface() {
   information.manufacturer = "Nintendo";
   information.name         = "FamicomBox";
+  information.resettable   = true;
 
   media.append({ID::FamicomBox, "FamicomBox", "fcb"});
 

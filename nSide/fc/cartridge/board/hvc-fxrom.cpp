@@ -53,10 +53,7 @@ struct HVC_FxROM : Board {
     return Board::writeCHR((bank * 0x1000) | (addr & 0x0fff), data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank[0][0] = 0;
     chrBank[0][1] = 0;

@@ -75,10 +75,7 @@ struct HVC_CxROM : Board {
     Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     chrBank = 0;
   }
 

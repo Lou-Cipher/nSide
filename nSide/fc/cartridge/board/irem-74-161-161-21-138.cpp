@@ -43,10 +43,7 @@ struct Irem74_161_161_21_138 : Board {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank = 0;
   }

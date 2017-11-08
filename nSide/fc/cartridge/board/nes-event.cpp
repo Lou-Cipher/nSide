@@ -77,12 +77,8 @@ struct NES_Event : Board {
     return Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-    mmc1.power();
-  }
-
-  auto reset() -> void {
-    mmc1.reset();
+  auto power(bool reset) -> void {
+    mmc1.power(reset);
     prgLock = 0;
     irqCounter = 0x00000000;
   }

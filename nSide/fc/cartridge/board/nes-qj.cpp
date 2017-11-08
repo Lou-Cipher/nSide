@@ -35,12 +35,8 @@ struct NES_QJ : Board {
     return mmc3.ciramAddress(addr);
   }
 
-  auto power() -> void {
-    mmc3.power();
-  }
-
-  auto reset() -> void {
-    mmc3.reset();
+  auto power(bool reset) -> void {
+    mmc3.power(reset);
     bank = 0;
   }
 

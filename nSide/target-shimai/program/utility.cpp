@@ -64,19 +64,23 @@ auto Program::initializeInputDriver() -> void {
   }
 }
 
+auto Program::softReset() -> void {
+  if(!emulator) return;
+  if(!emulator->information.resettable) return;
+  emulator->reset();
+}
+
 auto Program::powerCycle() -> void {
   if(!emulator) return;
   emulator->power();
-  showMessage("Power cycled");
 }
 
 auto Program::rotateDisplay() -> void {
   if(!emulator) return;
-  if(!emulator->cap("Rotate Display")) return showMessage("Display rotation not supported");
+  if(!emulator->cap("Rotate Display")) return;
   auto rotate = emulator->get("Rotate Display");
   emulator->set("Rotate Display", !rotate.get<bool>());
   presentation->resizeViewport();
-  showMessage("Display rotated");
 }
 
 auto Program::connectDevices() -> void {
@@ -91,11 +95,6 @@ auto Program::connectDevices() -> void {
       }
     }
   }
-}
-
-auto Program::showMessage(const string& text) -> void {
-  statusTime = time(0);
-  statusMessage = text;
 }
 
 auto Program::updateVideoPalette() -> void {

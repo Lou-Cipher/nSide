@@ -9,7 +9,7 @@ struct PlayChoice10 : Processor::Z80::Bus {
   };
 
   auto load(Markup::Node node) -> bool;
-  auto power() -> void;
+  auto power(bool reset) -> void;
 
   auto read(uint16 addr) -> uint8 override;
   auto write(uint16 addr, uint8 data) -> void override;
@@ -52,8 +52,7 @@ struct PlayChoice10 : Processor::Z80::Bus {
     auto setNMI(bool value) -> void;
     auto setINT(bool value) -> void;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto serialize(serializer& s) -> void;
 
@@ -70,8 +69,7 @@ struct PlayChoice10 : Processor::Z80::Bus {
     auto step(uint clocks) -> void;
     auto refresh() -> void;
 
-    auto power() -> void;
-    auto reset() -> void;
+    auto power(bool reset) -> void;
 
     auto writeVRAM(uint16 addr, uint8 data) -> void;
 

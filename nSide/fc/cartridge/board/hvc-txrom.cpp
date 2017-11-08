@@ -70,12 +70,8 @@ struct HVC_TxROM : Board {
     }
   }
 
-  auto power() -> void {
-    mmc3.power();
-  }
-
-  auto reset() -> void {
-    mmc3.reset();
+  auto power(bool reset) -> void {
+    mmc3.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

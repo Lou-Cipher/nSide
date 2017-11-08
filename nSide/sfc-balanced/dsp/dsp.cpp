@@ -41,18 +41,19 @@ auto DSP::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto DSP::power() -> void {
-  random.array(apuram, sizeof(apuram));
+auto DSP::power(bool reset) -> void {
+  if(!reset) {
+    random.array(apuram, sizeof(apuram));
 
-  spc_dsp.init(apuram);
-  spc_dsp.reset();
-//spc_dsp.set_output(samplebuffer, 8192);  //power()
+    spc_dsp.init(apuram);
+    spc_dsp.reset();
+  }
 
   clock = 0;
   stream = Emulator::audio.createStream(2, system.apuFrequency() / 768.0);
 
   spc_dsp.soft_reset();
-  spc_dsp.set_output(samplebuffer, 8192);  //reset()
+  spc_dsp.set_output(samplebuffer, 8192);
 }
 
 }

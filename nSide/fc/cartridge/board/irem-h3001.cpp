@@ -27,12 +27,8 @@ struct IremH3001 : Board {
     return Board::writeCHR(ifh3001.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    ifh3001.power();
-  }
-
-  auto reset() -> void {
-    ifh3001.reset();
+  auto power(bool reset) -> void {
+    ifh3001.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

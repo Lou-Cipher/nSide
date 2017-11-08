@@ -36,10 +36,7 @@ struct HVC_AxROM : Board {
     return Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0x0f;
     mirrorSelect = 0;
   }

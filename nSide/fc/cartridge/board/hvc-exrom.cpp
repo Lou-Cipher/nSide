@@ -32,12 +32,8 @@ struct HVC_ExROM : Board {
     mmc5.scanline(y);
   }
 
-  auto power() -> void {
-    mmc5.power();
-  }
-
-  auto reset() -> void {
-    mmc5.reset();
+  auto power(bool reset) -> void {
+    mmc5.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

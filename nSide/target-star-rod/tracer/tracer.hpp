@@ -1,8 +1,8 @@
 struct Tracer {
   file fp;
   bool mask;
-  uint8* cpuMask;
-  uint8* smpMask;
+  uint8 cpuMask[0x200000];
+  uint8 smpMask[0x2000];
 
   auto resetMask() -> void;
   auto maskCPU(uint24 addr) -> bool;
@@ -12,7 +12,6 @@ struct Tracer {
   auto enable(bool state) -> void;
 
   Tracer();
-  ~Tracer();
 
   template<typename... Args> void print(Args&&... args) {
     fp.print(std::forward<Args>(args)...);

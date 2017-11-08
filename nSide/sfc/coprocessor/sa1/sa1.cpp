@@ -27,9 +27,11 @@ auto SA1::main() -> void {
   if(status.interruptPending) {
     status.interruptPending = false;
     interrupt();
+    debug(sa1.irq);
     return;
   }
 
+  debug(sa1.execute, r.pc);
   instruction();
 }
 
@@ -115,12 +117,6 @@ auto SA1::tick() -> void {
 auto SA1::triggerIRQ() -> void {
   mmio.timer_irqfl = true;
   if(mmio.timer_irqen) mmio.timer_irqcl = 0;
-}
-
-auto SA1::init() -> void {
-}
-
-auto SA1::load() -> void {
 }
 
 auto SA1::unload() -> void {

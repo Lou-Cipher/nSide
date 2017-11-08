@@ -226,10 +226,7 @@ struct VRC6 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank[0] = 0;
     prgBank[1] = 0;
     chrBank[0] = 0;

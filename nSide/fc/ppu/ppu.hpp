@@ -40,8 +40,7 @@ struct PPU : Thread, PPUcounter {
   static auto Enter() -> void;
   auto main() -> void;
   auto load(Markup::Node) -> bool;
-  auto power() -> void;
-  auto reset() -> void;
+  auto power(bool reset) -> void;
 
   auto extIn() -> uint4;
   auto extOut() -> uint4;

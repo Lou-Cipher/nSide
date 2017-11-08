@@ -79,11 +79,7 @@ struct FCG : Chip {
     }
   }
 
-  auto power() -> void {
-    reset();
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     for(auto &n : chrBank) n = 0;
     prgBank = 0;
     mirror = 0;

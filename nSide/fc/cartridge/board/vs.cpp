@@ -112,18 +112,11 @@ struct VS : Board {
     }
   }
 
-  auto power() -> void {
-    switch(chipType) {
-    case ChipType::MMC1: mmc1.power(); break;
-    case ChipType::N108: n108.power(); break;
-    }
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     bank = 0;
     switch(chipType) {
-    case ChipType::MMC1: mmc1.reset(); break;
-    case ChipType::N108: n108.reset(); break;
+    case ChipType::MMC1: mmc1.power(reset); break;
+    case ChipType::N108: n108.power(reset); break;
     }
   }
 

@@ -162,14 +162,14 @@ struct Sunsoft5B : Board {
     return Board::writeCHR(chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    for(int n = 0; n < 16; n++) {
-      double volume = 1.0 / pow(2, 1.0 / 2 * (15 - n));
-      dac[n] = volume * 8192.0;
+  auto power(bool reset) -> void {
+    if(!reset) {
+      for(int n = 0; n < 16; n++) {
+        double volume = 1.0 / pow(2, 1.0 / 2 * (15 - n));
+        dac[n] = volume * 8192.0;
+      }
     }
-  }
 
-  auto reset() -> void {
     mmuPort = 0;
     apuPort = 0;
 

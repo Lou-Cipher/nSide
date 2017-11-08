@@ -38,12 +38,8 @@ struct JalecoJF2x : Board {
     return Board::writeCHR(ss88006.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    ss88006.power();
-  }
-
-  auto reset() -> void {
-    ss88006.reset();
+  auto power(bool reset) -> void {
+    ss88006.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

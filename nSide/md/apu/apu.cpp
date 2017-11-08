@@ -56,16 +56,14 @@ auto APU::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto APU::power() -> void {
+auto APU::power(bool reset) -> void {
   Z80::bus = this;
-  Z80::power();
-  reset();
-}
-
-auto APU::reset() -> void {
+  if(!reset) Z80::power();
   Z80::reset();
   bus->grant(false);
   create(APU::Enter, system.frequency() / 15.0);
+
+  if(!reset) memory::fill(ram, sizeof ram);
   state = {};
 }
 

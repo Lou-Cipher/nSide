@@ -68,6 +68,8 @@ auto SA1::busWrite(uint24 addr, uint8 data) -> void {
     synchronize(cpu);
     return bitmapWrite(addr & 0x0fffff, data);
   }
+
+  debug(sa1.write, addr, data);
 }
 
 //$230c (VDPL), $230d (VDPH) use this bus to read variable-length data.
@@ -115,13 +117,16 @@ auto SA1::idle() -> void {
 auto SA1::read(uint24 addr) -> uint8 {
   tick();
   if(((addr & 0x40e000) == 0x006000) || ((addr & 0xd00000) == 0x400000)) tick();
-  return busRead(addr, r.mdr);
+  uint8 data = busRead(addr, r.mdr);
+  debug(sa1.read, addr, data);
+  return data;
 }
 
 auto SA1::write(uint24 addr, uint8 data) -> void {
   tick();
   if(((addr & 0x40e000) == 0x006000) || ((addr & 0xd00000) == 0x400000)) tick();
   busWrite(addr, r.mdr = data);
+  debug(sa1.write, addr, r.mdr);
 }
 
 //note: addresses are translated prior to invoking this function:
@@ -265,4 +270,8 @@ auto SA1::bitmapWrite(uint addr, uint8 data) -> void {
   }
 
   bwram.write(addr, data);
+}
+
+auto SA1::readDisassembler(uint24 addr) -> uint8 {
+  return busRead(addr, r.mdr);
 }

@@ -55,6 +55,7 @@ struct Interface : Emulator::Interface {
 
   auto connect(uint port, uint device) -> void override;
   auto power() -> void override;
+  auto reset() -> void override;
   auto run() -> void override;
 
   auto rtc() -> bool override;

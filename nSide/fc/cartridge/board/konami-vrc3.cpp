@@ -34,12 +34,8 @@ struct KonamiVRC3 : Board {
     return Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-    vrc3.power();
-  }
-
-  auto reset() -> void {
-    vrc3.reset();
+  auto power(bool reset) -> void {
+    vrc3.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

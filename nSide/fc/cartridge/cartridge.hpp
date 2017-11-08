@@ -17,8 +17,7 @@ struct Cartridge : Thread {
   auto save() -> void;
   auto unload() -> void;
 
-  auto power() -> void;
-  auto reset() -> void;
+  auto power(bool reset) -> void;
 
   auto serialize(serializer&) -> void;
 

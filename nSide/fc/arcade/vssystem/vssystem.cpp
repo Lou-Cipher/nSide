@@ -31,25 +31,27 @@ auto VSSystem::load() -> bool {
   return true;
 }
 
-auto VSSystem::power() -> void {
+auto VSSystem::power(bool reset) -> void {
   create(VSSystem::Enter, system.frequency());
 
-  function<auto (uint16, uint8) -> uint8> reader;
-  function<auto (uint16, uint8) -> void> writer;
+  if(!reset) {
+    function<auto (uint16, uint8) -> uint8> reader;
+    function<auto (uint16, uint8) -> void> writer;
 
-  reader = [](uint16 addr, uint8 data) -> uint8 { return vssystem.read(0, addr, data); };
-  writer = [](uint16 addr, uint8 data) -> void { vssystem.write(0, addr, data); };
-  busM.map(reader, writer, "4016-4017");
-  busM.map(reader, writer, "4020-5fff", 0, 0, 0x0020);
-  busM.map(reader, writer, "6000-7fff");
+    reader = [](uint16 addr, uint8 data) -> uint8 { return vssystem.read(0, addr, data); };
+    writer = [](uint16 addr, uint8 data) -> void { vssystem.write(0, addr, data); };
+    busM.map(reader, writer, "4016-4017");
+    busM.map(reader, writer, "4020-5fff", 0, 0, 0x0020);
+    busM.map(reader, writer, "6000-7fff");
 
-  reader = [](uint16 addr, uint8 data) -> uint8 { return vssystem.read(1, addr, data); };
-  writer = [](uint16 addr, uint8 data) -> void { vssystem.write(1, addr, data); };
-  busS.map(reader, writer, "4016-4017");
-  busS.map(reader, writer, "4020-5fff", 0, 0, 0x0020);
-  busS.map(reader, writer, "6000-7fff");
+    reader = [](uint16 addr, uint8 data) -> uint8 { return vssystem.read(1, addr, data); };
+    writer = [](uint16 addr, uint8 data) -> void { vssystem.write(1, addr, data); };
+    busS.map(reader, writer, "4016-4017");
+    busS.map(reader, writer, "4020-5fff", 0, 0, 0x0020);
+    busS.map(reader, writer, "6000-7fff");
 
-  random.array(ram, sizeof(ram));
+    random.array(ram, sizeof(ram));
+  }
 
   ramSide = forceSubRAM ? 1 : 0;
   resetButtons();

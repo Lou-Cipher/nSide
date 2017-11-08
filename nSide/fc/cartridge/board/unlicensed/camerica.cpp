@@ -69,10 +69,7 @@ struct Camerica : Board {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     prgBlock = 0;
     nametable = 0;

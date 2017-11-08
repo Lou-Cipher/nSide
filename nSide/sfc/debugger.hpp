@@ -33,6 +33,13 @@ struct Debugger {
       function<void (uint9, uint8)> write;
     } cgram;
   } ppu;
+
+  struct SA1 {
+    function<void (uint24, uint8)> read;
+    function<void (uint24, uint8)> write;
+    function<void (uint24)> execute;
+    function<void ()> irq;
+  } sa1;
 };
 
 extern Debugger debugger;

@@ -132,10 +132,7 @@ struct MMC6 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     chrMode = 0;
     prgMode = 0;
     ramEnable = 0;

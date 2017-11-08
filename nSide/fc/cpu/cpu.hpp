@@ -6,8 +6,7 @@ struct CPU : Processor::MOS6502, Thread {
   static auto Enter() -> void;
   auto main() -> void;
   auto load(Markup::Node) -> bool;
-  auto power() -> void;
-  auto reset() -> void;
+  auto power(bool reset) -> void;
 
   //memory.cpp
   auto read(uint16 addr) -> uint8 override;
@@ -35,7 +34,7 @@ struct CPU : Processor::MOS6502, Thread {
   //serialization.cpp
   auto serialize(serializer&) -> void;
 
-  uint8 ram[2 * 1024];
+  uint8 ram[0x800];
   vector<Thread*> coprocessors;
   vector<Thread*> peripherals;
 

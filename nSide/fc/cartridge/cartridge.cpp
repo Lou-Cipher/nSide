@@ -118,15 +118,9 @@ auto Cartridge::unload() -> void {
   board->keyrom.reset();
 }
 
-auto Cartridge::power() -> void {
+auto Cartridge::power(bool reset) -> void {
   create(Cartridge::Enter, system.frequency());
-  board->power();
-
-  reset();
-}
-
-auto Cartridge::reset() -> void {
-  board->reset();
+  board->power(reset);
 }
 
 auto Cartridge::readPRG(uint addr, uint8 data) -> uint8 {

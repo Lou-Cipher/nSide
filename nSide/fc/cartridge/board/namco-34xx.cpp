@@ -110,7 +110,7 @@ struct Namco34xx : Board {
     }
   }
 
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     nametable = 0;
   }
 

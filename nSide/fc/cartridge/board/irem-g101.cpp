@@ -38,12 +38,8 @@ struct IremG101 : Board {
     return Board::writeCHR(g101.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    g101.power();
-  }
-
-  auto reset() -> void {
-    g101.reset();
+  auto power(bool reset) -> void {
+    g101.power(reset);
   }
 
   auto serialize(serializer& s) -> void {

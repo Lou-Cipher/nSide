@@ -36,28 +36,26 @@ auto CPU::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto CPU::power() -> void {
-  MOS6502::BCD = 0;
-  MOS6502::power();
-  coprocessors.reset();
+auto CPU::power(bool reset) -> void {
+  if(!reset) {
+    MOS6502::BCD = 0;
+    MOS6502::power();
+    coprocessors.reset();
 
-  function<auto (uint16, uint8) -> uint8> reader;
-  function<auto (uint16, uint8) -> void> writer;
+    function<auto (uint16, uint8) -> uint8> reader;
+    function<auto (uint16, uint8) -> void> writer;
 
-  reader = [&](uint16 addr, uint8) -> uint8 { return ram[addr]; };
-  writer = [&](uint16 addr, uint8 data) -> void { ram[addr] = data; };
-  bus.map(reader, writer, "0000-1fff", 0x800);
+    reader = [&](uint16 addr, uint8) -> uint8 { return ram[addr]; };
+    writer = [&](uint16 addr, uint8 data) -> void { ram[addr] = data; };
+    bus.map(reader, writer, "0000-1fff", 0x800);
 
-  reader = {&CPU::readCPU, this};
-  writer = {&CPU::writeCPU, this};
-  bus.map(reader, writer, "4000-4017");
+    reader = {&CPU::readCPU, this};
+    writer = {&CPU::writeCPU, this};
+    bus.map(reader, writer, "4000-4017");
 
-  random.array(ram, sizeof(ram));
+    random.array(ram, sizeof(ram));
+  }
 
-  reset();
-}
-
-auto CPU::reset() -> void {
   create(Enter, system.frequency());
   MOS6502::reset();
 

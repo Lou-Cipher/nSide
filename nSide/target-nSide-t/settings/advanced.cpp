@@ -54,11 +54,16 @@ AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
   ignoreManifests.setChecked(settings["Library/IgnoreManifests"].boolean()).onToggle([&] {
     settings["Library/IgnoreManifests"].setValue(ignoreManifests.checked());
   });
+
+  otherLabel.setText("Other").setFont(Font().setBold());
+  autoSaveRAM.setChecked(settings["Emulation/AutoSaveRAM"].boolean()).onToggle([&] {
+    settings["Emulation/AutoSaveRAM"].setValue(autoSaveRAM.checked());
+  });
   recentList.setChecked(settings["Library/RecentList"].boolean()).onToggle([&] {
     if(!recentList.checked()) {
-      string prompt = locale["Settings/Advanced/RecentList/Clear"];
-      string yes = locale["Settings/Advanced/RecentList/Clear/Yes"];
-      string no = locale["Settings/Advanced/RecentList/Clear/No"];
+      string prompt = locale["Settings/Advanced/Other/RecentList/Clear"];
+      string yes = locale["Settings/Advanced/Other/RecentList/Clear/Yes"];
+      string no = locale["Settings/Advanced/Other/RecentList/Clear/No"];
       if(MessageDialog(prompt).setParent(*settingsManager).question({yes, no}) == yes) {
         for(uint index : range(10)) {
           settings[{"Recent/", index, "/Title"}].setValue("");
@@ -87,5 +92,8 @@ auto AdvancedSettings::refreshLocale() -> void {
   libraryPrefix.setText(locale["Settings/Advanced/GameLibrary/Location"]);
   libraryChange.setText(locale["Settings/Advanced/GameLibrary/Change..."]);
   ignoreManifests.setText(locale["Settings/Advanced/GameLibrary/IgnoreManifests"]);
-  recentList.setText(locale["Settings/Advanced/RecentList"]);
+
+  otherLabel.setText(locale["Settings/Advanced/Other"]);
+  autoSaveRAM.setText(locale["Settings/Advanced/Other/AutoSaveRAM"]);
+  recentList.setText(locale["Settings/Advanced/Other/RecentList"]);
 }

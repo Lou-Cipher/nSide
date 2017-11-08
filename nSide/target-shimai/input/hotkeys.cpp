@@ -66,7 +66,6 @@ auto InputManager::appendHotkeys() -> void {
     hotkey->name = "Decrement Quick State";
     hotkey->press = [&] {
       if(--quickStateSlot < 0) quickStateSlot = 9;
-      program->showMessage({"Selected quick state slot ", quickStateSlot});
     };
     hotkeys.append(hotkey);
   }
@@ -75,7 +74,6 @@ auto InputManager::appendHotkeys() -> void {
     hotkey->name = "Increment Quick State";
     hotkey->press = [&] {
       if(++quickStateSlot > 9) quickStateSlot = 0;
-      program->showMessage({"Selected quick state slot ", quickStateSlot});
     };
     hotkeys.append(hotkey);
   }
@@ -114,6 +112,14 @@ auto InputManager::appendHotkeys() -> void {
   }
 
   { auto hotkey = new InputHotkey;
+    hotkey->name = "Soft Reset";
+    hotkey->press = [] {
+      program->softReset();
+    };
+    hotkeys.append(hotkey);
+  }
+
+  { auto hotkey = new InputHotkey;
     hotkey->name = "Power Cycle";
     hotkey->press = [] {
       program->powerCycle();
@@ -141,7 +147,6 @@ auto InputManager::appendHotkeys() -> void {
         ".png"
       };
       Emulator::video.screenshot({program->mediumPaths.right(), filename});
-      program->showMessage("Screenshot saved");
     };
     hotkeys.append(hotkey);
   }

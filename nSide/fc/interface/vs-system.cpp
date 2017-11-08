@@ -1,6 +1,7 @@
 VSSystemInterface::VSSystemInterface() {
   information.manufacturer = "Nintendo";
   information.name         = "VS. System";
+  information.resettable   = false;
 
   media.append({ID::VSSystem, "VS. System", "vs"});
 

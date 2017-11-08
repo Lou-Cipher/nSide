@@ -30,6 +30,7 @@ Menu
     LoadROMFile...: Carregar ROM ...
     ImportROMFiles...: Importar ROM's ...
   System: Sistema
+    SoftReset: Resetar Console
     PowerCycle: Restabelecer Console
     Unload: Remover Cartucho
   Settings: Configurações
@@ -68,18 +69,19 @@ Status
   NoCartridgeLoaded: Não há cartuchos carregados
   FPS: FPS: %d
   Paused: Pausado
+  SoftReset: Console resetado
   PowerCycled: Console restabelecido
   DisplayRotated: Tela rotacionada
   RotateUnsupported: Rotação de tela não suportada
   State
     quick: State rápido
-    managed: Gerenciado
+    managed: State gerenciado
     DoesNotExist: Entrada %2$d do state %1$s não existe
     Incompatible: Entrada %2$d do state %1$s é incompatível
     Load: State %1$s carregado da entrada %2$d
-    Unsupported: Falha em salvar state %1$s à entrada %2$d
+    Unsupported: Falha ao salvar state %1$s na entrada %2$d
     Unprivileged: Não foi possível adicionar state %1$s à entrada %2$d
-    Save: State %1$s salvo à entrada %2$d
+    Save: State %1$s salvo na entrada %2$d
     Select: State rápido da entrada %d selecionado
   SaveScreenshot: Captura de tela salva
 
@@ -100,16 +102,16 @@ Settings: Configurações
       Vertical: Vertical:
     WindowedMode: Modo Janela
     FullscreenMode: Modo em Tela Cheia
-    AspectCorrection: Correção de aspecto
+    AspectCorrection: Correção de Aspecto
     IntegralScaling: Escala Integral
-    AdaptiveSizing: Dimensionamento adaptável
-    ExclusiveMode: Modo exlusivo
+    AdaptiveSizing: Dimensionamento Adaptável
+    ExclusiveMode: Modo Exlusivo
   Audio: Áudio
     Driver: Driver
       Device: Dispositivo:
       Frequency: Frequência:
       Latency: Latência:
-      ExclusiveMode: Modo exclusivo
+      ExclusiveMode: Modo Exclusivo
     Effects: Efeitos
       Volume: Volume:
       Balance: Balanço:
@@ -117,7 +119,7 @@ Settings: Configurações
   Input: Comandos de Controle
     WhenFocusIsLost: Quando o Foco é Perdido:
       PauseEmulation: Pausar Emulação
-      AllowInput: Permitir dispositivo
+      AllowInput: Permitir entrada de dispositivos
     Name: Nome
     Mapping: Assimilações
     MouseXAxis: Mouse X-axis
@@ -127,7 +129,7 @@ Settings: Configurações
     MouseRight: Mouse Direito
     Reset: Redefinir
     Erase: Apagar
-    PressKey: Pressione um tecla ou botão para assimilar [%s] ...
+    PressKey: Pressione uma tecla ou botão para assimilar [%s] ...
     MappingAssigned: Assimilamento completo.
     ResetConfirmation: Você está certo disso?
       Yes: Sim
@@ -140,7 +142,7 @@ Settings: Configurações
       or: ou
     Reset: Redefinir
     Erase: Apagar
-    PressKey: Pressione um tecla ou botão para assimilar [%s] ...
+    PressKey: Pressione uma tecla ou botão para assimilar [%s] ...
     MappingAssigned: Assimilamento completo.
     ResetConfirmation: Você está certo disso?
       Yes: Sim
@@ -153,11 +155,13 @@ Settings: Configurações
     GameLibrary: Biblioteca de Jogos
       Location: Local:
       Change...: Alterar ...
-      IgnoreManifests: Ignorar arquivos BML avulsos
-    RecentList: Altivar lista de jogos recentes
-      Clear: Atenção! Isso irá limpar seu histórico de jogos recentes! Você está certo disso?
-        Yes: Sim
-        No: Não
+      IgnoreManifests: Ignorar arquivos BML
+    Other: Outro
+      AutoSaveRAM: Salvar RAM periodicamente
+      RecentList: Ativar lista de jogos recentes
+        Clear: Atenção! Isso irá limpar seu histórico de jogos recentes! Você está certo disso?
+          Yes: Sim
+          No: Não
 
 Tools: Ferramentas
   CheatDatabase

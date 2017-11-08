@@ -34,39 +34,38 @@ auto PlayChoice10::load(Markup::Node node) -> bool {
   return true;
 }
 
-auto PlayChoice10::power() -> void {
-  pc10cpu.power();
-  videoCircuit.power();
+auto PlayChoice10::power(bool reset) -> void {
+  pc10cpu.power(reset);
+  videoCircuit.power(reset);
 
-  function<auto (uint16, uint8) -> uint8> reader;
-  function<auto (uint16, uint8) -> void> writer;
+  if(!reset) {
+    function<auto (uint16, uint8) -> uint8> reader;
+    function<auto (uint16, uint8) -> void> writer;
 
-  reader = {&PlayChoice10::readController1, this};
-  writer = {&PlayChoice10::latchControllers, this};
-  busM.map(reader, writer, "4016-4016");
+    reader = {&PlayChoice10::readController1, this};
+    writer = {&PlayChoice10::latchControllers, this};
+    busM.map(reader, writer, "4016-4016");
 
-  nmiDetected = false;
+    nmiDetected = false;
 
-  vramAccess      = 0;  //0: Z80,                  1: video circuit
-  gameSelectStart = 0;  //0: disable START/SELECT, 1: enable START/SELECT
-  ppuOutput       = 0;  //0: disable,              1: enable
-  apuOutput       = 0;  //0: disable,              1: enable
-  cpuReset        = 0;  //0: reset,                1: run
-  cpuStop         = 0;  //0: stop,                 1: run
-  display         = 0;  //0: video circuit,        1: PPU
-  z80NMI          = 0;  //0: disable,              1: enable
-  watchdog        = 0;  //0: enable,               1: disable
-  ppuReset        = 0;  //0: reset,                1: run
+    vramAccess      = 0;  //0: Z80,                  1: video circuit
+    gameSelectStart = 0;  //0: disable START/SELECT, 1: enable START/SELECT
+    ppuOutput       = 0;  //0: disable,              1: enable
+    apuOutput       = 0;  //0: disable,              1: enable
+    cpuReset        = 0;  //0: reset,                1: run
+    cpuStop         = 0;  //0: stop,                 1: run
+    display         = 0;  //0: video circuit,        1: PPU
+    z80NMI          = 0;  //0: disable,              1: enable
+    watchdog        = 0;  //0: enable,               1: disable
+    ppuReset        = 0;  //0: reset,                1: run
 
-  random.array(wram, sizeof(wram));
+    random.array(wram, sizeof(wram));
 
-  channel  = 0;  //channel 1 on-screen
-  sramBank = 1;
+    channel  = 0;  //channel 1 on-screen
+    sramBank = 1;
 
-  pc10cpu.reset();
-  videoCircuit.reset();
-
-  promAddress = 0;
+    promAddress = 0;
+  }
 }
 
 auto PlayChoice10::read(uint16 addr) -> uint8 {
@@ -149,8 +148,8 @@ auto PlayChoice10::out(uint8 addr, uint8 data) -> void {
   }
   case 0x04: {
     if(!cpuReset && data) {
-      cpuM.reset();
-      apuM.reset();
+      cpuM.power(/* reset = */ true);
+      apuM.power(/* reset = */ true);
     };
     cpuReset = data;
     break;
@@ -174,7 +173,7 @@ auto PlayChoice10::out(uint8 addr, uint8 data) -> void {
     break;
   }
   case 0x0a: {
-    if(!ppuReset && data) ppuM.reset();
+    if(!ppuReset && data) ppuM.power(/* reset = */ true);
     ppuReset = data;
     break;
   }
@@ -221,7 +220,7 @@ auto PlayChoice10::changeChannel(uint4 newChannel) -> void {
   scheduler.remove(cartridgeSlot[channel]);
   channel = newChannel;
   if(channel < cartridgeSlot.size()) busM.slot = channel;
-  cartridgeSlot[busM.slot].power();
+  cartridgeSlot[busM.slot].power(false);
 }
 
 auto PlayChoice10::poll(uint input) -> int16 {

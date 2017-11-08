@@ -46,22 +46,21 @@ struct G101 : Chip {
     }
   }
 
-  auto power() -> void {
-    prgMode = 0;
-    prgBank[0] = 0x00;
-    prgBank[1] = 0x1e;
-    chrBank[0] = 0;
-    chrBank[1] = 0;
-    chrBank[2] = 0;
-    chrBank[3] = 0;
-    chrBank[4] = 0;
-    chrBank[5] = 0;
-    chrBank[6] = 0;
-    chrBank[7] = 0;
-    mirror = 0;
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
+    if(!reset) {
+      prgMode = 0;
+      prgBank[0] = 0x00;
+      prgBank[1] = 0x1e;
+      chrBank[0] = 0;
+      chrBank[1] = 0;
+      chrBank[2] = 0;
+      chrBank[3] = 0;
+      chrBank[4] = 0;
+      chrBank[5] = 0;
+      chrBank[6] = 0;
+      chrBank[7] = 0;
+      mirror = 0;
+    }
   }
 
   auto serialize(serializer& s) -> void {

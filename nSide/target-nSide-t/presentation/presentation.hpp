@@ -30,7 +30,8 @@ struct Presentation : Window {
       Menu inputPort3{&systemMenu};
       Menu inputPort4{&systemMenu};
       MenuSeparator systemMenuSeparatorPorts{&systemMenu};
-      MenuItem reloadSystem{&systemMenu};
+      MenuItem resetSystem{&systemMenu};
+      MenuItem powerSystem{&systemMenu};
       MenuItem unloadSystem{&systemMenu};
     Menu settingsMenu{&menuBar};
       Menu videoScaleMenu{&settingsMenu};

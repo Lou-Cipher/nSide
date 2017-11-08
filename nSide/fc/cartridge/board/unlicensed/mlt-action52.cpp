@@ -47,10 +47,7 @@ struct MLT_Action52 : Board {
     Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     mirror = 0;
     prgChip = 0;
     prgBank = 0;

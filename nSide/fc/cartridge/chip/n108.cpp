@@ -47,10 +47,7 @@ struct N108 : Chip {
     }
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     bankSelect = 0;
     prgBank[0] = 0;
     prgBank[1] = 0;

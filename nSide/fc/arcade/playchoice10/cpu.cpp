@@ -34,14 +34,11 @@ auto PlayChoice10::CPU::setINT(bool value) -> void {
   state.intLine = value;
 }
 
-auto PlayChoice10::CPU::power() -> void {
-  Z80::bus = &playchoice10;
-  Z80::power();
-}
-
-auto PlayChoice10::CPU::reset() -> void {
-  Z80::reset();
+auto PlayChoice10::CPU::power(bool reset) -> void {
   create(PlayChoice10::CPU::Enter, 4'000'000.0);
+  Z80::bus = &playchoice10;
+  if(!reset) Z80::power();
+  Z80::reset();
 
-  memory::fill(&state, sizeof(State));
+  state = {};
 }

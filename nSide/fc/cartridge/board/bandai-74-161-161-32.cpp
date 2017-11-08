@@ -38,10 +38,7 @@ struct Bandai74_161_161_32 : Board {
     Board::writeCHR(addr, data);
   }
 
-  auto power() -> void {
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank = 0;
   }

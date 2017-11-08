@@ -116,6 +116,13 @@ auto Program::main() -> void {
   }
 
   emulator->run();
+  if(settings["Emulation/AutoSaveRAM"].boolean()) {
+    time_t currentTime = time(nullptr);
+    if(currentTime - autoSaveTime >= 5) {
+      autoSaveTime = currentTime;
+      emulator->save();
+    }
+  }
 }
 
 auto Program::quit() -> void {

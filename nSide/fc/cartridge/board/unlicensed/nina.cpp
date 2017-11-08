@@ -64,11 +64,7 @@ struct Nina : Board {
     return Board::writeCHR((addr & 0x0fff) | (chrBank[(addr & 0x1000) >> 12] << 12), data);
   }
 
-  auto power() -> void {
-    reset();
-  }
-
-  auto reset() -> void {
+  auto power(bool reset) -> void {
     prgBank = 0;
     chrBank[0] = 0;
     chrBank[1] = 0;

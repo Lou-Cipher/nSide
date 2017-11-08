@@ -38,7 +38,11 @@ auto Interface::unload() -> void {
 }
 
 auto Interface::power() -> void {
-  system.power();
+  system.power(/* reset = */ false);
+}
+
+auto Interface::reset() -> void {
+  system.power(/* reset = */ true);
 }
 
 auto Interface::run() -> void {

@@ -37,8 +37,7 @@ struct KonamiVRC7 : Board {
   }
 
   auto main() -> void { vrc7.main(); }
-  auto power() -> void { vrc7.power(); }
-  auto reset() -> void { vrc7.reset(); }
+  auto power(bool reset) -> void { vrc7.power(reset); }
 
   struct Settings {
     struct Pinout {

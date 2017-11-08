@@ -72,7 +72,7 @@ auto System::unload() -> void {
   information.loaded = false;
 }
 
-auto System::power() -> void {
+auto System::power(bool reset) -> void {
   Emulator::video.reset();
   Emulator::video.setInterface(interface);
   Emulator::video.setPalette();
@@ -82,11 +82,11 @@ auto System::power() -> void {
 
   scheduler.reset();
   cartridge.power();
-  cpu.power();
-  apu.power();
-  vdp.power();
-  psg.power();
-  ym2612.power();
+  cpu.power(reset);
+  apu.power(reset);
+  vdp.power(reset);
+  psg.power(reset);
+  ym2612.power(reset);
   scheduler.primary(cpu);
 
   controllerPort1.power(ID::Port::Controller1);

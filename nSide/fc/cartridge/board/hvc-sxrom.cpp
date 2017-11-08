@@ -95,12 +95,8 @@ struct HVC_SxROM : Board {
     return Board::writeCHR(mmc1.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    mmc1.power();
-  }
-
-  auto reset() -> void {
-    mmc1.reset();
+  auto power(bool reset) -> void {
+    mmc1.power(reset);
     expLock = 0x00;
   }
 

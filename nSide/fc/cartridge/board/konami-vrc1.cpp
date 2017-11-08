@@ -21,12 +21,8 @@ struct KonamiVRC1 : Board {
     return Board::writeCHR(vrc1.chrAddress(addr), data);
   }
 
-  auto power() -> void {
-    vrc1.power();
-  }
-
-  auto reset() -> void {
-    vrc1.reset();
+  auto power(bool reset) -> void {
+    vrc1.power(reset);
   }
 
   auto serialize(serializer& s) -> void {
