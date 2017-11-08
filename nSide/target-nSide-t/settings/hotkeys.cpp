@@ -1,6 +1,5 @@
 HotkeySettings::HotkeySettings(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Device::Keyboard);
-  refreshLocale();
 
   layout.setMargin(5);
   mappingList.onActivate([&] { assignMapping(); });

@@ -1,6 +1,5 @@
 ManifestViewer::ManifestViewer(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Emblem::Text);
-  refreshLocale();
 
   layout.setMargin(5);
   manifestView.setEditable(false).setWordWrap(false).setFont(Font().setFamily(Font::Mono));

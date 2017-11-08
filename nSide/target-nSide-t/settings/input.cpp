@@ -1,6 +1,5 @@
 InputSettings::InputSettings(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Device::Joypad);
-  refreshLocale();
 
   layout.setMargin(5);
   pauseEmulation.setChecked(settings["Input/FocusLoss/Pause"].boolean()).onToggle([&] {

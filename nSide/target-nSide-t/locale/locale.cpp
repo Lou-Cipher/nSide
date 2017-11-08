@@ -29,6 +29,13 @@ auto Locale::load(string name) -> void {
   document = BML::unserialize(string::read(locate({"Locales/", name, ".bml"})));
 }
 
+auto Locale::refresh() -> void {
+  presentation->refreshLocale();
+  settingsManager->refreshLocale();
+  toolsManager->refreshLocale();
+  cheatDatabase->refreshLocale();
+}
+
 auto Locale::operator[](const string& path) -> string {
   if(const auto& node = document[path]) return node.text();
   return path;

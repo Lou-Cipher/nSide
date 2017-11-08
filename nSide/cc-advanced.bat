@@ -1,11 +1,13 @@
 @echo off
 rem For use with Windows
 
-echo "libretro"  fork of higan's libretro core altered to use the balanced profile
-echo "star-rod"  fork of laevateinn, the debugger included with bsnes v086
-echo "prealpha"  enable support for unfinished emulators: Atari 2600, SG-1000
-echo "shimai"    raster UI inspired by the NES Classic Edition
-echo "console"   show console window during emulation
+echo Release targets:
+echo   "libretro"  fork of higan's libretro core altered to use the balanced profile
+echo   "star-rod"  fork of laevateinn, the debugger included with bsnes v086
+echo WIP and development targets:
+echo   "prealpha"  enable support for unfinished emulators: Atari 2600, SG-1000
+echo   "shimai"    raster UI inspired by the NES Classic Edition
+echo   "console"   show console window during emulation
 set /p target=Target:
 
 if /i "%target%" equ "libretro" (

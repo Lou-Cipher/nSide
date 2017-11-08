@@ -20,6 +20,8 @@ auto CheatDatabase::refreshLocale() -> void {
   selectAllButton.setText(locale["Tools/CheatDatabase/SelectAll"]);
   unselectAllButton.setText(locale["Tools/CheatDatabase/UnselectAll"]);
   addCodesButton.setText(locale["Tools/CheatDatabase/AddCodes"]);
+
+  setSize(geometry().size());
 }
 
 auto CheatDatabase::findCodes() -> void {

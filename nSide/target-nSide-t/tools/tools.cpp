@@ -24,6 +24,11 @@ ToolsManager::ToolsManager() {
 
 auto ToolsManager::refreshLocale() -> void {
   setTitle(locale["Tools"]);
+  cheatEditor.refreshLocale();
+  stateManager.refreshLocale();
+  manifestViewer.refreshLocale();
+
+  setSize(geometry().size());
 }
 
 auto ToolsManager::show(uint tool) -> void {

@@ -7,8 +7,6 @@ StateManager::StateManager(TabFrame* parent) : TabFrameItem(parent) {
     .append(TableViewColumn().setText("Description").setExpandable())
   );
 
-  refreshLocale();
-
   for(auto slot : range(Slots)) {
     stateList.append(TableViewItem()
       .append(TableViewCell().setText(1 + slot))

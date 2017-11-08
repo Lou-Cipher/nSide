@@ -25,6 +25,13 @@ SettingsManager::SettingsManager() {
 
 auto SettingsManager::refreshLocale() -> void {
   setTitle(locale["Settings"]);
+  video.refreshLocale();
+  audio.refreshLocale();
+  input.refreshLocale();
+  hotkeys.refreshLocale();
+  advanced.refreshLocale();
+
+  setSize(geometry().size());
 }
 
 auto SettingsManager::setVisible(bool visible) -> SettingsManager& {

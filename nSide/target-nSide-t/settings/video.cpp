@@ -1,6 +1,5 @@
 VideoSettings::VideoSettings(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Device::Display);
-  refreshLocale();
 
   layout.setMargin(5);
 

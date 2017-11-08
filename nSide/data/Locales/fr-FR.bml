@@ -1,5 +1,5 @@
 //Author: Braintrash
-//Version: V1
+//Version: V2
 System
   Atari: Atari
     Atari2600: Atari 2600
@@ -28,8 +28,8 @@ System
 Menu
   Recent: Récent
   Library: Bibliothèque
-    LoadROMFile...: Charger le fichier ROM ...
-    ImportROMFiles...: Importer les fichiers ROM ...
+    LoadROMFile...: Charger le fichier ROM...
+    ImportROMFiles...: Importer les fichiers ROM...
   System: Système
     SoftReset: Réinitialiser
     PowerCycle: Redémarrer
@@ -113,7 +113,7 @@ Settings: Réglages
       Frequency: Fréquence :
       Latency: Latence :
       ExclusiveMode: Mode sélectif
-    Effects: Effects
+    Effects: Effets
       Volume: Volume :
       Balance: Balance :
       Reverb: Reverbération
@@ -130,7 +130,7 @@ Settings: Réglages
     MouseRight: Bouton droit
     Reset: Réinitialiser
     Erase: Effacer
-    PressKey: Appuyer sur une touche ou un bouton pour assigner [%s]...
+    PressKey: Appuyez sur une touche ou un bouton pour assigner [%s]...
     MappingAssigned: Assignation enregistrée.
     ResetConfirmation: Etes-vous sûr de vouloir effacer tous les raccourcis de cet appareil ?
       Yes: Oui
@@ -143,7 +143,7 @@ Settings: Réglages
       or: ou
     Reset: Réinitialiser
     Erase: Effacer
-    PressKey: Presser une touche ou un bouton pour assigner [%s]...
+    PressKey: Appuyez sur une touche ou un bouton pour assigner [%s]...
     MappingAssigned: Assignation enregistrée.
     ResetConfirmation: Etes-vous sûr de vouloir effacer tous les raccourcis ?
       Yes: Oui

@@ -8,8 +8,6 @@ CheatEditor::CheatEditor(TabFrame* parent) : TabFrameItem(parent) {
     .append(TableViewColumn().setText("Description").setExpandable())
   );
 
-  refreshLocale();
-
   for(auto slot : range(Slots)) {
     cheatList.append(TableViewItem()
       .append(TableViewCell().setCheckable().setText(1 + slot))

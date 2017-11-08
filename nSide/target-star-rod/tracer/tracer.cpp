@@ -6,11 +6,6 @@ Tracer::Tracer() {
   mask = false;
 }
 
-Tracer::~Tracer() {
-  delete[] cpuMask;
-  delete[] smpMask;
-}
-
 auto Tracer::resetMask() -> void {
   memory::fill(cpuMask, 0x200000, 0);
   memory::fill(smpMask, 0x2000, 0);

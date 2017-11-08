@@ -1,6 +1,5 @@
 AudioSettings::AudioSettings(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Device::Speaker);
-  refreshLocale();
 
   layout.setMargin(5);
 

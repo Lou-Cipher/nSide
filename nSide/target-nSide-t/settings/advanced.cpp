@@ -1,11 +1,14 @@
 AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
   setIcon(Icon::Action::Settings);
-  refreshLocale();
 
   layout.setMargin(5);
 
   localeLabel.setFont(Font().setBold());
-  localeSelect.onChange([&] { settings["UserInterface/Locale"].setValue(localeSelect.selected().text()); });
+  localeSelect.onChange([&] {
+    settings["UserInterface/Locale"].setValue(localeSelect.selected().text());
+    locale.load(settings["UserInterface/Locale"].text());
+    locale.refresh();
+  });
   ComboButtonItem localeAuto;
   localeAuto.setText("Auto");
   if(settings["UserInterface/Locale"].text() == "Auto") localeAuto.setSelected();
@@ -96,4 +99,6 @@ auto AdvancedSettings::refreshLocale() -> void {
   otherLabel.setText(locale["Settings/Advanced/Other"]);
   autoSaveRAM.setText(locale["Settings/Advanced/Other/AutoSaveRAM"]);
   recentList.setText(locale["Settings/Advanced/Other/RecentList"]);
+
+  layout.setMargin(5);
 }
