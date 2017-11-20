@@ -13,7 +13,7 @@ using namespace nall;
 namespace Emulator {
   //Use higan's properties for backwards compatibility. nSide-specific properties are at the bottom.
   static const string Name    = "higan";
-  static const string Version = "105.01";
+  static const string Version = "106";
   static const string Author  = "byuu";
   static const string License = "GPLv3";
   static const string Website = "https://board.byuu.org/";
@@ -25,7 +25,6 @@ namespace Emulator {
     "Benjamin Siskoo (Locale for Français)",
     "Bisqwit (Famicom PPU color generation for NTSC systems)",
     "blargg (Famicom testing, Super Famicom MUL/DIV and Balanced DSP)",
-    "Cydrak (ST-018 discoveries and bug fixes, Game Boy Advance emulation, Mega Drive sound)",
     "_Demo_",
     "Derrick Sobodash",
     "DMV27",
@@ -53,6 +52,7 @@ namespace Emulator {
     "Richard Bannister",
     "Ryphecha (Famicom APU emulation)",
     "segher (Cx4 reverse engineering)",
+    "Talarubi (ST-018 discoveries and bug fixes, Game Boy Advance emulation, Mega Drive sound)",
     "tetsuo55",
     "Total (Super Famicom CPU MDR tests)",
     "TRAC",
@@ -66,7 +66,7 @@ namespace Emulator {
     "Ryphecha (No longer used: polyphase audio resampler)",
   };
   static const string ForkName    = "nSide";
-  static const string ForkVersion = "009.15";
+  static const string ForkVersion = "009.16";
   static const string ForkAuthor  = "hex_usr";
 
   //incremented only when serialization format changes

@@ -1,6 +1,6 @@
 #pragma once
 
-//based on higan's Game Boy Advance emulator by byuu and Cydrak,
+//based on higan's Game Boy Advance emulator by byuu and Talarubi,
 //with contributions from endrift, jchadwick, and Jonas Quinn.
 //license: GPLv3
 //original project started: 2012-03-19

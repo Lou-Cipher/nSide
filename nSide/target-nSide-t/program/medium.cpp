@@ -44,6 +44,7 @@ auto Program::loadMedium(Emulator::Interface& interface, const Emulator::Interfa
   toolsManager->cheatEditor.loadCheats();
   toolsManager->stateManager.doRefresh();
   toolsManager->manifestViewer.doRefresh();
+  toolsManager->gameNotes.loadNotes();
 }
 
 auto Program::unloadMedium() -> void {
@@ -51,6 +52,7 @@ auto Program::unloadMedium() -> void {
 
   presentation->clearViewport();
   toolsManager->cheatEditor.saveCheats();
+  toolsManager->gameNotes.saveNotes();
   emulator->unload();
   emulator = nullptr;
   mediumPaths.reset();

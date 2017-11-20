@@ -5,7 +5,6 @@
 // Andreas Naive     (S-DD1 decompression algorithm)
 // anomie
 // AWJ               (PPUcounter NTSC/PAL timing)
-// Cydrak            (ST-018 discoveries and bug fixes)
 // _Demo_
 // Derrick Sobodash
 // DMV27
@@ -27,6 +26,7 @@
 // RedDwarf
 // Richard Bannister
 // segher            (Cx4 reverse engineering)
+// Talarubi          (ST-018 discoveries and bug fixes)
 // tetsuo55
 // Total             (Super Famicom CPU MDR tests)
 // TRAC

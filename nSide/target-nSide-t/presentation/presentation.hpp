@@ -85,6 +85,7 @@ struct Presentation : Window {
       MenuItem cheatEditor{&toolsMenu};
       MenuItem stateManager{&toolsMenu};
       MenuItem manifestViewer{&toolsMenu};
+      MenuItem gameNotes{&toolsMenu};
     Menu helpMenu{&menuBar};
       MenuItem documentation{&helpMenu};
       //Wait for https://doc.byuu.org/higan/credits/ before adding this menu item

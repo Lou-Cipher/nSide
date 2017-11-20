@@ -110,6 +110,7 @@ Presentation::Presentation() {
   cheatEditor.onActivate([&] { toolsManager->show(0); });
   stateManager.onActivate([&] { toolsManager->show(1); });
   manifestViewer.onActivate([&] { toolsManager->show(2); });
+  gameNotes.onActivate([&] { toolsManager->show(3); });
 
   documentation.onActivate([&] {
     invoke("https://doc.byuu.org/higan/");
@@ -216,6 +217,7 @@ auto Presentation::refreshLocale() -> void {
   cheatEditor.setText(locale["Menu/Tools/CheatEditor..."]);
   stateManager.setText(locale["Menu/Tools/StateManager..."]);
   manifestViewer.setText(locale["Menu/Tools/ManifestViewer..."]);
+  gameNotes.setText(locale["Menu/Tools/GameNotes..."]);
 
   helpMenu.setText(locale["Menu/Help"]);
   documentation.setText(locale["Menu/Help/Documentation..."]);

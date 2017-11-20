@@ -59,8 +59,8 @@ AdvancedSettings::AdvancedSettings(TabFrame* parent) : TabFrameItem(parent) {
   });
 
   otherLabel.setText("Other").setFont(Font().setBold());
-  autoSaveRAM.setChecked(settings["Emulation/AutoSaveRAM"].boolean()).onToggle([&] {
-    settings["Emulation/AutoSaveRAM"].setValue(autoSaveRAM.checked());
+  autoSaveMemory.setChecked(settings["Emulation/AutoSaveMemory/Enable"].boolean()).onToggle([&] {
+    settings["Emulation/AutoSaveMemory/Enable"].setValue(autoSaveMemory.checked());
   });
   recentList.setChecked(settings["Library/RecentList"].boolean()).onToggle([&] {
     if(!recentList.checked()) {
@@ -97,7 +97,7 @@ auto AdvancedSettings::refreshLocale() -> void {
   ignoreManifests.setText(locale["Settings/Advanced/GameLibrary/IgnoreManifests"]);
 
   otherLabel.setText(locale["Settings/Advanced/Other"]);
-  autoSaveRAM.setText(locale["Settings/Advanced/Other/AutoSaveRAM"]);
+  autoSaveMemory.setText(locale["Settings/Advanced/Other/AutoSaveMemory"]);
   recentList.setText(locale["Settings/Advanced/Other/RecentList"]);
 
   layout.setMargin(5);

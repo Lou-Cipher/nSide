@@ -54,6 +54,6 @@ auto Debugger::saveUsage() -> void {
 }
 
 auto Debugger::resetUsage() -> void {
-  if(cpuUsage.data) memset(cpuUsage.data, 0, cpuUsage.size);
-  if(apuUsage.data) memset(apuUsage.data, 0, apuUsage.size);
+  if(cpuUsage.data) memory::fill(cpuUsage.data, cpuUsage.size, 0x00);
+  if(apuUsage.data) memory::fill(apuUsage.data, apuUsage.size, 0x00);
 }

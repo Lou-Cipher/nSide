@@ -88,6 +88,16 @@ struct ManifestViewer : TabFrameItem {
     TextEdit manifestView{&layout, Size{~0, ~0}};
 };
 
+struct GameNotes : TabFrameItem {
+  GameNotes(TabFrame*);
+  auto refreshLocale() -> void;
+  auto loadNotes() -> void;
+  auto saveNotes() -> void;
+
+  VerticalLayout layout{this};
+    TextEdit notes{&layout, Size{~0, ~0}};
+};
+
 struct ToolsManager : Window {
   ToolsManager();
   auto refreshLocale() -> void;
@@ -98,6 +108,7 @@ struct ToolsManager : Window {
       CheatEditor cheatEditor{&panel};
       StateManager stateManager{&panel};
       ManifestViewer manifestViewer{&panel};
+      GameNotes gameNotes{&panel};
 };
 
 extern unique_pointer<CheatDatabase> cheatDatabase;
