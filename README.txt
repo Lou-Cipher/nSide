@@ -1,6 +1,6 @@
-﻿nSide v009r15 (2017-10-08)
+﻿nSide v009r16 (2017-11-24)
 
-A fork of higan v105 by byuu (https://byuu.org/emulation/higan/), which was
+A fork of higan v106 by byuu (https://byuu.org/emulation/higan/), which was
 renamed to exclude "higan" at byuu's request.
 
 nSide adds new devices to the Famicom emulator's controller ports. The supported

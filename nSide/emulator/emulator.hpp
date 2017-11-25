@@ -22,9 +22,9 @@ namespace Emulator {
     "Andreas Naive (S-DD1 decompression algorithm)",
     //"Ange Albertini (higan logo)",  //not used in nSide
     "AWJ (Super Famicom PPUcounter NTSC/PAL timing, MMC5 CHR banking)",
-    "Benjamin Siskoo (Locale for Français)",
     "Bisqwit (Famicom PPU color generation for NTSC systems)",
     "blargg (Famicom testing, Super Famicom MUL/DIV and Balanced DSP)",
+    "Braintrash (Locale for Français)",
     "_Demo_",
     "Derrick Sobodash",
     "DMV27",

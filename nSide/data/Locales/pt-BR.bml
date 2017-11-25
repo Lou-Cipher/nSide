@@ -51,7 +51,7 @@ Menu
     ShowStatusBar: Mostrar Barra de Status
     Video...: Vídeo ...
     Audio...: Áudio ...
-    Input...: Comandos de Controle ...
+    Input...: Controles ...
     Hotkeys...: Teclas de Atalho ...
     Advanced...: Avançado ...
   Tools: Ferramentas
@@ -61,7 +61,7 @@ Menu
     CheatEditor...: Editor de Trapaças...
     StateManager...: Gerenciador de States ...
     ManifestViewer...: Visualizador de Mapeamento ...
-    GameNotes...: Notas do Jogo ...
+    GameNotes...: Anotações ...
   Help: Ajuda
     Documentation...: Documentação do higan ...
     About...: Sobre ...
@@ -90,7 +90,7 @@ Error
   Crash: Falha de driver detectada. Drivers de Vídeo, Áudio e Dispositivo de entrada foram desativados.
   VideoDriver: Falha em inicializar driver de vídeo
   AudioDriver: Falha em inicializar driver de áudio
-  InputDriver: Falha em inicializar driver de dispositivo de entrada
+  InputDriver: Falha em inicializar driver do dispositivo de entrada
 
 Settings: Configurações
   Video: Vídeo
@@ -117,10 +117,10 @@ Settings: Configurações
       Volume: Volume:
       Balance: Balanço:
       Reverb: Ressonância
-  Input: Comandos de Controle
+  Input: Controles
     WhenFocusIsLost: Quando o Foco é Perdido:
       PauseEmulation: Pausar Emulação
-      AllowInput: Permitir entrada de dispositivos
+      AllowInput: Permitir Entrada de Dispositivos
     Name: Nome
     Mapping: Assimilações
     MouseXAxis: Mouse X-axis
@@ -132,7 +132,7 @@ Settings: Configurações
     Erase: Apagar
     PressKey: Pressione uma tecla ou botão para assimilar [%s] ...
     MappingAssigned: Assimilamento completo.
-    ResetConfirmation: Você está certo disso?
+    ResetConfirmation: Atenção! Isso irá apagar todas as configurações do dispositivo! Você está certo disso?
       Yes: Sim
       No: Não
   Hotkeys: Teclas de Atalho
@@ -145,7 +145,7 @@ Settings: Configurações
     Erase: Apagar
     PressKey: Pressione uma tecla ou botão para assimilar [%s] ...
     MappingAssigned: Assimilamento completo.
-    ResetConfirmation: Você está certo disso?
+    ResetConfirmation: Atenção! Isso irá apagar todos os atalhos assimilados! Você está certo disso?
       Yes: Sim
       No: Não
   Advanced: Avançado
@@ -158,7 +158,7 @@ Settings: Configurações
       Change...: Alterar ...
       IgnoreManifests: Ignorar arquivos BML
     Other: Outro
-      AutoSaveMemory: Salvar RAM periodicamente
+      AutoSaveMemory: Salvar memória periodicamente
       RecentList: Ativar lista de jogos recentes
         Clear: Atenção! Isso irá limpar seu histórico de jogos recentes! Você está certo disso?
           Yes: Sim
@@ -191,4 +191,4 @@ Tools: Ferramentas
     Reset: Redefinir
     Erase: Apagar
   ManifestViewer: Visualizador de Mapeamento
-  GameNotes: Notas do Jogo
+  GameNotes: Anotações
