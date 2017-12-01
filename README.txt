@@ -1,4 +1,4 @@
-﻿nSide v009r16 (2017-11-24)
+﻿nSide v009r16 (2017-11-30)
 
 A fork of higan v106 by byuu (https://byuu.org/emulation/higan/), which was
 renamed to exclude "higan" at byuu's request.
@@ -64,7 +64,7 @@ To use the Single Screen BIOS, you need to edit the file
 "PlayChoice-10.sys/manifest.bml".
 
 PlayChoice-10.sys/character.rom
-Concatenate the 3 ROMs 8P + 8M + 8K for a 24KB ROM.
+Concatenate the 3 ROMs 8P + 8M + 8K for a 24 KiB ROM.
 sha256: a8bf9c58e31dee0a60a2d480bd707c323212fba8963cc35a47423cadd1d7ed26
 Used by both screen setups.
 
@@ -170,7 +170,9 @@ Changes from higan: General
 
    Renamed the tomoko-based UI to "nSide-t".
 
-   Renamed icarus to "cart-pal".
+   Created cart-pal, a supplement to icarus that requires its source code to
+  compile. It changes the Famicom's iNES mapper support to include NES 2.0 and
+  changes the Mega Drive heuristics to support Lock-On cartridges.
 
    Added ramus, a library of functions rejected from nall.
 
@@ -316,7 +318,7 @@ Changes from higan: Famicom
       Prevented reading from and writing to non-existent PRG RAM. This bug
       prevented Bionic Commando from booting.
       Added tracking of the last CHR bank used, so that the legacy PRG RAM
-      disable bit and 256 KB PRG bank bit will dynamically switch as the PPU
+      disable bit and 256 KiB PRG bank bit will dynamically switch as the PPU
       renders. Can be used for software IRQs but will catastrophically crash the
       game if misused.
     TxROM (MMC3)
@@ -347,7 +349,7 @@ Changes from higan: Famicom
       Climber. Normal UxROM games use the 74HC32 chip.
     CxROM
       Added support for CPROM, which restricts PPU $0000-0FFF to the first bank
-      while $1000-1FFF is a 4KB switchable bank. Needed to play Videomation.
+      while $1000-1FFF is a 4 KiB switchable bank. Needed to play Videomation.
       Added support for CNROM security CHR chip enables. Each game has a
       specific CHR bank that is read from
       manifest["board/security/pass"], and that bank is the only one
@@ -454,6 +456,11 @@ Changes from higan: processor/z80 (affects PC10, Master System, Mega Drive)
 ==============================
 Changes from higan: Mega Drive
 ==============================
+   Added support for Lock-On cartridges. When loading Sonic & Knuckles, the UI
+  will prompt for a 2nd Mega Drive cartridge. If the cartridge is another copy
+  of Sonic & Knuckles, the UI will stop there and not prompt for a 3rd
+  cartridge.
+
    Added support for the Sega Tap and EA 4 Way Play, both differing and
   incompatible multitaps by Sega and Electronic Arts. Only the former supports
   the Fighting Pad's extra buttons.

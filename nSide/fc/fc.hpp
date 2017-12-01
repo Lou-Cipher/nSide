@@ -6,8 +6,9 @@
 // Bisqwit (PPU color generation for NTSC systems)
 // FitzRoy (Bug-testing)
 // kevtris (PPU voltage levels in Bisqwit's color formula)
-// loopy   (MMC5 CHR banking)
 // hex_usr (Many code organization changes, PPU timing fixes, mapper implementations, controllers, etc.)
+//No longer used:
+// loopy   (MMC5 CHR banking)
 //license: GPLv3
 //original project started: 2011-09-05
 

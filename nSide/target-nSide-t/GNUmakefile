@@ -91,6 +91,12 @@ install:
 ifeq ($(shell id -un),root)
 	$(error "make install should not be run as root")
 else ifeq ($(platform),windows)
+	$(error "mingw32-make install is undefined on Windows")
+	# This is not an nSide-specific problem; higan also does nothing when
+	# running "mingw32-make install" on Windows. Windows is a completely different
+	# kind of operating system compared to Linux, BSD, and macOS, and there is no
+	# centralized location for installing programs like in those operating systems
+	# ("Program Files" is not that location and hasn't been since Windows Vista)
 else ifeq ($(platform),macos)
 	mkdir -p ~/Library/Application\ Support/$(name)/
 	mkdir -p ~/Library/Application\ Support/$(name)/Locales/
@@ -117,6 +123,7 @@ uninstall:
 ifeq ($(shell id -un),root)
 	$(error "make uninstall should not be run as root")
 else ifeq ($(platform),windows)
+	$(error "mingw32-make uninstall is undefined on Windows")
 else ifeq ($(platform),macos)
 	if [ -d /Applications/$(name).app ]; then rm -r /Applications/$(name).app; fi
 else ifneq ($(filter $(platform),linux bsd),)

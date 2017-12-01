@@ -77,6 +77,7 @@ install:
 ifeq ($(shell id -un),root)
 	$(error "make install should not be run as root")
 else ifeq ($(platform),windows)
+	$(error "mingw32-make install is undefined on Windows")
 else ifeq ($(platform),macosx)
 	mkdir -p ~/Library/Application\ Support/$(name)/
 	mkdir -p ~/Emulation/System/
@@ -96,6 +97,7 @@ uninstall:
 ifeq ($(shell id -un),root)
 	$(error "make uninstall should not be run as root")
 else ifeq ($(platform),windows)
+	$(error "mingw32-make uninstall is undefined on Windows")
 else ifeq ($(platform),macosx)
 	if [ -d /Applications/$(name).app ]; then rm -r /Applications/$(name).app; fi
 else ifneq ($(filter $(platform),linux bsd),)
