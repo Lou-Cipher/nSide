@@ -151,6 +151,14 @@ auto InputManager::appendHotkeys() -> void {
     hotkeys.append(hotkey);
   }
 
+  { auto hotkey = new InputHotkey;
+    hotkey->name = "Close Emulator";
+    hotkey->press = [] {
+      Application::quit();
+    };
+    hotkeys.append(hotkey);
+  }
+
   for(auto& hotkey : hotkeys) {
     hotkey->path = string{"Hotkey/", hotkey->name}.replace(" ", "");
     hotkey->assignment = settings(hotkey->path).text();
